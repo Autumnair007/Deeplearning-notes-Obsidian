@@ -1,13 +1,18 @@
-#  BIRCH 聚类笔记（Gemini2.5Pro生成）
-
+---
+type: "concept-note"
+tags: [clustering, data-mining, scalable-algorithm, birch]
+status: "done"
+algorithm: "BIRCH"
+data_structure: "CF-Tree"
+main_advantage: "Scalability for large data"
+---
 学习资料：[BIRCH算法全解析：从原理到实战-CSDN博客](https://blog.csdn.net/magicyangjay111/article/details/133578864)
 
 [BIRCH聚类算法 - 知乎](https://zhuanlan.zhihu.com/p/29848130)
 
 [机器学习笔记（九）聚类算法Birch和层次聚类Hierarchical clustering_sklearn.cluster.birch 原理-CSDN博客](https://blog.csdn.net/haveanybody/article/details/112476926)
 
-------
-
+---
 ## 1. 引言：为何需要BIRCH？
 
 在数据量爆炸式增长的时代，传统的聚类算法（如K-Means、层次聚类AGNES/DIANA）在处理大规模数据集时面临严峻挑战：

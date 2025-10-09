@@ -1,5 +1,15 @@
-#  归一化笔记
-
+---
+type: "concept-comparison"
+tags: [nlp, cv, normalization, batch-norm, layer-norm, group-norm, instance-norm]
+status: "done"
+topic: "深度学习归一化技术"
+BN_dependency: "Batch Size（大Batch表现最好）"
+LN_dependency: "无 (仅依赖单样本特征)"
+GN_dependency: "无 (仅依赖单样本通道组)"
+typical_use_BN: "图像CNN (大Batch)"
+typical_use_LN: "序列模型/Transformer (RNN, Transformer)"
+typical_use_GN: "图像CNN (小Batch)"
+---
 学习资料：[深度解析Batch normalization（批归一化） - 知乎](https://zhuanlan.zhihu.com/p/435507061)
 
 [【深度学习】批归一化（Batch Normalization）_batch normalization 对离散特征归一化吗-CSDN博客](https://blog.csdn.net/vict_wang/article/details/88075861?ops_request_misc=%7B%22request%5Fid%22%3A%22f4b11ccd4f984dd8e4346a104481a429%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&request_id=f4b11ccd4f984dd8e4346a104481a429&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-88075861-null-null.142^v102^pc_search_result_base3&utm_term=批归一化&spm=1018.2226.3001.4187)

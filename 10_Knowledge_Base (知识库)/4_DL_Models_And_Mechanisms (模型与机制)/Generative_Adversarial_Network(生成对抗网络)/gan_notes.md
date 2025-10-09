@@ -1,7 +1,21 @@
-# GAN笔记（Deepseek生成）
-
+---
+type: concept-note
+tags:
+  - cv
+  - nlp
+  - generative-model
+  - gan
+  - adversarial-training
+  - statistics
+status: done
+topic: 生成对抗网络（GAN）
+generator_role: 制造假数据 G(z)
+discriminator_role: 分辨真假数据
+original_gan_divergence: Jensen-Shannon Divergence (JSD)
+wgan_divergence: Wasserstein Distance (Earth-Mover's Distance)
+key_challenge: 模式坍塌 (Mode Collapse)，训练不稳定
+---
 学习资料：[图解 生成对抗网络GAN 原理 超详解_gan原理图-CSDN博客](https://blog.csdn.net/DFCED/article/details/105175097)
-
 ***
 # 生成式对抗网络（GAN）全面笔记
 

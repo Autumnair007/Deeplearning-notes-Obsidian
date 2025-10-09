@@ -1,9 +1,13 @@
-#  监督学习笔记（Gemini2.5Pro生成）
-
+---
+type: "concept-note"
+tags: [machine-learning, supervised, unsupervised, semi-supervised, self-supervised]
+status: "done"
+topic: "机器学习学习范式对比"
+key_distinction: "是否有/如何获取人工标签"
+---
 学习资料：[(7 封私信 / 6 条消息) 监督学习、无监督学习、半监督学习、强化学习、自监督学习 - 知乎](https://zhuanlan.zhihu.com/p/667916299)
 
 ------
-
 ### 1. 监督学习 (Supervised Learning)
 
 这是最经典、最广为人知的机器学习范式。

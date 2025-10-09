@@ -1,11 +1,24 @@
-#  RNN笔记（DeepSeek生成）
-
+---
+type: concept-note
+tags:
+  - rnn
+  - sequence-model
+  - perplexity
+  - nlp
+  - cross-entropy
+status: done
+topic: 循环神经网络 (RNN) 与困惑度
+core_mechanism: 隐藏状态 (H) 传递历史信息
+key_limitation: 梯度消失（难以捕捉长距离依赖）
+perplexity_definition: 衡量模型预测下一个词的能力，交叉熵损失的指数形式
+perplexity_intuitive: 模型在每一步预测时平均面临的等可能选项数量
+perplexity_goal: 越低越好（1 为完美）
+---
 学习资料：[史上最详细循环神经网络讲解（RNN/LSTM/GRU） - 知乎](https://zhuanlan.zhihu.com/p/123211148)
 
 [如何从RNN起步，一步一步通俗理解LSTM_rnn lstm-CSDN博客](https://blog.csdn.net/v_JULY_v/article/details/89894058?ops_request_misc=%7B%22request%5Fid%22%3A%22372958dc3e235ea6aee3d35da39b2583%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&request_id=372958dc3e235ea6aee3d35da39b2583&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-89894058-null-null.142^v102^pc_search_result_base3&utm_term=rnn&spm=1018.2226.3001.4187)
 
 ------
-
 ## 一、RNN的核心结构
 
 ### 1. 循环的本质
@@ -156,12 +169,10 @@ $$
 
 ## 六、附加知识
 
-![image-20250411174038675](rnn_notes.assets/image-20250411174038675.png)
-
-![image-20250411174147189](rnn_notes.assets/image-20250411174147189.png)
+![](../../../99_Assets%20(资源文件)/images/image-20250411174038675.png)
+![](../../../99_Assets%20(资源文件)/images/image-20250411174147189.png)
 
 ------
-
 ## 七、疑问解释
 
 **隐藏状态 $\mathbf{h}_t$ 的本质和作用**是理解RNN的核心。
@@ -253,9 +264,3 @@ $$
 
 ### 总结
 困惑度将模型预测的不确定性转化为直观数值，值越低表示模型越精准。它是评估语言模型的核心工具，广泛应用于自然语言处理任务中。
-
-------
-
-如果对交叉熵损失和困惑都相关概念不理解，可以观看交叉熵损失笔记。
-
-[交叉熵损失](../交叉熵损失(语言模型).md)

@@ -1,9 +1,23 @@
-#  OPTICS笔记（Gemini2.5Pro生成）
-
+---
+type: concept-note
+tags:
+  - clustering
+  - density-based
+  - dbscan-extension
+  - optics
+status: done
+algorithm: OPTICS
+core_concepts:
+  - Core Distance
+  - Reachability Distance
+  - Reachability Plot
+main_advantage: 处理密度不均的可变密度聚类
+output_primary: 点的有序列表与可达距离
+related_to: DBSCAN
+---
 学习资料：[（4）聚类算法之OPTICS算法 - 知乎](https://zhuanlan.zhihu.com/p/77052675)
 
 ------
-
 **OPTICS 算法概述**
 
 OPTICS 是一种先进的**基于密度**的聚类算法。它由 Mihael Ankerst 等人在1999年提出，可以看作是著名的 DBSCAN 算法的扩展。OPTICS 的核心优势在于它能够**处理密度不均的数据集**，并且能够揭示数据的内在聚类结构，而不仅仅是简单地分配聚类标签。与 K-Means 等需要预先指定聚类数量 `k` 的算法不同，OPTICS **不需要预先指定聚类数量**。

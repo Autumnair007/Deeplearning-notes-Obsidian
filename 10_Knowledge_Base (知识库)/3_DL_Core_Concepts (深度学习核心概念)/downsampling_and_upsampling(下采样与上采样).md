@@ -1,5 +1,21 @@
-#  下采样与上采样笔记
-
+---
+type: concept-note
+tags:
+  - upsampling
+  - downsampling
+  - convolution
+  - transposed-convolution
+  - cv
+status: done
+topic: 图像分辨率变换方法
+downsampling_methods:
+  - 池化
+  - 步长卷积
+upsampling_methods:
+  - 插值法
+  - 转置卷积
+  - 亚像素卷积
+---
 学习资料：[小白笔记：深度学习中的上采样、下采样_进一步的上采样-CSDN博客](https://blog.csdn.net/m0_73798143/article/details/137892127)
 
 [上采样、下采样到底是什么？-CSDN博客](https://blog.csdn.net/zhibing_ding/article/details/125254670)

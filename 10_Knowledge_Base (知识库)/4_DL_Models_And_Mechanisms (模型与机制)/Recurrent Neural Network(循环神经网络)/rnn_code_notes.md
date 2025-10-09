@@ -1,7 +1,18 @@
-#  RNN代码笔记（DeepSeek生成）
-
 ---
-
+type: code-note
+tags:
+  - rnn
+  - batch-training
+  - gradient-descent
+  - pytorch
+status: done
+topic: RNN批量训练机制
+core_principle: 参数共享（所有样本使用同一套 $W$）
+reason_1: 提高梯度稳定性（平均降低噪声）
+reason_2: 优化硬件效率（GPU并行矩阵运算）
+batch_size_influence: 速度、内存、梯度方差
+batch_size_non_influence: 模型表达能力/容量（由 hidden_size 决定）
+---
 ### 参数更新全流程（以batch_size=8为例）
 
 1. **前向传播**  

@@ -1,9 +1,14 @@
-#  Transformer代码笔记（Gemini2.5Pro生成）
-
+---
+type: "code-note"
+tags: [nlp, transformer, pytorch, text-classification]
+status: "done"
+model: "Custom Transformer Encoder"
+dataset: "IMDB"
+task: "Sentiment Analysis"
+---
 ps: 自己的电脑用的是GPU，1分钟左右一轮，显卡4060，显存8GB。
 
 ------
-
 我们来详细分析一下这段使用 PyTorch 实现的基于 Transformer 的 IMDB 电影评论情感分类代码。我们将逐步分析每个部分，重点关注数据处理和模型结构。
 
 **1. 导入库和基本设置**

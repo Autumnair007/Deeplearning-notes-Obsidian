@@ -1,13 +1,20 @@
-#  正则化笔记（Gemini2.5Pro生成）
-
+---
+type: "concept-note"
+tags: [optimization, machine-learning, regularization, dropout, weight-decay]
+status: "done"
+topic: "深度学习正则化技术"
+core_purpose: "防止过拟合，提高泛化能力"
+L1_effect: "稀疏权重（精确置0），特征选择"
+L2_effect: "权重衰减（趋近于0），平滑模型"
+dropout_mechanism: "训练时随机失活神经元，类似模型集成"
+early_stopping_trigger: "验证集损失开始上升时停止训练"
+data_augmentation_method: "人工增加训练数据的数量和多样性"
+---
 学习资料：[一篇文章完全搞懂正则化（Regularization）-CSDN博客](https://blog.csdn.net/weixin_41960890/article/details/104891561)
 
 [CS231n课程笔记翻译：神经网络笔记 2 - 知乎](https://zhuanlan.zhihu.com/p/21560667?refer=intelligentunit)
 
-范数笔记 [范数与余弦相似度](../Math (数学基础)/norms_and_cosine_similarity(范数和余弦相似度).md)
-
 ------
-
 ## 什么是正则化？为什么需要正则化？
 
 在训练神经网络时，我们希望模型不仅能在训练数据上表现良好，更重要的是能在未见过的新数据（测试数据）上同样表现出色。这种能力被称为模型的**泛化能力**（Generalization Ability）。

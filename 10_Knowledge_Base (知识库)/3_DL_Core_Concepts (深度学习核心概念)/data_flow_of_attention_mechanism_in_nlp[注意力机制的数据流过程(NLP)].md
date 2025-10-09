@@ -1,9 +1,19 @@
-#  Seq2Seq注意力机制的数据流过程（NLP）笔记（Gemini2.5Pro生成）
-
-学习资料：注意力机制讲解笔记 [注意力机制](../../01_Fundamentals(基础知识)/Basic_Concepts (基础概念)/attention_mechanism(注意力机制).md)
-
-------
-
+---
+type: project-summary
+tags:
+  - nlp
+  - transformer
+  - seq2seq
+  - machine-translation
+  - data-flow
+  - attention
+status: done
+architecture: Transformer (Encoder-Decoder)
+task: 机器翻译 (Machine Translation)
+key_mechanism:
+  - 自注意力 (Self-Attention)
+  - 交叉注意力 (Cross-Attention)
+---
 ## 完整数据流样例
 
 这是关于典型序列到序列（Seq2Seq）任务（如机器翻译）完整数据流的中文翻译，以 Transformer 架构为例。

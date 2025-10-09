@@ -1,5 +1,19 @@
-#  多头注意力、自注意力与位置编码笔记（Gemini2.5Pro生成）
-
+---
+type: concept-note
+tags:
+  - nlp
+  - cv
+  - attention
+  - transformer
+  - self-attention
+  - multi-head-attention
+  - positional-encoding
+status: done
+topic: Transformer核心机制
+multi_head_core: 并行计算H个子空间，然后拼接
+pe_sinusoidal_advantage: 引入相对位置信息，无需训练
+pe_concept: 通过相加注入位置信息，弥补自注意力的无序性
+---
 学习资料：[10.6. 自注意力和位置编码 — 动手学深度学习 2.0.0 documentation](https://zh-v2.d2l.ai/chapter_attention-mechanisms/self-attention-and-positional-encoding.html)
 
 [10.5. 多头注意力 — 动手学深度学习 2.0.0 documentation](https://zh-v2.d2l.ai/chapter_attention-mechanisms/multihead-attention.html)
@@ -13,8 +27,6 @@
 [详解Transformer中Self-Attention以及Multi-Head Attention_transformer multi head-CSDN博客](https://blog.csdn.net/qq_37541097/article/details/117691873)
 
 [(7 封私信 / 30 条消息) 位置编码背后的理论解释——傅里叶特征 (Fourier Feature）与核回归 - 知乎](https://zhuanlan.zhihu.com/p/10748639711)
-
-注意力机制讲解笔记 [注意力机制](../../01_Fundamentals(基础知识)/Basic_Concepts (基础概念)/attention_mechanism(注意力机制).md)
 
 ------
 

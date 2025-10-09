@@ -1,15 +1,17 @@
-#  Transformer笔记（DeepSeek生成）
-
+---
+type: "concept-note"
+tags: [nlp, transformer, attention, sequence-model]
+status: "done"
+paper_name: "Attention Is All You Need"
+year: 2017
+---
 学习资料：[Transformer通俗笔记：从Word2Vec、Seq2Seq逐步理解到GPT、BERT-CSDN博客](https://blog.csdn.net/v_JULY_v/article/details/127411638?ops_request_misc=%7B%22request%5Fid%22%3A%229d7c8f6c3ec83074f33e1e1ebe062d64%22%2C%22scm%22%3A%2220140713.130102334.pc%5Fall.%22%7D&request_id=9d7c8f6c3ec83074f33e1e1ebe062d64&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~hot_rank-1-127411638-null-null.142^v102^pc_search_result_base3&utm_term=seq2seq模型&spm=1018.2226.3001.4187)
 
 [10.7. Transformer — 动手学深度学习 2.0.0 documentation](https://zh-v2.d2l.ai/chapter_attention-mechanisms/transformer.html)
 
 [【超详细】【原理篇&实战篇】一文读懂Transformer-CSDN博客](https://blog.csdn.net/weixin_42475060/article/details/121101749?ops_request_misc=%7B%22request%5Fid%22%3A%22272188ca87198310ab1b006e1bb0d1ce%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&request_id=272188ca87198310ab1b006e1bb0d1ce&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-121101749-null-null.142^v102^pc_search_result_base3&utm_term=transformer&spm=1018.2226.3001.4187)
 
-其他笔记： [多头注意力、自注意力与位置编码笔记](../../Natural_Language_Processing_Theory(自然语言处理理论)/multi_head_attention_self_attention_and_positional_encoding_notes(多头注意力、自注意力与位置编码笔记).md)
-
 ------
-
 ### 1. 整体架构 (Overall Architecture)
 
 Transformer 模型遵循经典的 **Encoder-Decoder** 架构。

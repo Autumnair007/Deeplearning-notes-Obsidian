@@ -1,15 +1,19 @@
-#  交叉熵损失(语言模型)笔记（DeepSeek，Gemini 2.5 pro生成）
-
-学习资料：
-
-------
-
-# 交叉熵在语言模型中的具体形式
+---
+type: concept-note
+tags:
+  - loss-function
+  - cross-entropy
+  - language-model
+  - max-likelihood
+status: done
+topic: 交叉熵损失在语言模型中的应用
+relationship: 在One-hot编码下，交叉熵等价于负对数似然（NLL）
+---
+## 交叉熵在语言模型中的具体形式
 
 理解交叉熵在语言模型中的具体形式需要从**交叉熵的定义**和**语言模型的任务特性**出发。以下是通过详细推导解释为什么语言模型中的交叉熵损失是 $-\log P(x_t \mid x_{t-1}, \ldots, x_1)$ 的过程。
 
 ---
-
 ## 1. 交叉熵 (Cross-Entropy)
 
 交叉熵是信息论中的一个重要概念，后来在机器学习，==特别是**分类**问题中==，被广泛用作损失函数（Loss Function）。它用于衡量两个概率分布之间的差异性。
@@ -22,8 +26,7 @@
 
 对于离散型随机变量，假设有两个概率分布 P 和 Q，它们在同一个样本空间 X 上定义。交叉熵 H(P, Q) 的定义如下：
 
-$H(P, Q) = - \Sigma [P(x) * \log(Q(x))]$
-
+$$H(P, Q) = - \Sigma [P(x) * \log(Q(x))]$$
 其中：
 
 *   $\Sigma$ 表示对所有可能的事件 x 求和。

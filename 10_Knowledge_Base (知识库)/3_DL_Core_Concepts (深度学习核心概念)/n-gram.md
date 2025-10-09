@@ -1,5 +1,15 @@
-#  N-gram笔记（DeepSeek生成）
-
+---
+type: concept-note
+tags:
+  - nlp
+  - language-model
+  - statistics
+status: done
+topic: N-gram 语言模型
+core_assumption: 马尔可夫假设 (一个词只依赖前 N-1 个词)
+main_issue: 数据稀疏 (Data Sparsity)
+solution_classic: 平滑 (Smoothing), 插值 (Interpolation)
+---
 学习资料：[自然语言处理中N-Gram模型介绍 - 知乎](https://zhuanlan.zhihu.com/p/32829048)
 
 ------
