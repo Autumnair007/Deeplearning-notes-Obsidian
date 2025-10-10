@@ -26,57 +26,15 @@
 根据补充资料详细解释模型的内部内容，添加数据流过程：
 我已经给了你上面的信息。现在，请你以我给你的笔记内容为基础，以论文原文为根本，其他资料作为参考（你首先需要验证资料是否可用，然后再考虑添加），帮我丰富我的笔记内容。注意，是在原来的笔记内容的基础上修改添加内容，而不是大改结构，内容只能增加不能减少。除此之外，你还要给我这部分内容的数据流过程，要详细一点，包括这里的张量变化之类的都要非常详细地解释。生成的内容用markdown的格式给我，公式用$，去掉`符号，行间公式请用$$符号，就是用公式块，我的typora 1.0 就会自动生成行间公式的模板，将公式输入进去就行，而且是想要你像代码一样让我能直接粘贴过去。除此之外，每一段之间不要空行，换行就行。所有内容都用中文简体，除非是必要的英文。
 
-根据当前的笔记内容重新整理并给出卡片的prompt：
-我已经给了你我当前的笔记内容，请你来完善添加并整理我的笔记内容，让笔记内容更全面而且丰富，一定不能减少内容。我更希望你聚焦于当前知识或模型的内容上的讲解和解释，而不是其他背景知识等。除此之外，我希望你在开头添加如下所示的类似卡片的内容，不再需要大的标题，可以有nlp或者cv的tag，不要有deep-learning的tag，如果主要内容是代码讲解的就是code-note；除此之外，关于图像分割的部分tag要详细一点，是语义分割还是全景分割，实例分割、是半监督还是全监督、自监督等等，注意一下：
-#### 2. “信息卡片”的模板和示例
-**基础模板 (适用于任何笔记)**
-```yaml
----
-type: ""        # 笔记类型 (如: concept-note, paper-note, project-summary)
-tags: []        # 标签 (如: cv, nlp, pytorch, transformer)
-status: "todo"  # 状态 (如: todo, in-progress, done)
----
-```
-**示例1：一篇“知识原子”笔记 (`Transformer.md`)**
-```yaml
----
-type: "concept-note"
-tags: [dl-model, sequence-model, attention]
-status: "done"
----
-```
-**示例2：一篇“论文精读”笔记 (`vit_paper_notes.md`)**
-```yaml
----
-type: "paper-note"
-tags: [cv, image-classification, vit]
-status: "done"
-model: "Vision Transformer" # 特定于模型笔记的字段
-year: 2020                  # 特定于论文笔记的字段
-paper_pdf: "papers/An Image is Worth 16x16 Words.pdf" # 链接到PDF原文
----
-```
-**示例3：一篇“项目总结”笔记 (`README.md` in a project folder)**
-```yaml
----
-type: "project-summary"
-tags: [pytorch, cifar10, image-classification]
-status: "in-progress"
-related_models: [ViT, ResNet] # 关联的模型
----
-```
-如你所见，你可以根据笔记的类型，自由地添加你认为有用的字段。`type`, `tags`, `status` 是最基础也最有用的三个。
-整理好的内容用markdown的格式给我，公式用$，去掉`符号，行间公式请用$$符号，就是用公式块，我的typora 1.0 就会自动生成行间公式的模板，将公式输入进去就行，而且是想要你像代码一样让我能直接粘贴过去。除此之外，每一段之间不要空行，换行就行。所有内容都用中文简体，除非是必要的英文。
-
 根据当前的笔记内容添加卡片的prompt：
-我已经给了你我当前的笔记内容，我希望你在开头添加如下所示的类似卡片的内容，可以有nlp或者cv的tag，不要有deep-learning的tag，如果主要内容是代码讲解的就是code-note，我只需要卡片的内容就行！！！再次强调只需要卡片内容就行！！！除此之外，关于图像分割的部分tag要详细一点，是语义分割还是全景分割，实例分割、是半监督还是全监督、自监督等等，注意一下。
+我已经给了你我当前的笔记内容，我希望你在开头添加如下所示的类似卡片的内容，可以有nlp或者cv的tag，不要有deep-learning的tag，如果主要内容是代码讲解的就是code-note（type类型，如果是concept-note里面有部分代码也可以加这个tag，但是不要乱加），我只需要卡片的内容就行！！！再次强调只需要卡片内容就行！！！除此之外，关于图像分割的部分tag要详细一点，是语义分割还是全景分割，实例分割、是半监督还是全监督、自监督等等，注意一下，所有的tag都用英文而且全部小写，而且如果是模型的话就这个模型的缩写也成一个tag，而且模型都要加年份，不管是concept-note还是paper-note。
 #### 2. “信息卡片”的模板和示例
 **基础模板 (适用于任何笔记)**
 ```yaml
 ---
-type: ""        # 笔记类型 (如: concept-note, paper-note, project-summary)
-tags: []        # 标签 (如: cv, nlp, pytorch, transformer)
-status: "todo"  # 状态 (如: todo, in-progress, done)
+type: ""        # 笔记类型 (如: concept-note, paper-note, project-summary，conde-note，普通的模型笔记就是concept-note,明显是论文笔记才是paper-note，不要什么都变成paper-note了)
+tags: []        # 标签 (如: cv, nlp, pytorch, transformer等等)
+status: "todo"  # 状态 (如: todo, in-progress, done，默认done状态)
 ---
 ```
 **示例1：一篇“知识原子”笔记 (`Transformer.md`)**
@@ -95,7 +53,6 @@ tags: [cv, image-classification, vit]
 status: "done"
 model: "Vision Transformer" # 特定于模型笔记的字段
 year: 2020                  # 特定于论文笔记的字段
-paper_pdf: "papers/An Image is Worth 16x16 Words.pdf" # 链接到PDF原文
 ---
 ```
 **示例3：一篇“项目总结”笔记 (`README.md` in a project folder)**
@@ -105,9 +62,10 @@ type: "project-summary"
 tags: [pytorch, cifar10, image-classification]
 status: "in-progress"
 related_models: [ViT, ResNet] # 关联的模型
+summary:
 ---
 ```
-如你所见，你可以根据笔记的类型，自由地添加你认为有用的字段。`type`, `tags`, `status` 是最基础也最有用的三个。
+如你所见，你可以根据笔记的类型，自由地添加你认为有用的字段。`type`, `tags`, `status` 是最基础也最有用的三个，你可以适当添加，但是不要太多。
 整理好的内容用markdown的格式给我，想要你像代码一样让我能直接粘贴过去。除此之外，每一段之间不要空行，换行就行。所有内容都用中文简体，除非是必要的英文。
 
 
