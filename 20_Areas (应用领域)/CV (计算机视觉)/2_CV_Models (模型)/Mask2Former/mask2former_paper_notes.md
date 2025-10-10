@@ -12,7 +12,7 @@ tags:
   - attention
   - code-note
 status: done
-model: Masked-attention Mask Transformer
+model: Mask2Former
 year: 2021
 ---
 论文原文：[[2112.01527\] Masked-attention Mask Transformer for Universal Image Segmentation](https://arxiv.org/abs/2112.01527)

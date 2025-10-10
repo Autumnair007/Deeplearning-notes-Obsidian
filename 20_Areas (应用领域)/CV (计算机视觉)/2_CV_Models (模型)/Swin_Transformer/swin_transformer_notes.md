@@ -1,8 +1,16 @@
 ---
-type: "concept-note"
-tags: [cv, backbone, transformer, swin, hierarchical, window-attention, code-note]
-status: "done"
-model: "Swin Transformer"
+type: concept-note
+tags:
+  - cv
+  - backbone
+  - transformer
+  - swin
+  - hierarchical
+  - window-attention
+  - code-note
+  - image-classification
+status: done
+model: Swin Transformer
 year: 2021
 ---
 **学习资料:**

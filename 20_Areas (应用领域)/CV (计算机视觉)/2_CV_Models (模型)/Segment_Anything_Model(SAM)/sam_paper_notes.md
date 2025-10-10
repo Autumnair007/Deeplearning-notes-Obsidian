@@ -1,8 +1,19 @@
 ---
-type: "paper-note"
-tags: [cv, foundation-model, transformer, vit, sam, interactive-segmentation, zero-shot, instance-segmentation, text-to-mask, sa-1b]
-status: "done"
-model: "Segment Anything Model"
+type: paper-note
+tags:
+  - cv
+  - foundation-model
+  - transformer
+  - vit
+  - sam
+  - interactive-segmentation
+  - zero-shot
+  - instance-segmentation
+  - text-to-mask
+  - sa-1b
+  - semantic-segmentation
+status: done
+model: Segment Anything Model
 year: 2023
 ---
 论文原文：[[2304.02643\] Segment Anything](https://arxiv.org/abs/2304.02643)

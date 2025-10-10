@@ -14,6 +14,7 @@ tags:
   - semantic-segmentation
   - depth-estimation
   - instance-recognition
+  - image-classification
 status: done
 model: DINOv2
 year: 2023

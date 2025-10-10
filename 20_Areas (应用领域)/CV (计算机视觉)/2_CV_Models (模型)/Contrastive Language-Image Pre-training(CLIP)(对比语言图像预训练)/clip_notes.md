@@ -12,6 +12,7 @@ tags:
   - transformer
   - resnet
   - norm
+  - image-classification
 status: done
 model: CLIP
 key_concept: Learning general visual representations using natural language supervision and contrastive learning to achieve zero-shot transfer.

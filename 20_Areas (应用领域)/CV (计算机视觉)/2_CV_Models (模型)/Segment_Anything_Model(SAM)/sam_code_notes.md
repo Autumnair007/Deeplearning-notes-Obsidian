@@ -1,8 +1,18 @@
 ---
-type: "code-note"
-tags: [cv, sam, vit, transformer, instance-segmentation, interactive-segmentation, prompt-engineering, pytorch, code-note]
-status: "done"
-model: "SAM"
+type: code-note
+tags:
+  - cv
+  - sam
+  - vit
+  - transformer
+  - instance-segmentation
+  - interactive-segmentation
+  - prompt-engineering
+  - pytorch
+  - code-note
+  - semantic-segmentation
+status: done
+model: SAM
 year: 2023
 ---
 ## SAM_Model代码

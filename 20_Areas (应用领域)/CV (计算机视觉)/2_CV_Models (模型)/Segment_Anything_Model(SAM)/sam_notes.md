@@ -10,6 +10,7 @@ tags:
   - zero-shot
   - instance-segmentation
   - promptable
+  - semantic-segmentation
 status: done
 model: Segment Anything Model
 year: 2023

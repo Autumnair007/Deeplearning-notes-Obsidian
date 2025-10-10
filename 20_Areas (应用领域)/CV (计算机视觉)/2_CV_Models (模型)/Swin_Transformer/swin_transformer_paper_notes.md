@@ -10,6 +10,7 @@ tags:
   - transformer
   - classification
   - vit
+  - image-classification
 status: done
 ---
 论文原文：[2103.14030](https://arxiv.org/pdf/2103.14030)

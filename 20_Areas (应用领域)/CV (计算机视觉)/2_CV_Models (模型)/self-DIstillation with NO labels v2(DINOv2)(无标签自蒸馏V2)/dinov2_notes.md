@@ -12,6 +12,7 @@ tags:
   - mim
   - knowledge-distillation
   - regularization
+  - image-classification
 status: done
 model: DINOv2
 key_concept: A foundational vision model trained on a curated LVD-142M dataset using a Student-Teacher self-distillation framework, combining Image-level (DINO) and Patch-level (iBOT) objectives with SK-Centering and KoLeo regularization for robust, general-purpose feature extraction.

@@ -9,6 +9,7 @@ tags:
   - resnet
   - pytorch
   - clip
+  - image-classification
 status: done
 model: CLIP (Simplified)
 key_concept: Contrastive Learning between Image and Text in a Shared Embedding Space.

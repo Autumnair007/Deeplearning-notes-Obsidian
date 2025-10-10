@@ -10,6 +10,7 @@ tags:
   - vit
   - transformer
   - zero-shot
+  - semantic-segmentation
 status: done
 model: Segment Anything Model
 year: 2023
