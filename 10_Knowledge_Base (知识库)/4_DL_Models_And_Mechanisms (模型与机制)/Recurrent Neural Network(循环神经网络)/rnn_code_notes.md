@@ -5,6 +5,7 @@ tags:
   - batch-training
   - gradient-descent
   - pytorch
+  - backbone
 status: done
 topic: RNN批量训练机制
 core_principle: 参数共享（所有样本使用同一套 $W$）

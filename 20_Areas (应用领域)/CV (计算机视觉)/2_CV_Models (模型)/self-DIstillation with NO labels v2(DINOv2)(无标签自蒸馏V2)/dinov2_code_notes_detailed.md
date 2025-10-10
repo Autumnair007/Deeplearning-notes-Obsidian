@@ -1,10 +1,20 @@
 ---
-type: "code-note"
-tags: [cv, self-supervised, ssl, dinov2, vit, transformer, pytorch, code-analysis, MHA, ViT]
-status: "in-progress"
-model: "Vision Transformer"
-framework: "PyTorch"
-note_topic: "Vision Transformer Core Components"
+type: code-note
+tags:
+  - cv
+  - self-supervised
+  - ssl
+  - dinov2
+  - vit
+  - transformer
+  - pytorch
+  - code-analysis
+  - MHA
+  - ViT
+status: done
+model: Vision Transformer
+framework: PyTorch
+note_topic: Vision Transformer Core Components
 ---
 ## 1. PatchEmbedding:
 

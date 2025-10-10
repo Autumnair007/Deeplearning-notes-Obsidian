@@ -1,8 +1,13 @@
 ---
-type: "concept-note"
-tags: [nlp, transformer, attention, sequence-model]
-status: "done"
-paper_name: "Attention Is All You Need"
+type: concept-note
+tags:
+  - nlp
+  - transformer
+  - attention
+  - sequence-model
+  - backbone
+status: done
+paper_name: Attention Is All You Need
 year: 2017
 ---
 学习资料：[Transformer通俗笔记：从Word2Vec、Seq2Seq逐步理解到GPT、BERT-CSDN博客](https://blog.csdn.net/v_JULY_v/article/details/127411638?ops_request_misc=%7B%22request%5Fid%22%3A%229d7c8f6c3ec83074f33e1e1ebe062d64%22%2C%22scm%22%3A%2220140713.130102334.pc%5Fall.%22%7D&request_id=9d7c8f6c3ec83074f33e1e1ebe062d64&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~hot_rank-1-127411638-null-null.142^v102^pc_search_result_base3&utm_term=seq2seq模型&spm=1018.2226.3001.4187)
@@ -19,7 +24,7 @@ Transformer 模型遵循经典的 **Encoder-Decoder** 架构。
 *   **Encoder (编码器)**：负责接收输入序列（例如，源语言句子），并将其转换成一系列连续的表示（Contextual Embeddings）。它由 N 个相同的层堆叠而成（论文中 N=6）。
 *   **Decoder (解码器)**：接收编码器的输出以及目标序列（在训练时是目标语言句子，在推理时是已生成的部分），并生成下一个词的概率分布。它也由 N 个相同的层堆叠而成（论文中 N=6）。
 
-![1](transformer_notes.assets/1.png)
+![](../../../99_Assets%20(资源文件)/images/1.png)
 
 ### 2. 输入处理 (Input Processing)
 

@@ -1,10 +1,15 @@
 ---
-type: "code-note"
-tags: [nlp, transformer, pytorch, text-classification]
-status: "done"
-model: "Custom Transformer Encoder"
-dataset: "IMDB"
-task: "Sentiment Analysis"
+type: code-note
+tags:
+  - nlp
+  - transformer
+  - pytorch
+  - text-classification
+  - backbone
+status: done
+model: Custom Transformer Encoder
+dataset: IMDB
+task: Sentiment Analysis
 ---
 ps: 自己的电脑用的是GPU，1分钟左右一轮，显卡4060，显存8GB。
 

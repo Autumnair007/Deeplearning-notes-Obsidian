@@ -9,7 +9,7 @@ tags:
   - aspp
   - depthwise-separable-convolution
   - xception
-  - zeroshot
+  - zero-shot
 status: done
 model: DeepLabV3+
 key_concept: A powerful encoder-decoder model for semantic segmentation, combining DeepLabv3's ASPP for multi-scale context with a simple decoder to refine object boundaries, built on efficient Atrous Separable Convolutions.

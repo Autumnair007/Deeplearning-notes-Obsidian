@@ -7,6 +7,7 @@ tags:
   - convnext
   - transformer
   - survey
+  - backbone
 status: done
 year: 2022
 model: ConvNeXt

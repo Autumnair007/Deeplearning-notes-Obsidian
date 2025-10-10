@@ -6,6 +6,7 @@ tags:
   - perplexity
   - nlp
   - cross-entropy
+  - backbone
 status: done
 topic: 循环神经网络 (RNN) 与困惑度
 core_mechanism: 隐藏状态 (H) 传递历史信息

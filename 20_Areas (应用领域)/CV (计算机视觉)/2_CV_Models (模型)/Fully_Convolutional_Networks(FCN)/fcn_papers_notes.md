@@ -5,11 +5,11 @@ tags:
   - semantic-segmentation
   - fcn
   - cnn
-  - fully-supervised
   - encoder-decoder
   - skip-connection
   - transposed-convolution
   - upsampling
+  - full-supervision
 status: done
 model: Fully Convolutional Networks
 year: 2015

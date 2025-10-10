@@ -1,0 +1,306 @@
+Directory Tree generated on 2025-10-10 17:53:03.667441
+Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
+
+│   ├── LICENSE
+│   ├── README.md
+│   ├── .obsidian/
+│   │   ├── app.json
+│   │   ├── appearance.json
+│   │   ├── community-plugins.json
+│   │   ├── core-plugins.json
+│   │   ├── workspace.json
+│   │   ├── plugins/
+│   │   │   ├── dataview/
+│   │   │   │   ├── main.js
+│   │   │   │   ├── manifest.json
+│   │   │   │   ├── styles.css
+│   │   ├── snippets/
+│   │   │   ├── page-width.css
+│   ├── 00_Meta (元数据)/
+│   │   ├── directory_tree.py
+│   │   ├── directory_tree.txt
+│   │   ├── note_template.md
+│   │   ├── paper_notes_template.md
+│   │   ├── prompts.txt
+│   │   ├── 笔记项目框架.md
+│   ├── 10_Knowledge_Base (知识库)/
+│   │   ├── _Knowledge_Base_Hub.md
+│   │   ├── 1_Math (数学基础)/
+│   │   │   ├── convex_and_concave_functions(凸函数和凹函数).md
+│   │   │   ├── maximum_likelihood_estimation(极大似然估计).md
+│   │   │   ├── norms_and_cosine_similarity(范数和余弦相似度).md
+│   │   │   ├── vector_space_and_orthogonality(空间和正交性).md
+│   │   ├── 2_ML_Concepts (机器学习概念)/
+│   │   │   ├── supervised_learning_concepts(监督学习概念).md
+│   │   │   ├── Clustering (聚类)/
+│   │   │   │   ├── Birch(平衡迭代规约和聚类)/
+│   │   │   │   │   ├── birch_notes.md
+│   │   │   │   ├── Optics(OPTICS算法)/
+│   │   │   │   │   ├── optics_notes.md
+│   │   ├── 3_DL_Core_Concepts (深度学习核心概念)/
+│   │   │   ├── activation_functions(激活函数).md
+│   │   │   ├── attention_mechanism(注意力机制).md
+│   │   │   ├── cross_entropy_loss_for_language_models[交叉熵损失(语言模型)].md
+│   │   │   ├── data_flow_of_attention_mechanism_in_nlp[注意力机制的数据流过程(NLP)].md
+│   │   │   ├── downsampling_and_upsampling(下采样与上采样).md
+│   │   │   ├── multi_head_attention_self_attention_and_positional_encoding_notes(多头注意力、自注意力与位置编码笔记).md
+│   │   │   ├── n-gram.md
+│   │   │   ├── normalization(归一化).md
+│   │   │   ├── regularization(正则化).md
+│   │   │   ├── 深度学习思考.md
+│   │   ├── 4_DL_Models_And_Mechanisms (模型与机制)/
+│   │   │   ├── Generative_Adversarial_Network(生成对抗网络)/
+│   │   │   │   ├── gan_notes.md
+│   │   │   ├── Recurrent Neural Network(循环神经网络)/
+│   │   │   │   ├── rnn_code_notes.md
+│   │   │   │   ├── rnn_notes.md
+│   │   │   ├── Seq2Seq(序列到序列模型)/
+│   │   │   │   ├── seq2seq_code_notes.md
+│   │   │   │   ├── seq2seq_notes.md
+│   │   │   ├── Transformer/
+│   │   │   │   ├── transformer_code_notes.md
+│   │   │   │   ├── transformer_notes.md
+│   │   │   ├── U-Net/
+│   │   │   │   ├── u-net_notes.md
+│   │   │   ├── Word2Vec(词向量)/
+│   │   │   │   ├── word2vec_notes.md
+│   ├── 20_Areas (应用领域)/
+│   │   ├── _Areas_Hub.md
+│   │   ├── CV (计算机视觉)/
+│   │   │   ├── _CV_Hub.md
+│   │   │   ├── 1_CV_Theory (理论)/
+│   │   │   │   ├── CV中的Transformer核心概念解析（以SETR为例）.md
+│   │   │   │   ├── Dice系数和IoU.md
+│   │   │   │   ├── class_imbalance(类别不平衡).md
+│   │   │   │   ├── Digital_Image_Processing(数字图像处理)/
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── dip_note_template.md
+│   │   │   │   │   ├── Ch03_Image_Processing(图像处理)/
+│   │   │   │   │   │   ├── 3.1_point_operators(点算子).md
+│   │   │   │   │   ├── References(参考文献)/
+│   │   │   │   │   │   ├── 计算机视觉算法与应用中文版.pdf
+│   │   │   │   ├── Survey_Image_Segmentation (图像分割综述)/
+│   │   │   │   │   ├── An overview of industrial image segmentation using（2025）.md
+│   │   │   │   │   ├── Image Segmentation Using Deep Learning A Survey综述.md
+│   │   │   ├── 2_CV_Models (模型)/
+│   │   │   │   ├── _Image_Classification_Index.md
+│   │   │   │   ├── _Semantic_Segmentation_Index.md
+│   │   │   │   ├── 图像分割模型对比.md
+│   │   │   │   ├── 图像分割模型对比表格.xlsx
+│   │   │   │   ├── Contrastive Language-Image Pre-training(CLIP)(对比语言图像预训练)/
+│   │   │   │   │   ├── clip_code_notes.md
+│   │   │   │   │   ├── clip_notes.md
+│   │   │   │   ├── ConvNeXt/
+│   │   │   │   │   ├── convnext_notes.md
+│   │   │   │   │   ├── convnext_paper_notes.md
+│   │   │   │   │   ├── convnext_supplementary.md
+│   │   │   │   ├── DeepLabV3+/
+│   │   │   │   │   ├── deeplabv3+_notes.md
+│   │   │   │   │   ├── deeplabv3+_papers_notes.md
+│   │   │   │   ├── Diffusion_Models(扩散模型)/
+│   │   │   │   │   ├── diffusion_notes.md
+│   │   │   │   │   ├── Stable_Diffusion/
+│   │   │   │   │   │   ├── stable_diffusion_notes.md
+│   │   │   │   │   │   ├── stable_diffusion_reproduction_notes.md
+│   │   │   │   │   │   ├── Txt2img_Samples(文生图样本)/
+│   │   │   │   │   │   │   ├── Samples(样本)/
+│   │   │   │   ├── DPT/
+│   │   │   │   │   ├── dpt_notes.md
+│   │   │   │   │   ├── dpt_papers_notes.md
+│   │   │   │   ├── Fully_Convolutional_Networks(FCN)/
+│   │   │   │   │   ├── fcn_notes.md
+│   │   │   │   │   ├── fcn_papers_notes.md
+│   │   │   │   ├── Mask2Former/
+│   │   │   │   │   ├── mask2former_notes.md
+│   │   │   │   │   ├── mask2former_paper_notes.md
+│   │   │   │   ├── MaskFormer/
+│   │   │   │   │   ├── maskformer_notes.md
+│   │   │   │   │   ├── maskformer_paper_notes.md
+│   │   │   │   ├── Mask_R-CNN/
+│   │   │   │   │   ├── mask_r-cnn_notes.md
+│   │   │   │   ├── Panoptic_Feature_Pyramid_Networks(SFPN)/
+│   │   │   │   │   ├── sfpn_notes.md
+│   │   │   │   │   ├── sfpn_papers_notes.md
+│   │   │   │   ├── Residual_Network (残差网络)/
+│   │   │   │   │   ├── resnet_notes.md
+│   │   │   │   ├── SegFormer/
+│   │   │   │   │   ├── segformer_notes.md
+│   │   │   │   │   ├── segformer_papers_notes.md
+│   │   │   │   ├── SEgmentation_TRansformers(SETR)/
+│   │   │   │   │   ├── setr_notes.md
+│   │   │   │   │   ├── setr_papers_notes.md
+│   │   │   │   ├── Segmenter/
+│   │   │   │   │   ├── segmenter_notes.md
+│   │   │   │   │   ├── segmenter_papers_notes.md
+│   │   │   │   ├── Segment_Anything_Model(SAM)/
+│   │   │   │   │   ├── sam_code_notes.md
+│   │   │   │   │   ├── sam_notes.md
+│   │   │   │   │   ├── sam_paper_notes.md
+│   │   │   │   │   ├── sam_paper_notes2(gemini-flash).md
+│   │   │   │   ├── self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/
+│   │   │   │   │   ├── dinov2_code_notes.md
+│   │   │   │   │   ├── dinov2_code_notes_detailed.md
+│   │   │   │   │   ├── dinov2_notes.md
+│   │   │   │   │   ├── dinov2_paper_notes.md
+│   │   │   │   ├── Swin_Transformer/
+│   │   │   │   │   ├── swin_transformer_notes.md
+│   │   │   │   │   ├── swin_transformer_paper_notes.md
+│   │   │   │   ├── Training-Free_Segmentation/
+│   │   │   │   │   ├── ITACLIP/
+│   │   │   │   │   │   ├── ITACLIP_papers_notes.md
+│   │   │   │   │   ├── ReME/
+│   │   │   │   │   │   ├── ReME_paper_notes.md
+│   │   │   │   ├── UPerNet/
+│   │   │   │   │   ├── upernet_notes.md
+│   │   │   │   │   ├── upernet_papers_notes.md
+│   │   │   │   ├── Variational_Autoencoder(变分自编码器)/
+│   │   │   │   │   ├── vae_notes.md
+│   │   │   │   ├── Vision_Transformer(ViT)/
+│   │   │   │   │   ├── vision_transformer_code_notes.md
+│   │   │   │   │   ├── vision_transformer_notes.md
+│   │   ├── NLP (自然语言处理)/
+│   │   │   ├── _NLP_Hub.md
+│   │   │   ├── 1_NLP_Theory (理论)/
+│   │   │   │   ├── Text_Preprocessing(文本预处理)/
+│   │   │   │   │   ├── text_preprocessing(文本预处理).md
+│   ├── 30_Projects (项目实践)/
+│   │   ├── _Projects_Hub.md
+│   │   ├── Birch_Clustering_impl/
+│   │   │   ├── birch_mex_code.py
+│   │   ├── CLIP_impl/
+│   │   │   ├── clip_train.py
+│   │   │   ├── create_dataset.py
+│   │   │   ├── test_clip.py
+│   │   ├── Custom_Diffusion_reproduction/
+│   │   │   ├── custom_diffusion_reproduction_guide.md
+│   │   │   ├── custom_diffusion_reproduction_report.doc
+│   │   ├── Diffusion_Models_impl/
+│   │   │   ├── diffusion.py
+│   │   ├── DINOv2_impl/
+│   │   │   ├── dinov2.py
+│   │   ├── GAN_impl/
+│   │   │   ├── gan.py
+│   │   ├── MMPretrain_tutorials/
+│   │   │   ├── mmpretrain_usage_tutorial.md
+│   │   ├── MMSegmentation_tutorials/
+│   │   │   ├── mmsegmentation_usage_tutorial.md
+│   │   │   ├── Mask2Former/
+│   │   │   │   ├── Mask2Former_tutorial_ADE20K_V1.md
+│   │   │   ├── SegFormer_tutorial/
+│   │   │   │   ├── segformer_conclusion1.md
+│   │   │   │   ├── segformer_tutorial_ADE_V1.md
+│   │   │   │   ├── segformer_tutorial_V1.md
+│   │   │   │   ├── segformer_tutorial_V2.md
+│   │   │   │   ├── segformer_tutorial_V3.md
+│   │   │   ├── UPerNet_tutorial/
+│   │   │   │   ├── upernet_conclusion.md
+│   │   │   │   ├── upernet_tutorial.md
+│   │   │   │   ├── upernet_tutorial_enhanced.md
+│   │   │   │   ├── upernet_tutorial_final.md
+│   │   │   │   ├── 总结prompt.txt
+│   │   ├── Optics_Clustering_impl/
+│   │   │   ├── optics_mex_code.py
+│   │   ├── PyTorch_Basics/
+│   │   │   ├── Matplotlib中文显示问题.md
+│   │   │   ├── Numpy.md
+│   │   │   ├── Sequential.md
+│   │   ├── ResNet_impl/
+│   │   │   ├── resnet_cifar10.py
+│   │   │   ├── resnet_mnist.py
+│   │   ├── RNN_impl/
+│   │   │   ├── rnn.py
+│   │   ├── SAM_impl/
+│   │   │   ├── create_dataset.py
+│   │   │   ├── sam_model.py
+│   │   │   ├── train_sam.py
+│   │   ├── Seq2Seq_impl/
+│   │   │   ├── seq2seq.py
+│   │   ├── Text_Preprocessing_impl/
+│   │   │   ├── preprocess.py
+│   │   ├── TorchServe_deployments/
+│   │   │   ├── MNIST部署/
+│   │   │   │   ├── TorchServe-Token.md
+│   │   │   │   ├── mnist-TorchServe操作步骤.md
+│   │   │   │   ├── mnist/
+│   │   │   │   │   ├── Docker.md
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── config.properties
+│   │   │   │   │   ├── mnist.py
+│   │   │   │   │   ├── mnist_cnn.pt
+│   │   │   │   │   ├── mnist_handler.py
+│   │   │   │   │   ├── mnist_ts.json
+│   │   │   │   │   ├── screenshots/
+│   │   │   │   │   ├── test_data/
+│   │   │   │   │   ├── torchdata/
+│   │   │   │   │   │   ├── README.MD
+│   │   │   │   │   │   ├── inference.py
+│   │   │   │   │   │   ├── mnist_handler.py
+│   │   │   │   ├── mnist-TorchServe操作步骤.assets/
+│   │   │   ├── ResNet18部署/
+│   │   │   │   ├── README.md
+│   │   │   │   ├── TorchServe-ResNet-18操作步骤.md
+│   │   │   │   ├── TorchServe-ResNet-18补充.md
+│   │   │   │   ├── TorchServe-Token.md
+│   │   │   │   ├── TorchServe部署自定义数据集参考操作.md
+│   │   │   │   ├── model.py
+│   │   │   │   ├── ngrok连接的操作步骤.md
+│   │   │   │   ├── resnet18_handler.py
+│   │   │   │   ├── ngrok连接的操作步骤.assets/
+│   │   │   │   ├── resnet_18/
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── index_to_name.json
+│   │   │   │   │   ├── model.py
+│   │   │   │   │   ├── debugging_backend/
+│   │   │   │   │   │   ├── test_handler.py
+│   │   │   │   │   ├── ReactJSExample/
+│   │   │   │   │   │   ├── README.md
+│   │   │   │   │   │   ├── demo.gif
+│   │   │   │   │   │   ├── deployed/
+│   │   │   │   │   │   │   ├── asset-manifest.json
+│   │   │   │   │   │   │   ├── favicon.ico
+│   │   │   │   │   │   │   ├── index.html
+│   │   │   │   │   │   │   ├── manifest.json
+│   │   │   │   │   │   │   ├── robots.txt
+│   │   │   │   │   │   │   ├── static/
+│   │   │   │   │   │   │   │   ├── css/
+│   │   │   │   │   │   │   │   │   ├── 2.c9f03951.chunk.css
+│   │   │   │   │   │   │   │   │   ├── main.5e3647ae.chunk.css
+│   │   │   │   │   │   │   │   ├── js/
+│   │   │   │   │   │   │   │   │   ├── 2.792d00c1.chunk.js
+│   │   │   │   │   │   │   │   │   ├── 2.792d00c1.chunk.js.LICENSE.txt
+│   │   │   │   │   │   │   │   │   ├── 3.64cc616e.chunk.js
+│   │   │   │   │   │   │   │   │   ├── main.2a22477d.chunk.js
+│   │   │   │   │   │   │   │   │   ├── main.94f210aa.chunk.js
+│   │   │   │   │   │   │   │   │   ├── runtime-main.8e9ee5a4.js
+│   │   │   │   │   │   ├── image/
+│   │   │   │   │   │   │   ├── README/
+│   │   │   │   ├── TorchServe-ResNet-18操作步骤.assets/
+│   │   ├── Transformer_impl/
+│   │   │   ├── transformer.py
+│   │   ├── VAE_impl/
+│   │   │   ├── vae.py
+│   │   ├── ViT_impl/
+│   │   │   ├── vit_cifar10.py
+│   │   │   ├── vit_cifar10_tensor.py
+│   │   ├── Word2Vec_impl/
+│   │   │   ├── word2vec.py
+│   ├── 99_Assets (资源文件)/
+│   │   ├── papers/
+│   │   │   ├── An overview of industrial image segmentation using（2025）.pdf
+│   │   │   ├── ConvNeXt.pdf
+│   │   │   ├── DINOv2 Learning Robust Visual Features.pdf
+│   │   │   ├── Encoder-Decoder with Atrous Separable.pdf
+│   │   │   ├── Fully Convolutional Networks for Semantic Segmentation.pdf
+│   │   │   ├── ITACLIP.pdf
+│   │   │   ├── Image Segmentation Using Deep Learning A Survey.pdf
+│   │   │   ├── Masked-attention Mask Transformer for Universal Image Segmentation.pdf
+│   │   │   ├── Panoptic Feature Pyramid Networks.pdf
+│   │   │   ├── Per-Pixel Classification is Not All You Need for Semantic Segmentation.pdf
+│   │   │   ├── ReME.pdf
+│   │   │   ├── Rethinking Semantic Segmentation from a Sequence-to-Sequence Perspective.pdf
+│   │   │   ├── Segment Anything.pdf
+│   │   │   ├── Segmenter Transformer for Semantic Segmentation.pdf
+│   │   │   ├── Simple and Efficient Design for Semantic Segmentation with Transformers.pdf
+│   │   │   ├── Swin Transformer.pdf
+│   │   │   ├── Unified Perceptual Parsing for Scene Understanding.pdf
+│   │   │   ├── Vision Transformers for Dense Prediction.pdf

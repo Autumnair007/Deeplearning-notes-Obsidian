@@ -8,6 +8,7 @@ tags:
   - semantic-segmentation
   - training-techniques
   - convnext
+  - backbone
 status: done
 model: ConvNeXt
 year: 2022

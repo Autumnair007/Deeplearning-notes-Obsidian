@@ -7,6 +7,7 @@ tags:
   - regularization
   - optimizer
   - convnext
+  - backbone
 status: done
 related_models:
   - ConvNeXt
