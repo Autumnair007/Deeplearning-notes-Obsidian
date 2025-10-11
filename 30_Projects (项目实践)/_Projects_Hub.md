@@ -43,11 +43,19 @@ LIMIT 10
 
 列出所有项目中的代码实现文件。
 
-```dataview
-LIST
-FROM "30_Projects (项目实践)"
-WHERE !contains(file.ext, "md") 
-SORT file.folder ASC, file.name ASC
+```dataviewjs
+const folderPath = "30_Projects (项目实践)";
+// 获取保险库中所有文件的路径
+const allFiles = app.vault.getFiles().map(f => f.path);
+// 过滤出指定文件夹下的、以 .py 结尾的文件
+const pyFiles = allFiles.filter(p => p.startsWith(folderPath) && p.endsWith(".py"));
+
+// 如果找到了文件，则创建一个列表
+if (pyFiles.length > 0) {
+    dv.list(pyFiles.map(p => dv.fileLink(p)));
+} else {
+    dv.paragraph("在此文件夹中未找到任何 .py 文件。");
+}
 ```
 
 ### 📚 项目文档与笔记 (Project Documentation & Notes)

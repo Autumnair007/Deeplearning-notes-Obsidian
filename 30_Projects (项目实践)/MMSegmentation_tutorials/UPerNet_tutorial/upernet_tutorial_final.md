@@ -1,5 +1,21 @@
-# UPerNet 高精度训练指南 (增强完整版)
-
+---
+type: tutorial
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - upernet
+  - mmsegmentation
+  - guide
+  - pascal-voc
+  - data-augmentation
+  - resnet
+status: done
+model: UPerNet
+year: 2018
+related_backbone: ResNet-50
+summary: UPerNet模型在MMSegmentation框架下使用PASCAL VOC 2012增强数据集(VOC+SBD)的完整高精度训练指南。重点内容包括SBD数据集的转换脚本使用、Epoch-based训练模式的配置，以解决断点恢复慢的问题，以及学习率线性缩放等最佳实践的实现。
+---
 ==PS：本指南为AI生成，流程仅供参考，与实际的操作流程相比简略了很多，没有实际验证过。==
 
 本指南旨在提供一个完整、高效的流程，使用 MMSegmentation 框架在 **PASCAL VOC 2012 增强数据集**上训练一个高精度的 UPerNet 模型。

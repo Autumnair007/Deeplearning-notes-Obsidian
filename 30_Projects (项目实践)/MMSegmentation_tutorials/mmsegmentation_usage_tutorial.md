@@ -1,5 +1,21 @@
-#  MMSegmentation使用教程
-
+---
+type: project-summary
+tags:
+  - cv
+  - semantic-segmentation
+  - mmsegmentation
+  - deeplabv3plus
+  - fine-tuning
+  - guide
+  - tutorial
+  - dummy-data
+  - best-practice
+status: done
+model: DeepLabV3+
+year: 2018
+related_backbone: ResNet-50
+summary: MMSegmentation框架下DeepLabV3+模型的完整训练指南。教程强调了使用MMSegmentation进行语义分割的正确性，并提供了一个通过创建虚拟数据集快速测试训练流程的实战方案。关键修正包括使用BaseSegDataset、正确配置数据预处理器尺寸、以及MMCV版本兼容性检查，以确保训练成功启动。
+---
 学习资料：[(7 封私信 / 22 条消息) 超详细！带你轻松掌握 MMSegmentation 整体构建流程 - 知乎](https://zhuanlan.zhihu.com/p/520397255)
 
 [(7 封私信 / 22 条消息) MMSegmentation的保姆级使用（PyTorch版 . 20240412） - 知乎](https://zhuanlan.zhihu.com/p/692128992)
@@ -7,9 +23,7 @@
 GitHub仓库：[open-mmlab/mmsegmentation: OpenMMLab Semantic Segmentation Toolbox and Benchmark.](https://github.com/open-mmlab/mmsegmentation)
 
 安装教程：[mmsegmentation/docs/zh_cn/get_started.md at main · open-mmlab/mmsegmentation](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/get_started.md#installation)
-
-------
-
+***
 ### 整体流程概览
 
 整个过程可以分为五个主要阶段：

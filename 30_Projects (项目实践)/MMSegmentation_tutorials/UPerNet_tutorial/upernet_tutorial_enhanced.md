@@ -1,9 +1,22 @@
-#  UPerNet 模型精度提升指南
-
+---
+type: tutorial
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - upernet
+  - mmsegmentation
+  - guide
+  - pascal-voc
+  - data-augmentation
+status: done
+model: UPerNet
+year: 2018
+related_backbone: ResNet-50
+summary: UPerNet模型精度提升的完整指南，核心策略包括：集成SBD增强数据集(VOC+SBD, 10582张图)以解决数据量不足，并创建了一个高效的Epoch-based训练配置，解决了官方迭代式训练恢复慢的问题。配置中包含了学习率线性缩放、ResNet50预训练权重加载等最佳实践。
+---
 参考资料：[【数据集】——SBD数据集下载链接_sbd dataset-CSDN博客](https://blog.csdn.net/u011622208/article/details/131774571)
-
-------
-
+***
 我们已经成功搭建了 MMSegmentation 环境并完成了初步训练，但对结果不满意。核心问题在于**训练数据量不足**和**训练恢复效率低下**。本指南将一步步带你解决这两个问题，从而显著提升模型性能。
 
 #### **核心优化策略**

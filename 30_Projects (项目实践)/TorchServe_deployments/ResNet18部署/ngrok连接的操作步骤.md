@@ -1,5 +1,9 @@
-## ngrok连接的操作步骤
-
+---
+type: "tutorial"
+tags: [ngrok, torchserve, model-deployment, remote-access, linux, windows, tutorial]
+status: "done"
+summary: "使用ngrok从Windows本地电脑访问Ubuntu云主机（PAI-DSW）上TorchServe服务的详细操作指南。流程分为两部分：在云主机上下载、配置Authtoken并启动ngrok隧道（转发本地8080端口），以及在本地Windows终端上使用curl命令和ngrok生成的临时公共URL，携带TorchServe的推理Token，进行远程模型推理测试。强调了ngrok URL的临时性和保持ngrok进程运行的重要性。"
+---
 下面是 **ngrok** 的完整步骤整理，用于从 **Windows 11 本地电脑** 访问运行在 **Ubuntu 云主机 (PAI-DSW)** 上的 TorchServe 服务（监听 8080 端口）：
 
 **第一部分：在 Ubuntu 云主机 (PAI-DSW) 上操作**
@@ -41,7 +45,7 @@
         Forwarding                    https://<随机字符>.ngrok-free.app -> http://localhost:8080 
         ```
         
-    * ![image-20250429225941145](ngrok连接的操作步骤.assets/image-20250429225941145.png)
+    * ![](../../../99_Assets%20(资源文件)/images/image-20250429225941145.png)
     
     * **记下** 这个 `https://<随机字符>.ngrok-free.app` 的 URL (我们称之为 `<你的ngrok推理URL>`)，这是你从外部访问服务的入口。
     

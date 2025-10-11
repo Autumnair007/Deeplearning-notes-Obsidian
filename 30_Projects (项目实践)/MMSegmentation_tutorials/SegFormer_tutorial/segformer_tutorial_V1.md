@@ -1,5 +1,19 @@
-# SegFormer 实战指南
-
+---
+type: tutorial
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - transformer
+  - segformer
+  - mit-b2
+  - pascal-voc
+  - mmsegmentation
+  - code-note
+status: done
+model: SegFormer
+year: 2021
+---
 参考资料：[Python AttributeError: module ‘distutils‘ has no attribute ‘version‘_attributeerror: module 'distutils' has no attribut-CSDN博客](https://blog.csdn.net/Alexa_/article/details/132686602)
 
 ------

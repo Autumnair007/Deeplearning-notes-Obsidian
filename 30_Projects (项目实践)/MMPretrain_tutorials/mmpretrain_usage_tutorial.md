@@ -1,5 +1,18 @@
-#  MMPretrain使用教程
-
+---
+type: tutorial
+tags:
+  - cv
+  - image-classification
+  - mmpretrain
+  - convnext
+  - convnext-v2
+  - full-supervision
+  - finetuning
+  - code-note
+status: done
+model: ConvNeXt-Tiny
+year: 2023
+---
 学习资料：[学习配置文件 — MMPretrain 1.2.0 文档](https://mmpretrain.readthedocs.io/zh-cn/latest/user_guides/config.html)
 
 [open-mmlab/mmpretrain: OpenMMLab Pre-training Toolbox and Benchmark](https://github.com/open-mmlab/mmpretrain/tree/main)

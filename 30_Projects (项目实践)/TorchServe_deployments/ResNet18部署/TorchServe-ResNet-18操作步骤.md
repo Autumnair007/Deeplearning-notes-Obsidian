@@ -1,5 +1,9 @@
-## TorchServe ResNet-18 操作步骤
-
+---
+type: "tutorial"
+tags: [pytorch, torchserve, model-deployment, resnet, linux, token-authorization, tutorial]
+status: "done"
+summary: "TorchServe部署预训练ResNet-18模型的完整操作指南。教程详细介绍了在Linux云主机上的环境准备、ResNet-18模型文件（包括自定义的`model.py`和`resnet18_handler.py`）的获取与准备、`torch-model-archiver`的路径修复，以及模型打包成`.mar`文件的过程。特别提供了两个并行版本：一个**禁用Token授权**以方便测试，另一个**启用Token授权**并详细指导用户获取和使用`key_file.json`中的管理和推理Token进行API测试。每个关键步骤都附有详细的Bash命令和预期的成功输出，是部署PyTorch模型的实用教程。"
+---
 本指南将指导你完成使用预训练的 ResNet-18 模型部署 TorchServe 的过程。
 
 参考文档：[serve/examples/image_classifier/resnet_18 at master · pytorch/serve](https://github.com/pytorch/serve/tree/master/examples/image_classifier/resnet_18)，里面文件仅供参考，直接按上面运行无法使用。
@@ -187,7 +191,7 @@
     
     现在你的 `~/my_resnet_deployment` 目录下应该有:
     
-    ![image-20250429200908395](TorchServe-ResNet-18操作步骤.assets/image-20250429200908395.png)
+    ![](../../../99_Assets%20(资源文件)/images/image-20250429200908395.png)
     
     *   `model.py` (自己写的ResNet-18 模型结构定义)
     *   `resnet18-f37072fd.pth` (下载的预训练权重)
@@ -291,9 +295,7 @@
 
 [使用Token的步骤](#下面是使用Token的步骤：从步骤六开始) 
 
-**==关于 Token 授权== **
-
-参考资料： [TorchServe-Token](TorchServe-Token.md)
+==关于 Token 授权== 
 
 *   **默认启用:** 如果你没有在 `config.properties` 或启动命令中添加 `disable_token_authorization=true` / `--disable-token-auth`，则 Token 授权是**默认开启**的。
 *   **`key_file.json`:** 启动时会在**当前工作目录** (`~/my_resnet_deployment`) 生成 `key_file.json`。
@@ -422,8 +424,8 @@ torchserve --start --ncs --ts-config config.properties --model-store model_store
       "bucket": 0.011532172560691833
     }
     ```
-    ![image-20250429201453197](TorchServe-ResNet-18操作步骤.assets/image-20250429201453197.png)
     
+    ![](../../../99_Assets%20(资源文件)/images/image-20250429201453197.png)
 
 **步骤 9：停止 TorchServe**
 
@@ -539,7 +541,7 @@ torchserve --start --ncs --ts-config config.properties --model-store model_store
    }
    ```
 
-   ![image-20250429214757444](TorchServe-ResNet-18操作步骤.assets/image-20250429214757444.png)
+   ![](../../../99_Assets%20(资源文件)/images/image-20250429214757444.png)
 
 3.  **复制 Keys:**
     
@@ -608,7 +610,7 @@ torchserve --start --ncs --ts-config config.properties --model-store model_store
     }
     ```
     
-    ![image-20250429215148358](TorchServe-ResNet-18操作步骤.assets/image-20250429215148358.png)
+    ![](../../../99_Assets%20(资源文件)/images/image-20250429215148358.png)
     
     **如果你不提供正确的 `Authorization` Header，所有这些请求都会失败并返回 `401 Unauthorized` 错误。**
 
@@ -632,7 +634,7 @@ torchserve --start --ncs --ts-config config.properties --model-store model_store
 
 我这里通过了ngrok来测试，结果也是没有问题的。具体步骤参考：[ngrok连接的操作步骤](ngrok连接的操作步骤.md)
 
-![image-20250429225038291](TorchServe-ResNet-18操作步骤.assets/image-20250429225038291.png)
+![](../../../99_Assets%20(资源文件)/images/image-20250429225038291.png)
 
 ------
 

@@ -1,5 +1,21 @@
-#  UPerNet训练教程
-
+---
+type: tutorial
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - upernet
+  - mmsegmentation
+  - guide
+  - cityscapes
+  - pascal-voc
+  - resnet
+status: done
+model: UPerNet
+year: 2018
+related_backbone: ResNet-50
+summary: MMSegmentation框架下UPerNet模型的快速上手推理和基于PASCAL VOC 2012数据集的训练评估教程。重点讲解了如何从基于迭代(Iteration-based)的训练切换到基于周期(Epoch-based)的训练，以及如何实现断点恢复和多GPU训练。
+---
 使用 MMSegmentation 框架来复现和测试 UPerNet 是一个非常好的选择。MMSegmentation 是一个功能强大、标准化的语义分割工具箱，它让模型的测试、训练和部署变得更加简单和规范。
 
 相比于原版仓库，MMSegmentation 的优势在于：

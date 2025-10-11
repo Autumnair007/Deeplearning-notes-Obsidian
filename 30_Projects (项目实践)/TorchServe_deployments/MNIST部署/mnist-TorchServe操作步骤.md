@@ -1,5 +1,9 @@
-## TorchServe MNIST 参考操作步骤
-
+---
+type: "tutorial"
+tags: [pytorch, torchserve, model-deployment, mnist, linux, machine-learning, tutorial]
+status: "done"
+summary: "TorchServe部署MNIST模型的完整操作步骤。本教程指导用户在基于Linux的云主机上完成依赖安装（包括Java和TorchServe）、工作区设置、TorchServe示例文件的获取、模型打包（.mar文件创建）、TorchServe配置文件的创建与服务启动，以及最终的内部和外部服务测试。同时，详细说明了新版TorchServe中Token授权的启用和禁用方法。"
+---
 我自己是在魔搭社区的PAI-DSW（内置了Ubuntu系统和pytorch）的开发环境测试了下面的步骤，没有问题。前面的安装依赖等步骤我在另一台华为云的云主机里面测试了，TorchServe能正常使用，但是由于网络问题我换了一个云电脑测试。
 
 参考文档：[serve/examples/image_classifier/mnist at master · pytorch/serve](https://github.com/pytorch/serve/tree/master/examples/image_classifier/mnist)
@@ -124,7 +128,7 @@
    ```
 
    *   如果看到类似 `torch-model-archiver 0.x.x` 的输出，请继续第 2 步。
-   *   ![image-20250428195518649](mnist-TorchServe操作步骤.assets/image-20250428195518649.png)
+   *   ![](../../../99_Assets%20(资源文件)/images/image-20250428195518649.png)
    *   如果**没有输出**，回到**步骤 2.2** 重新安装，然后再回到这里继续。
 
 2.  **检查 PATH 环境变量:**
@@ -311,7 +315,7 @@ torchserve --start --ncs --ts-config config.properties --model-store model_store
 
        预期输出应该是一个表示识别出的数字（这个例子中可能是 `0`）的 JSON 响应。参考界面如下：
 
-   ![image-20250428195942663](mnist-TorchServe操作步骤.assets/image-20250428195942663.png)
+   ![](../../../99_Assets%20(资源文件)/images/image-20250428195942663.png)
 
 2.  **从外部机器测试 (你的本地电脑):**
 

@@ -1,3 +1,16 @@
+---
+type: concept-note
+tags:
+  - pytorch
+  - dataloader
+  - sequential
+  - modulelist
+  - neural-networks
+  - deep-learning
+  - tutorial
+status: done
+summary: PyTorch核心概念DataLoader、nn.Sequential和nn.ModuleList的详细笔记。重点区分了三者的功能：DataLoader作为数据迭代器（可迭代对象），nn.Sequential作为自动级联的模块容器，以及nn.ModuleList作为模块的纯粹列表，需要手动控制数据流。最后通过一个示例展示了nn.Sequential和nn.ModuleList在复杂网络构建中的协同工作方式。
+---
 #  PyTorch核心概念笔记：DataLoader, Sequential, 与 ModuleList
 
 学习资料：[顺序 — PyTorch 2.8 文档 - PyTorch 文档](https://docs.pytorch.ac.cn/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)

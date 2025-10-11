@@ -1,3 +1,17 @@
+---
+type: tutorial
+tags:
+  - pytorch
+  - torchserve
+  - troubleshooting
+  - model-deployment
+  - resnet
+  - handler
+  - state-dict
+  - json
+status: done
+summary: TorchServe部署ResNet-18模型时遇到的两个关键问题的排查与解决报告。**问题一**是Worker进程崩溃（500 Internal Error），根源在于模型包装类与原始权重文件的键名不匹配，解决方案是修改Handler的`initialize`方法，将权重加载到包装类内部的实际模型属性上。**问题二**是预测输出JSON中类别名称为列表格式，根源在于ImageNet的映射JSON文件结构，解决方案是修改`postprocess`方法，显式提取列表中的第二个元素作为类别名称。报告附带了最终修正后的`ResnetHandler`代码和TorchServe Handler的最佳实践模板，重点强调了`state_dict`加载、`model.eval()`、以及数据后处理中的映射细节。
+---
 ## TorchServe ResNet-18 模型部署问题排查与解决报告
 
 ### 问题一：服务返回 500 错误 "Worker died"

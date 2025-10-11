@@ -1,5 +1,9 @@
-# TorchServe Token详细解释
-
+---
+type: "tutorial"
+tags: [pytorch, torchserve, security, token-authorization, api, deployment, configuration]
+status: "done"
+summary: "TorchServe令牌授权的详细中文解释与操作指南。内容涵盖了令牌授权的默认启用、如何通过环境变量、命令行或配置文件进行启用/禁用设置，以及配置的优先级。重点介绍了生成的`key_file.json`中包含的三种密钥（管理、推理、API密钥）的用途，以及通过API端点生成和更新新密钥的方法。"
+---
 官方的说明：[serve/docs/token_authorization_api.md at master · pytorch/serve](https://github.com/pytorch/serve/blob/master/docs/token_authorization_api.md)，下面是中文翻译版：
 
 ---

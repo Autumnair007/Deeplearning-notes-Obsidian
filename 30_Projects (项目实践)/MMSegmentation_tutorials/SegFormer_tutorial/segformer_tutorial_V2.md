@@ -1,8 +1,21 @@
+---
+type: tutorial
+tags:
+  - cv
+  - segformer
+  - mit-b2
+  - semantic-segmentation
+  - full-supervision
+  - loss-function
+  - data-augmentation
+  - mmsegmentation
+  - code-note
+  - imbalanced-data
+status: done
+model: SegFormer
+year: 2021
+---
 # Segformer 实验增强版 V2
-
-参考资料：[类别不平衡](../../../Computer_Vision_Theory(计算机视觉理论)/Basic_Knowledge_of_Image_Segmentation/class_imbalance(类别不平衡).md)
-
-***
 
 你已经正确地诊断出核心问题：**工作流本身是顶级的，但模型在 V1 配置下已达性能瓶颈 (mIoU 58.6%)，需要引入新的“变量”来打破僵局。**
 

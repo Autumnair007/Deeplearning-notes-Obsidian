@@ -1,5 +1,20 @@
-#  UPerNet训练总结
-
+---
+type: project-summary
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - upernet
+  - resnet
+  - experiment-analysis
+  - data-centric-ai
+  - mmsegmentation
+status: done
+model: UPerNet
+year: 2018
+related_backbone: ResNet-50
+summary: UPerNet在PASCAL VOC数据集上的训练比较。核心验证了数据规模和多样性（VOC+SBD）对模型泛化能力的决定性作用，并对比了过拟合与鲁棒性之间的权衡。同时分析了MMEngine框架下Epoch-based训练的配置最佳实践。
+---
 ### 实验总结与核心分析
 
 首先，我们来提炼一下你这两个实验最核心的区别与结论。

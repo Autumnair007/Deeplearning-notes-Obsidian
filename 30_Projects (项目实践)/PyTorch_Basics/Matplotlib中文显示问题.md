@@ -1,3 +1,16 @@
+---
+type: tutorial
+tags:
+  - linux
+  - matplotlib
+  - python
+  - chinese-font
+  - no-sudo
+  - remote-server
+  - troubleshooting
+status: done
+summary: 无sudo权限Linux服务器上解决Matplotlib中文显示乱码（方框）的完整操作指南。核心流程包括创建用户字体目录、下载开源字体（文泉驿微米黑）、清除并重建Matplotlib字体缓存，最后在Python代码中进行全局或局部配置。
+---
 # 无sudo权限解决Matplotlib中文显示问题 - 操作笔记
 
 ## 🎯 问题描述

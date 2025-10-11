@@ -1,5 +1,18 @@
-# SegFormer 实战总结1
-
+---
+type: project-summary
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - segformer
+  - mit-b2
+  - voc2012
+  - finetuning
+  - mmsegmentation
+status: done
+model: SegFormer-B2
+year: 2021
+---
 该 SegFormer 训练工作流非常专业且规划周密，体现了对 MLOps 最佳实践的深刻理解。尽管工作流本身堪称典范，但最终模型的表现（mIoU 为 58.60%）低于已发布的基准，这表明主要的改进空间在于超参数调整、数据增强策略以及可能的损失函数，而不是工作流本身。
 
 ## 1. 训练工作流分析与总结

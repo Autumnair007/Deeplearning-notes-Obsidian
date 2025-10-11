@@ -1,9 +1,19 @@
 ---
-type: "project-summary"
-tags: [cv, diffusion-model, text-to-image, finetuning, cd, stable-diffusion, pytorch, code-note]
-status: "done"
-related_models: [Stable Diffusion, CLIP]
-summary: "Custom Diffusion（多概念定制T2I）模型的详细复现指南，包含单概念和联合微调的步骤、环境配置、代码修改和OOM等常见问题的解决方案。"
+type: tutorial
+tags:
+  - cv
+  - diffusion-model
+  - text-to-image
+  - finetuning
+  - cd
+  - stable-diffusion
+  - pytorch
+  - code-note
+status: done
+related_models:
+  - Stable Diffusion
+  - CLIP
+summary: Custom Diffusion（多概念定制T2I）模型的详细复现指南，包含单概念和联合微调的步骤、环境配置、代码修改和OOM等常见问题的解决方案。
 ---
 本项目是 Custom Diffusion 的一个复现实现，详细记录了完整的复现步骤，并包含了大部分所需文件。复现过程主要在一张3060（12G）和一张4060（16G）显卡上进行单卡训练，用户可根据自身硬件情况调整脚本。考虑到网络限制，项目采用了本地下载文件后上传至训练服务器的方式，若网络通畅则可直接从Hugging Face及GitHub获取资源。
 

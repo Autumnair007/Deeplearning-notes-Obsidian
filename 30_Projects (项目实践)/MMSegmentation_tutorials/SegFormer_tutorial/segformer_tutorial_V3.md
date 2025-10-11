@@ -1,5 +1,17 @@
-# Segformer 实验增强版 V3
-
+---
+type: tutorial
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - segformer
+  - experiment-note
+  - fine-tuning
+  - mmsegmentation
+status: done
+model: SegFormer-MiT-B2
+year: 2021
+---
 ### 实验流程分析与总结
 
 你所执行的整个 V2 流程，从“激进策略”的失败到“集大成者”的成功，是一个非常宝贵的实践案例。它完美地展示了从“知道要用什么”到“知道该怎么用”的进阶过程。

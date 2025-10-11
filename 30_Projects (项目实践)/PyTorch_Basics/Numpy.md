@@ -1,3 +1,16 @@
+---
+type: concept-note
+tags:
+  - numpy
+  - python
+  - array-creation
+  - shape
+  - broadcasting
+  - data-science
+  - tutorial
+status: done
+summary: NumPy数组创建与形状理解的详细教程。重点区分了一维数组(N,)与二维列向量(N, 1)的本质区别，提供了正确的数组创建语法，并讲解了使用`.shape`、`.ndim`进行维度检查，以及使用`np.newaxis`、`.reshape`和`.squeeze`进行形状转换的方法。
+---
 # NumPy 数组创建与形状理解 - 学习笔记
 
 ## 1. 核心概念：数组形状表示法

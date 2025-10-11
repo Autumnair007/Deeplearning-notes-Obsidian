@@ -1,6 +1,10 @@
-## TorchServe部署自定义数据集参考操作
-
- ==Gemini2.5Pro生成，仅供参考== 
+---
+type: "tutorial"
+tags: [pytorch, torchserve, custom-dataset, model-deployment, handler, data-handling, machine-learning]
+status: "done"
+summary: "本指南提供了使用自定义数据集训练的PyTorch模型部署到TorchServe的完整参考流程。它涵盖了**数据组织**（使用ImageFolder格式）、**模型训练中的标签处理**（生成并保存`idx_to_class`映射为JSON文件）、**模型输出层调整**以匹配自定义类别数量，以及**TorchServe Handler的关键修改**。核心步骤强调了在Handler的`initialize`方法中正确加载自定义权重和标签映射文件，并在`postprocess`中利用该映射返回自定义的类别名称。最后，提供了使用`torch-model-archiver`打包自定义模型（包括模型定义、自定义权重和标签映射）的示例命令。"
+---
+==Gemini2.5Pro生成，仅供参考== 
 
 如果你想使用自己的数据集和标签来训练模型，并最终部署到 TorchServe，你需要关注以下几个关键环节：**数据准备、模型训练（特别是标签处理和模型输出层调整）、保存必要的产物（模型权重和标签映射），以及相应地修改 TorchServe Handler**。
 

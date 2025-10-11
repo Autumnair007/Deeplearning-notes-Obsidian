@@ -1,5 +1,19 @@
-# Segformer ADE数据集 V1
-
+---
+type: tutorial
+tags:
+  - cv
+  - semantic-segmentation
+  - full-supervision
+  - transformer
+  - segformer
+  - mit-b2
+  - ade20k
+  - mmsegmentation
+  - code-note
+status: done
+model: SegFormer
+year: 2021
+---
 从PASCAL VOC 2012 增强数据集V3版本继承继续研究。
 
 参考资料：[(一)ADE20K数据集-CSDN博客](https://blog.csdn.net/lx_ros/article/details/125650685)
