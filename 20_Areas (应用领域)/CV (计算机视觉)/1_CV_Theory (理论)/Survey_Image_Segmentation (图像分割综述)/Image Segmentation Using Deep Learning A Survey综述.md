@@ -17,6 +17,8 @@ paper_pdf: papers/2001.05566v1.pdf
 论文原文：[2001.05566v1](https://arxiv.org/pdf/2001.05566v1)
 
 参考资料：[[图像分割综述\] Image Segmentation Using Deep Learning: A Survey-CSDN博客](https://blog.csdn.net/john_bh/article/details/107044528)
+
+本地pdf：[图像分割综述](../../../../99_Assets%20(资源文件)/papers/Image%20Segmentation%20Using%20Deep%20Learning%20A%20Survey.pdf)
 ***
 # **Abstract**
 

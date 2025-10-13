@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00_Meta (元数据)/paper_notes_template.md",
-                "mode": "preview",
+                "file": "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_notes.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "paper_notes_template"
+              "title": "dinov2_notes"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:image-classification",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 399.5
+    "width": 554.5
   },
   "right": {
     "id": "8ac69e46bf631f95",
@@ -171,12 +171,15 @@
   },
   "active": "eadfcf778c82825e",
   "lastOpenFiles": [
-    "00_Meta (元数据)/note_template.md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/global_average_pooling(全局平均池化).md",
+    "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/Survey_Image_Segmentation (图像分割综述)/Image Segmentation Using Deep Learning A Survey综述.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/Survey_Image_Segmentation (图像分割综述)/An overview of industrial image segmentation using（2025）.md",
     "00_Meta (元数据)/paper_notes_template.md",
+    "00_Meta (元数据)/note_template.md",
     "30_Projects (项目实践)/_Projects_Hub.md",
     "30_Projects (项目实践)/PyTorch_Basics/Numpy.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Image_Classification_Index.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
     "20_Areas (应用领域)/_Areas_Hub.md",
     "00_Meta (元数据)/目录树.txt",
     "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe部署自定义数据集参考操作.md",
@@ -203,9 +206,6 @@
     "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_V3.md",
     "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_V2.md",
     "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_V1.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_ADE_V1.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_conclusion1.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial_final.md",
     "00_Meta (元数据)/directory_tree.txt",
     "30_Projects (项目实践)/Word2Vec_impl/word2vec.py",
     "30_Projects (项目实践)/Word2Vec_impl",
