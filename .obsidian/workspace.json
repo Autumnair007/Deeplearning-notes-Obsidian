@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/class_imbalance(类别不平衡).md",
+                "file": "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial_enhanced.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "class_imbalance(类别不平衡)"
+              "title": "upernet_tutorial_enhanced"
             }
           }
         ]
@@ -169,8 +169,12 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "ef65771d91ae4a26",
+  "active": "eadfcf778c82825e",
   "lastOpenFiles": [
+    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial.md",
+    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_conclusion.md",
+    "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_V1.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/class_imbalance(类别不平衡).md",
     "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/global_average_pooling(全局平均池化).md",
     "10_Knowledge_Base (知识库)/_Knowledge_Base_Hub.md",
     "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/Survey_Image_Segmentation (图像分割综述)/Image Segmentation Using Deep Learning A Survey综述.md",
@@ -202,10 +206,6 @@
     "99_Assets (资源文件)/images/image-20250428195518649.png",
     "30_Projects (项目实践)/PyTorch_Basics/Matplotlib中文显示问题.md",
     "30_Projects (项目实践)/PyTorch_Basics/Sequential.md",
-    "30_Projects (项目实践)/Custom_Diffusion_reproduction/custom_diffusion_reproduction_guide.md",
-    "30_Projects (项目实践)/MMPretrain_tutorials/mmpretrain_usage_tutorial.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/Mask2Former/Mask2Former_tutorial_ADE20K_V1.1.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_V3.md",
     "00_Meta (元数据)/directory_tree.txt",
     "30_Projects (项目实践)/Word2Vec_impl/word2vec.py",
     "30_Projects (项目实践)/Word2Vec_impl",
