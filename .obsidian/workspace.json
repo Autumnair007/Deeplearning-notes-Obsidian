@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "fb42027f88a753b3",
+        "id": "09c1a6599744614e",
         "type": "tabs",
         "children": [
           {
-            "id": "eadfcf778c82825e",
+            "id": "9d28852abfa061c2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial_enhanced.md",
+                "file": "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_paper_notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "upernet_tutorial_enhanced"
+              "title": "ReME_paper_notes"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:imbalanced-data",
+                "query": "tag:cv",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 554.5
+    "width": 374.5
   },
   "right": {
     "id": "8ac69e46bf631f95",
@@ -169,8 +169,23 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "eadfcf778c82825e",
+  "active": "9d28852abfa061c2",
   "lastOpenFiles": [
+    "99_Assets (资源文件)/papers/ReME.pdf",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_notes.md",
+    "99_Assets (资源文件)/images/6281cd1c36b090d95c5cea18ed4b9510.png",
+    "99_Assets (资源文件)/images/67296341333c4a77a4645bd6b1095e74.png",
+    "99_Assets (资源文件)/images/e87e26561ce45f42c916b14f18b0bfe8.png",
+    "99_Assets (资源文件)/images/4677cce2aa4af77b34ef6a05865846e5.png",
+    "99_Assets (资源文件)/images/d0fbc099808466504e7d887b219ba890.png",
+    "99_Assets (资源文件)/images/b7c20a678005924e3a200ac89927af37.png",
+    "99_Assets (资源文件)/images/0ec93e5fe0d8e58fe56a377afab4c462.png",
+    "99_Assets (资源文件)/images/979b9fe5bb3333f27ee9a37eb0d5f5bb.png",
+    "99_Assets (资源文件)/images/62e0ff54463b6252e378f66d84f7dcf7.png",
+    "99_Assets (资源文件)/images/40c629f1a4435e99445e31e8425ca226.png",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ITACLIP/ITACLIP_papers_notes.md",
+    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial_enhanced.md",
     "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial.md",
     "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_conclusion.md",
     "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_V1.md",
@@ -192,20 +207,7 @@
     "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe-Token.md",
     "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe-ResNet-18操作步骤.md",
     "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe-ResNet-18补充.md",
-    "99_Assets (资源文件)/images/image-20250429225038291.png",
-    "99_Assets (资源文件)/images/image-20250429215148358.png",
-    "99_Assets (资源文件)/images/image-20250429214757444.png",
-    "99_Assets (资源文件)/images/image-20250429201453197.png",
-    "99_Assets (资源文件)/images/image-20250429200908395.png",
     "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/README.md",
-    "30_Projects (项目实践)/TorchServe_deployments/MNIST部署/TorchServe-Token.md",
-    "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/ngrok连接的操作步骤.md",
-    "99_Assets (资源文件)/images/image-20250429225941145.png",
-    "30_Projects (项目实践)/TorchServe_deployments/MNIST部署/mnist-TorchServe操作步骤.md",
-    "99_Assets (资源文件)/images/image-20250428195942663.png",
-    "99_Assets (资源文件)/images/image-20250428195518649.png",
-    "30_Projects (项目实践)/PyTorch_Basics/Matplotlib中文显示问题.md",
-    "30_Projects (项目实践)/PyTorch_Basics/Sequential.md",
     "00_Meta (元数据)/directory_tree.txt",
     "30_Projects (项目实践)/Word2Vec_impl/word2vec.py",
     "30_Projects (项目实践)/Word2Vec_impl",
@@ -213,9 +215,6 @@
     "30_Projects (项目实践)/ViT_impl/vit_cifar10_tensor.py",
     "30_Projects (项目实践)/ViT_impl/vit_cifar10.py",
     "30_Projects (项目实践)/ViT_impl",
-    "30_Projects (项目实践)/VAE_impl/vae.py",
-    "30_Projects (项目实践)/VAE_impl",
-    "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/resnet_18/ReactJSExample/image/README/1625898706091.png",
-    "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/resnet_18/ReactJSExample/image/README/1625836884119.png"
+    "30_Projects (项目实践)/VAE_impl/vae.py"
   ]
 }
