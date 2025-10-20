@@ -13,12 +13,24 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ITACLIP/ITACLIP_papers_notes.md",
+                "file": "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ITACLIP_papers_notes"
+              "title": "ReME_notes"
+            }
+          },
+          {
+            "id": "9d28852abfa061c2",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "99_Assets (资源文件)/papers/ReME.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "ReME"
             }
           }
         ]
@@ -194,21 +206,8 @@
                   "icon": "lucide-file",
                   "title": "ReME_paper_notes"
                 }
-              },
-              {
-                "id": "9d28852abfa061c2",
-                "type": "leaf",
-                "state": {
-                  "type": "pdf",
-                  "state": {
-                    "file": "99_Assets (资源文件)/papers/ReME.pdf"
-                  },
-                  "icon": "lucide-file-text",
-                  "title": "ReME"
-                }
               }
-            ],
-            "currentTab": 1
+            ]
           }
         ],
         "direction": "vertical",
@@ -221,11 +220,13 @@
       }
     ]
   },
-  "active": "ef65771d91ae4a26",
+  "active": "7f097de86ae9809d",
   "lastOpenFiles": [
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_notes.md",
-    "99_Assets (资源文件)/papers/ReME.pdf",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_paper_notes.md",
+    "99_Assets (资源文件)/images/d8a2c15dfa8e8e7b60a891485b962fb1.png",
+    "99_Assets (资源文件)/papers/ReME.pdf",
+    "20_Areas (应用领域)/_Areas_Hub.md",
     "99_Assets (资源文件)/images/0ec93e5fe0d8e58fe56a377afab4c462.png",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ITACLIP/ITACLIP_papers_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Contrastive Language-Image Pre-training(CLIP)(对比语言图像预训练)/clip_notes.md",
@@ -238,7 +239,6 @@
     "99_Assets (资源文件)/images/b7c20a678005924e3a200ac89927af37.png",
     "99_Assets (资源文件)/images/979b9fe5bb3333f27ee9a37eb0d5f5bb.png",
     "99_Assets (资源文件)/images/62e0ff54463b6252e378f66d84f7dcf7.png",
-    "99_Assets (资源文件)/images/40c629f1a4435e99445e31e8425ca226.png",
     "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial_enhanced.md",
     "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial.md",
     "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_conclusion.md",
@@ -255,7 +255,6 @@
     "30_Projects (项目实践)/_Projects_Hub.md",
     "30_Projects (项目实践)/PyTorch_Basics/Numpy.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Image_Classification_Index.md",
-    "20_Areas (应用领域)/_Areas_Hub.md",
     "00_Meta (元数据)/目录树.txt",
     "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe部署自定义数据集参考操作.md",
     "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe-Token.md",
