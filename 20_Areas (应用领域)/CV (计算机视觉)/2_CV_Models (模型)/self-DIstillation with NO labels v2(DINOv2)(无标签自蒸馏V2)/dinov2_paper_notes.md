@@ -15,6 +15,7 @@ tags:
   - depth-estimation
   - instance-recognition
   - image-classification
+  - tfs
 status: done
 model: DINOv2
 year: 2023

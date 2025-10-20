@@ -1,5 +1,5 @@
-Directory Tree generated on 2025-10-11 15:00:02.651122
-Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian\Deeplearning-notes-Obsidian
+Directory Tree generated on 2025-10-20 16:21:29.850654
+Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 
 │   ├── LICENSE
 │   ├── README.md
@@ -11,6 +11,7 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian\Deeplea
 │   │   ├── workspace.json
 │   │   ├── plugins/
 │   │   │   ├── dataview/
+│   │   │   │   ├── data.json
 │   │   │   │   ├── main.js
 │   │   │   │   ├── manifest.json
 │   │   │   │   ├── styles.css
@@ -43,6 +44,7 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian\Deeplea
 │   │   │   ├── cross_entropy_loss_for_language_models[交叉熵损失(语言模型)].md
 │   │   │   ├── data_flow_of_attention_mechanism_in_nlp[注意力机制的数据流过程(NLP)].md
 │   │   │   ├── downsampling_and_upsampling(下采样与上采样).md
+│   │   │   ├── global_average_pooling(全局平均池化).md
 │   │   │   ├── multi_head_attention_self_attention_and_positional_encoding_notes(多头注意力、自注意力与位置编码笔记).md
 │   │   │   ├── n-gram.md
 │   │   │   ├── normalization(归一化).md
@@ -110,6 +112,8 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian\Deeplea
 │   │   │   │   ├── Fully_Convolutional_Networks(FCN)/
 │   │   │   │   │   ├── fcn_notes.md
 │   │   │   │   │   ├── fcn_papers_notes.md
+│   │   │   │   ├── ITACLIP/
+│   │   │   │   │   ├── ITACLIP_papers_notes.md
 │   │   │   │   ├── Mask2Former/
 │   │   │   │   │   ├── mask2former_notes.md
 │   │   │   │   │   ├── mask2former_paper_notes.md
@@ -145,11 +149,6 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian\Deeplea
 │   │   │   │   ├── Swin_Transformer/
 │   │   │   │   │   ├── swin_transformer_notes.md
 │   │   │   │   │   ├── swin_transformer_paper_notes.md
-│   │   │   │   ├── Training-Free_Segmentation/
-│   │   │   │   │   ├── ITACLIP/
-│   │   │   │   │   │   ├── ITACLIP_papers_notes.md
-│   │   │   │   │   ├── ReME/
-│   │   │   │   │   │   ├── ReME_paper_notes.md
 │   │   │   │   ├── UPerNet/
 │   │   │   │   │   ├── upernet_notes.md
 │   │   │   │   │   ├── upernet_papers_notes.md
@@ -158,6 +157,17 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian\Deeplea
 │   │   │   │   ├── Vision_Transformer(ViT)/
 │   │   │   │   │   ├── vision_transformer_code_notes.md
 │   │   │   │   │   ├── vision_transformer_notes.md
+│   │   │   ├── 3_Methods_and_Frameworks (方法与框架)/
+│   │   │   │   ├── Mask_Refinement (掩码优化)/
+│   │   │   │   │   ├── SAMRefiner/
+│   │   │   │   │   │   ├── SamRefiner_paper_notes.md
+│   │   │   │   ├── Open_Vocabulary_Segmentation (开放词汇分割)/
+│   │   │   │   │   ├── ReME/
+│   │   │   │   │   │   ├── ReME_notes.md
+│   │   │   │   │   │   ├── ReME_paper_notes.md
+│   │   │   ├── 4_CV_Topics (专题研究)/
+│   │   │   │   ├── Training_Free_Segmentation (免训练分割专题)/
+│   │   │   │   │   ├── _TFS_Hub.md
 │   │   ├── NLP (自然语言处理)/
 │   │   │   ├── _NLP_Hub.md
 │   │   │   ├── 1_NLP_Theory (理论)/

@@ -12,6 +12,7 @@ tags:
   - text-to-mask
   - sa-1b
   - semantic-segmentation
+  - tfs
 status: done
 model: Segment Anything Model
 year: 2023

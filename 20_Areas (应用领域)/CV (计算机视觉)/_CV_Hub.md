@@ -1,8 +1,10 @@
 ---
-type: "hub-note"
-tags: [hub, cv, areas]
-status: "done"
-
+type: hub-note
+tags:
+  - hub
+  - cv
+  - areas
+status: done
 ---
 # 计算机视觉领域 (CV)
 

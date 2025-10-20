@@ -4,33 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "947a7920318654fe",
+        "id": "a0f9ee7f5aee9d90",
         "type": "tabs",
         "children": [
           {
-            "id": "05d27cabeb5757c4",
+            "id": "7bff6e194336f22d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_notes.md",
+                "file": "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)/_TFS_Hub.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ReME_notes"
-            }
-          },
-          {
-            "id": "9d28852abfa061c2",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "99_Assets (资源文件)/papers/ReME.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "ReME"
+              "title": "_TFS_Hub"
             }
           }
         ]
@@ -65,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "0ec93e5fe0d8e58fe56a377afab4c462.png",
+                "query": "tag:attention",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -181,56 +169,46 @@
       "bases:创建新数据库": false
     }
   },
-  "floating": {
-    "id": "e20938f8fd943f1a",
-    "type": "floating",
-    "children": [
-      {
-        "id": "987e64ece247c4f9",
-        "type": "window",
-        "children": [
-          {
-            "id": "b8faf8f570ea1097",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "7f097de86ae9809d",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_paper_notes.md",
-                    "mode": "source",
-                    "source": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "ReME_paper_notes"
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "vertical",
-        "x": 1533,
-        "y": 570,
-        "width": 1501,
-        "height": 974,
-        "maximize": true,
-        "zoom": 0
-      }
-    ]
-  },
-  "active": "7f097de86ae9809d",
+  "active": "7bff6e194336f22d",
   "lastOpenFiles": [
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ReME/ReME_paper_notes.md",
-    "99_Assets (资源文件)/images/d8a2c15dfa8e8e7b60a891485b962fb1.png",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Semantic_Segmentation_Index.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Image_Classification_Index.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)/_TFS_Hub.md",
+    "10_Knowledge_Base (知识库)/1_Math (数学基础)/vector_space_and_orthogonality(空间和正交性).md",
+    "10_Knowledge_Base (知识库)/1_Math (数学基础)/norms_and_cosine_similarity(范数和余弦相似度).md",
+    "10_Knowledge_Base (知识库)/1_Math (数学基础)/maximum_likelihood_estimation(极大似然估计).md",
+    "10_Knowledge_Base (知识库)/1_Math (数学基础)/convex_and_concave_functions(凸函数和凹函数).md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/global_average_pooling(全局平均池化).md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/multi_head_attention_self_attention_and_positional_encoding_notes(多头注意力、自注意力与位置编码笔记).md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/n-gram.md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/downsampling_and_upsampling(下采样与上采样).md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/data_flow_of_attention_mechanism_in_nlp[注意力机制的数据流过程(NLP)].md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/cross_entropy_loss_for_language_models[交叉熵损失(语言模型)].md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/attention_mechanism(注意力机制).md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/activation_functions(激活函数).md",
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/深度学习思考.md",
+    "20_Areas (应用领域)/NLP (自然语言处理)/_NLP_Hub.md",
+    "30_Projects (项目实践)/_Projects_Hub.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/ITACLIP/ITACLIP_papers_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Fully_Convolutional_Networks(FCN)/fcn_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.md",
+    "99_Assets (资源文件)/images/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
+    "99_Assets (资源文件)/papers/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
+    "99_Assets (资源文件)/papers/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf.crdownload",
+    "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Segment_Anything_Model(SAM)/sam_code_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Segment_Anything_Model(SAM)/sam_paper_notes2(gemini-flash).md",
+    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)",
+    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner",
     "99_Assets (资源文件)/papers/ReME.pdf",
-    "20_Areas (应用领域)/_Areas_Hub.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)",
+    "99_Assets (资源文件)/images/d8a2c15dfa8e8e7b60a891485b962fb1.png",
     "99_Assets (资源文件)/images/0ec93e5fe0d8e58fe56a377afab4c462.png",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Training-Free_Segmentation/ITACLIP/ITACLIP_papers_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Contrastive Language-Image Pre-training(CLIP)(对比语言图像预训练)/clip_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Contrastive Language-Image Pre-training(CLIP)(对比语言图像预训练)/clip_code_notes.md",
     "99_Assets (资源文件)/images/6281cd1c36b090d95c5cea18ed4b9510.png",
     "99_Assets (资源文件)/images/67296341333c4a77a4645bd6b1095e74.png",
     "99_Assets (资源文件)/images/e87e26561ce45f42c916b14f18b0bfe8.png",
@@ -238,34 +216,6 @@
     "99_Assets (资源文件)/images/d0fbc099808466504e7d887b219ba890.png",
     "99_Assets (资源文件)/images/b7c20a678005924e3a200ac89927af37.png",
     "99_Assets (资源文件)/images/979b9fe5bb3333f27ee9a37eb0d5f5bb.png",
-    "99_Assets (资源文件)/images/62e0ff54463b6252e378f66d84f7dcf7.png",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial_enhanced.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_conclusion.md",
-    "30_Projects (项目实践)/MMSegmentation_tutorials/SegFormer_tutorial/segformer_tutorial_V1.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/class_imbalance(类别不平衡).md",
-    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/global_average_pooling(全局平均池化).md",
-    "10_Knowledge_Base (知识库)/_Knowledge_Base_Hub.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/Survey_Image_Segmentation (图像分割综述)/Image Segmentation Using Deep Learning A Survey综述.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/Survey_Image_Segmentation (图像分割综述)/An overview of industrial image segmentation using（2025）.md",
-    "00_Meta (元数据)/paper_notes_template.md",
-    "00_Meta (元数据)/note_template.md",
-    "30_Projects (项目实践)/_Projects_Hub.md",
-    "30_Projects (项目实践)/PyTorch_Basics/Numpy.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Image_Classification_Index.md",
-    "00_Meta (元数据)/目录树.txt",
-    "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe部署自定义数据集参考操作.md",
-    "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe-Token.md",
-    "30_Projects (项目实践)/TorchServe_deployments/ResNet18部署/TorchServe-ResNet-18操作步骤.md",
-    "00_Meta (元数据)/directory_tree.txt",
-    "30_Projects (项目实践)/Word2Vec_impl/word2vec.py",
-    "30_Projects (项目实践)/Word2Vec_impl",
-    "30_Projects (项目实践)/新建文件夹",
-    "30_Projects (项目实践)/ViT_impl/vit_cifar10_tensor.py",
-    "30_Projects (项目实践)/ViT_impl/vit_cifar10.py",
-    "30_Projects (项目实践)/ViT_impl",
-    "30_Projects (项目实践)/VAE_impl/vae.py"
+    "99_Assets (资源文件)/images/62e0ff54463b6252e378f66d84f7dcf7.png"
   ]
 }

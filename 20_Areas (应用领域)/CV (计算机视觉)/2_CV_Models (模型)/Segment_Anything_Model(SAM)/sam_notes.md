@@ -11,6 +11,7 @@ tags:
   - instance-segmentation
   - promptable
   - semantic-segmentation
+  - tfs
 status: done
 model: Segment Anything Model
 year: 2023

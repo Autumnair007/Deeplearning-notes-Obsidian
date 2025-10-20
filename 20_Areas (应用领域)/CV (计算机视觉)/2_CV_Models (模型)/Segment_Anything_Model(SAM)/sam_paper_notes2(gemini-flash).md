@@ -11,6 +11,7 @@ tags:
   - transformer
   - zero-shot
   - semantic-segmentation
+  - tfs
 status: done
 model: Segment Anything Model
 year: 2023
