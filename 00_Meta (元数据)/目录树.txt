@@ -1,5 +1,5 @@
-Directory Tree generated on 2025-10-20 16:21:29.850654
-Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
+Directory Tree generated on 2025-10-23 19:11:56.697828
+Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 
 │   ├── LICENSE
 │   ├── README.md
@@ -263,6 +263,7 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   │   ├── Per-Pixel Classification is Not All You Need for Semantic Segmentation.pdf
 │   │   │   ├── ReME.pdf
 │   │   │   ├── Rethinking Semantic Segmentation from a Sequence-to-Sequence Perspective.pdf
+│   │   │   ├── SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf
 │   │   │   ├── Segment Anything.pdf
 │   │   │   ├── Segmenter Transformer for Semantic Segmentation.pdf
 │   │   │   ├── Simple and Efficient Design for Semantic Segmentation with Transformers.pdf

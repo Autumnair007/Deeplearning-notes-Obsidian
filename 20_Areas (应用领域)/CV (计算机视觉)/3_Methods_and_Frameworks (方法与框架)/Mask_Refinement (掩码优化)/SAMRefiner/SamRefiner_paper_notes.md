@@ -11,7 +11,7 @@ tags:
   - instance-segmentation
   - semantic-segmentation
   - tfs
-status: in-progress
+status: todo
 model: SAMRefiner
 year: 2025
 ---
