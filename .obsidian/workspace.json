@@ -4,24 +4,37 @@
     "type": "split",
     "children": [
       {
-        "id": "77e623616cb6bd0f",
+        "id": "288c340352534a0b",
         "type": "tabs",
         "children": [
           {
-            "id": "5fae1aadc5fc70bc",
+            "id": "7d99a8e9d64ce2f2",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "99_Assets (资源文件)/papers/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "SAMREFINER TAMING SEGMENT ANYTHING MODEL"
+            }
+          },
+          {
+            "id": "1a9b3c2d632b9bab",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
+                "file": "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "_CV_Hub"
+              "title": "SamRefiner_paper_notes"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -53,7 +66,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:attention",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +91,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 409.5
+    "width": 515.5
   },
   "right": {
     "id": "8ac69e46bf631f95",
@@ -169,13 +182,24 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "ef65771d91ae4a26",
+  "active": "1a9b3c2d632b9bab",
   "lastOpenFiles": [
+    "99_Assets (资源文件)/papers/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.md",
+    "99_Assets (资源文件)/images/d96a72f6c2dab87ad86bd76c41c5fc28.png",
+    "99_Assets (资源文件)/images/15b0b02ff91f641526c6b25f3a002e6e.png",
+    "99_Assets (资源文件)/images/4f485f22e25ed5e682ffb7e664565bd1.png",
+    "99_Assets (资源文件)/images/ddae6ce312902e189e17008755cf30a3.png",
+    "99_Assets (资源文件)/images/381b5dfc8616ca2bd6f5cff612f37775.png",
+    "99_Assets (资源文件)/images/c660b027e67c670ac09cde8d81f7f871.png",
+    "99_Assets (资源文件)/images/9d9d8914a7b3ebdf076c6f92ab214e1b.png",
+    "99_Assets (资源文件)/images/4d2d212bb4c888f2e3111c58f0e754e8.png",
     "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)/_TFS_Hub.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Context_Label_Learning/Context_Label_Learning_paper_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Mitigating_Background_Shift/MBS_paper_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.md",
     "99_Assets (资源文件)/papers/Context Label Learning Improving Background Class Representations in Semantic Segmentation.pdf",
     "99_Assets (资源文件)/papers/Context Label Learning Improving Background.pdf",
     "99_Assets (资源文件)/papers/Context Label Learning Improving Background.pdf.crdownload",
@@ -183,8 +207,6 @@
     "99_Assets (资源文件)/papers/Mitigating Background Shift in Class-Incremental Semantic Segmentation.pdf",
     "99_Assets (资源文件)/papers/Mitigating Background Shift in.pdf",
     "99_Assets (资源文件)/papers/Mitigating Background Shift in.pdf.crdownload",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_paper_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Mitigating_Background_Shift",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Semantic_Segmentation_Index.md",
@@ -205,16 +227,7 @@
     "20_Areas (应用领域)/NLP (自然语言处理)/_NLP_Hub.md",
     "30_Projects (项目实践)/_Projects_Hub.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/ITACLIP/ITACLIP_papers_notes.md",
-    "99_Assets (资源文件)/images/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
     "99_Assets (资源文件)/images/d8a2c15dfa8e8e7b60a891485b962fb1.png",
-    "99_Assets (资源文件)/images/0ec93e5fe0d8e58fe56a377afab4c462.png",
-    "99_Assets (资源文件)/images/6281cd1c36b090d95c5cea18ed4b9510.png",
-    "99_Assets (资源文件)/images/67296341333c4a77a4645bd6b1095e74.png",
-    "99_Assets (资源文件)/images/e87e26561ce45f42c916b14f18b0bfe8.png",
-    "99_Assets (资源文件)/images/4677cce2aa4af77b34ef6a05865846e5.png",
-    "99_Assets (资源文件)/images/d0fbc099808466504e7d887b219ba890.png",
-    "99_Assets (资源文件)/images/b7c20a678005924e3a200ac89927af37.png",
-    "99_Assets (资源文件)/images/979b9fe5bb3333f27ee9a37eb0d5f5bb.png",
-    "99_Assets (资源文件)/images/62e0ff54463b6252e378f66d84f7dcf7.png"
+    "99_Assets (资源文件)/images/0ec93e5fe0d8e58fe56a377afab4c462.png"
   ]
 }
