@@ -16,9 +16,9 @@ model: Context Label Learning
 year: 2022
 summary: 提出上下文标签学习（CoLab），通过元学习自动生成背景子类别（上下文标签），以解决语义分割中背景类别异构性导致的欠拟合和过分割问题，显著提高ROI分割精度。
 ---
-论文网址：[[2407.11859] Mitigating Background Shift in Class-Incremental Semantic Segmentation](https://arxiv.org/abs/2407.11859)
+论文网址：[[2212.08423] Context Label Learning: Improving Background Class Representations in Semantic Segmentation](https://arxiv.org/abs/2212.08423)
 
-本地PDF文件：[MBS](../../../../../99_Assets%20(资源文件)/papers/Mitigating%20Background%20Shift%20in%20Class-Incremental%20Semantic%20Segmentation.pdf)
+本地PDF文件：[Context Label Learning](../../../../../99_Assets%20(资源文件)/papers/Context%20Label%20Learning%20Improving%20Background%20Class%20Representations%20in%20Semantic%20Segmentation.pdf)
 ***
 ## 摘要
 

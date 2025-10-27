@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "288c340352534a0b",
+        "id": "2af9d4e8e4dd7e41",
         "type": "tabs",
         "children": [
           {
-            "id": "1a9b3c2d632b9bab",
+            "id": "03df5630c6aa31df",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_notes.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "SamRefiner_notes"
+              "title": "新标签页"
             }
           }
         ]
@@ -169,14 +165,22 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "1a9b3c2d632b9bab",
+  "active": "03df5630c6aa31df",
   "lastOpenFiles": [
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Segment_Anything_Model(SAM)/sam_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Context_Label_Learning/Context_Label_Learning_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Mitigating_Background_Shift/MBS_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)/_TFS_Hub.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.md",
+    "99_Assets (资源文件)/papers/SamRefiner Taming Segment Anything Model for Universal Mask Refinement.pdf",
+    "99_Assets (资源文件)/images/4e5b3157ebc2a39516354b0b6b04ed6c.png",
+    "99_Assets (资源文件)/papers/Swin Transformer Hierarchical Vision Transformer using Shifted Windows.pdf",
+    "99_Assets (资源文件)/papers/AConvNet for the 2020s.pdf",
+    "99_Assets (资源文件)/papers/ReME A Data-Centric Framework for Training-Free Open-Vocabulary Segmentation.pdf",
+    "99_Assets (资源文件)/papers/ITACLIP Boosting Training-Free Semantic Segmentation with Image, Text, and Architectural Enhancements.pdf",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Segment_Anything_Model(SAM)/sam_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.pdf",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_notes.md",
-    "99_Assets (资源文件)/papers/SamRefiner Taming Segment Anything Model for Universal Mask Refinement.pdf",
     "99_Assets (资源文件)/images/8b7d48f7c4e3f27db0116e48932d676f.png",
     "99_Assets (资源文件)/images/f5e4f529ddcc760cc13fa0b394ab9241.png",
     "99_Assets (资源文件)/images/61e2132a19e9934a7848b7f94d6fdd9e.png",
@@ -186,20 +190,12 @@
     "99_Assets (资源文件)/images/ba4404406c85e129d1125c05901576d2.png",
     "99_Assets (资源文件)/images/280c0b6ad7ae2b6f9e8ff97c1201aa97.png",
     "99_Assets (资源文件)/images/85a2dda5cf4b3d6acfc68c41ccbb66aa.png",
-    "99_Assets (资源文件)/images/dcf72cdeac9171b2e44300731731c6a5.png",
     "99_Assets (资源文件)/papers/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
-    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)/_TFS_Hub.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_paper_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Context_Label_Learning/Context_Label_Learning_paper_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Mitigating_Background_Shift/MBS_paper_notes.md",
     "99_Assets (资源文件)/papers/Context Label Learning Improving Background Class Representations in Semantic Segmentation.pdf",
     "99_Assets (资源文件)/papers/Context Label Learning Improving Background.pdf",
     "99_Assets (资源文件)/papers/Context Label Learning Improving Background.pdf.crdownload",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Context_Label_Learning",
-    "99_Assets (资源文件)/papers/Mitigating Background Shift in Class-Incremental Semantic Segmentation.pdf",
-    "99_Assets (资源文件)/papers/Mitigating Background Shift in.pdf",
-    "99_Assets (资源文件)/papers/Mitigating Background Shift in.pdf.crdownload",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Semantic_Segmentation_Index.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Image_Classification_Index.md",
     "10_Knowledge_Base (知识库)/1_Math (数学基础)/vector_space_and_orthogonality(空间和正交性).md",
@@ -215,7 +211,6 @@
     "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/attention_mechanism(注意力机制).md",
     "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/activation_functions(激活函数).md",
     "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/深度学习思考.md",
-    "20_Areas (应用领域)/NLP (自然语言处理)/_NLP_Hub.md",
-    "30_Projects (项目实践)/_Projects_Hub.md"
+    "20_Areas (应用领域)/NLP (自然语言处理)/_NLP_Hub.md"
   ]
 }
