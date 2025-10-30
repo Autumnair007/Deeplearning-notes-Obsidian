@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "8dda4d7510abf768",
+        "id": "9fdcd9d13b715ce1",
         "type": "tabs",
         "children": [
           {
-            "id": "bfca8195b7c599b2",
+            "id": "6c8a7ba7bc7ba515",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "10_Knowledge_Base (知识库)/4_DL_Models_And_Mechanisms (模型与机制)/Contrastive_Sparse_Representation(对比稀疏表示)/csr_paper_notes.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "csr_paper_notes"
+              "title": "新标签页"
             }
           }
         ]
@@ -169,10 +165,16 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "bfca8195b7c599b2",
+  "active": "6c8a7ba7bc7ba515",
   "lastOpenFiles": [
+    "30_Projects (项目实践)/MMPretrain_tutorials/mmpretrain_usage_tutorial.md",
+    "30_Projects (项目实践)/Custom_Diffusion_reproduction/custom_diffusion_reproduction_guide.md",
     "99_Assets (资源文件)/papers/Beyond Matryoshka Revisiting Sparse Coding for Adaptive Representation.pdf",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_notes.md",
     "10_Knowledge_Base (知识库)/4_DL_Models_And_Mechanisms (模型与机制)/Contrastive_Sparse_Representation(对比稀疏表示)/csr_paper_notes.md",
+    "99_Assets (资源文件)/images/3172cfd5bcf8697088c4f7d73f346a45.png",
+    "99_Assets (资源文件)/images/af8fb3c6fc9b549543482696e4fcaec7.png",
     "10_Knowledge_Base (知识库)/4_DL_Models_And_Mechanisms (模型与机制)/Contrastive_Sparse_Representation(对比稀疏表示)/csr_notes.md",
     "99_Assets (资源文件)/images/2c072cf2068a352affdc402d384b2f56.png",
     "99_Assets (资源文件)/images/7b832bb8d6245f6edb915d272c8782b7.png",
@@ -191,7 +193,6 @@
     "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)/_TFS_Hub.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.md",
     "99_Assets (资源文件)/papers/SamRefiner Taming Segment Anything Model for Universal Mask Refinement.pdf",
-    "99_Assets (资源文件)/images/4e5b3157ebc2a39516354b0b6b04ed6c.png",
     "99_Assets (资源文件)/papers/Swin Transformer Hierarchical Vision Transformer using Shifted Windows.pdf",
     "99_Assets (资源文件)/papers/AConvNet for the 2020s.pdf",
     "99_Assets (资源文件)/papers/ReME A Data-Centric Framework for Training-Free Open-Vocabulary Segmentation.pdf",
@@ -199,7 +200,6 @@
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Segment_Anything_Model(SAM)/sam_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.pdf",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_notes.md",
-    "99_Assets (资源文件)/images/8b7d48f7c4e3f27db0116e48932d676f.png",
     "99_Assets (资源文件)/papers/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_paper_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
@@ -212,9 +212,6 @@
     "10_Knowledge_Base (知识库)/1_Math (数学基础)/maximum_likelihood_estimation(极大似然估计).md",
     "10_Knowledge_Base (知识库)/1_Math (数学基础)/convex_and_concave_functions(凸函数和凹函数).md",
     "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/global_average_pooling(全局平均池化).md",
-    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/multi_head_attention_self_attention_and_positional_encoding_notes(多头注意力、自注意力与位置编码笔记).md",
-    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/n-gram.md",
-    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/downsampling_and_upsampling(下采样与上采样).md",
-    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/data_flow_of_attention_mechanism_in_nlp[注意力机制的数据流过程(NLP)].md"
+    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/multi_head_attention_self_attention_and_positional_encoding_notes(多头注意力、自注意力与位置编码笔记).md"
   ]
 }

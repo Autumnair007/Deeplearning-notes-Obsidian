@@ -9,13 +9,12 @@ tags:
   - ssl
   - image-level-objective
   - patch-level-objective
-  - self-distillation
   - regularization
   - semantic-segmentation
-  - depth-estimation
   - instance-recognition
   - image-classification
   - tfs
+  - contrastive-learning
 status: done
 model: DINOv2
 year: 2023
