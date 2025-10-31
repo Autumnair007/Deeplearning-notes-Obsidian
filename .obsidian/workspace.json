@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "9fdcd9d13b715ce1",
+        "id": "be1221df02f81b46",
         "type": "tabs",
         "children": [
           {
-            "id": "6c8a7ba7bc7ba515",
+            "id": "a8a02f669b93d13e",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "00_Meta (元数据)/笔记项目框架.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "笔记项目框架"
             }
           }
         ]
@@ -49,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:weakly-supervised-segmentation",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "8ac69e46bf631f95",
@@ -165,11 +170,37 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "6c8a7ba7bc7ba515",
+  "active": "a8a02f669b93d13e",
   "lastOpenFiles": [
+    "99_Assets (资源文件)/papers/SamRefiner Taming Segment Anything Model for Universal Mask Refinement.pdf",
+    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/_WSSS_Hub.md",
+    "99_Assets (资源文件)/images/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Weakly_Supervised_Segmentation(弱监督分割)/KnowYour_Attention_Maps_for_WSSS/KnowYour_Attention_Maps_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/_TFS_Hub.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
+    "99_Assets (资源文件)/papers/Know Your Attention Maps Class-specific Token Masking for Weakly Supervised Semantic Segmentation.pdf",
+    "99_Assets (资源文件)/papers/KnowYour Attention Maps Class-specific Token Masking for Weakly Supervised Semantic Segmentation.pdf",
+    "99_Assets (资源文件)/papers/Hanna_Know_Your_Attention_Maps_Class-specific_Token_Masking_for_Weakly_Supervised_ICCV_2025_paper.pdf",
+    "99_Assets (资源文件)/papers/Hanna_Know_Your_Attention_Maps_Class-specific_Token_Masking_for_Weakly_Supervised_ICCV_2025_paper.pdf.crdownload",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/Trident_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Weakly_Supervised_Segmentation(弱监督分割)/KnowYour_Attention_Maps_for_WSSS",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Weakly_Supervised_Segmentation(弱监督分割)",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Semantic_Segmentation_Index.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Image_Classification_Index.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/Trident_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_paper_notes.md",
+    "10_Knowledge_Base (知识库)/2_ML_Concepts (机器学习概念)/supervised_learning_concepts(监督学习概念).md",
+    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/Survey_Image_Segmentation (图像分割综述)/Image Segmentation Using Deep Learning A Survey综述.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/1_CV_Theory (理论)/Survey_Image_Segmentation (图像分割综述)/An overview of industrial image segmentation using（2025）.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Mitigating_Background_Shift/MBS_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/ReME_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/ReME_paper_notes.md",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident",
+    "99_Assets (资源文件)/papers/Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf",
+    "99_Assets (资源文件)/papers/Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf.crdownload",
     "30_Projects (项目实践)/MMPretrain_tutorials/mmpretrain_usage_tutorial.md",
     "30_Projects (项目实践)/Custom_Diffusion_reproduction/custom_diffusion_reproduction_guide.md",
-    "99_Assets (资源文件)/papers/Beyond Matryoshka Revisiting Sparse Coding for Adaptive Representation.pdf",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_paper_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_notes.md",
     "10_Knowledge_Base (知识库)/4_DL_Models_And_Mechanisms (模型与机制)/Contrastive_Sparse_Representation(对比稀疏表示)/csr_paper_notes.md",
@@ -186,32 +217,6 @@
     "00_Meta (元数据)/未命名.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_notes.md",
     "99_Assets (资源文件)/images/168751dbc7affa26b23f6cf87dc69a00.png",
-    "99_Assets (资源文件)/images/44665c82e0bddc647802c97cd01b0ec9.png",
-    "10_Knowledge_Base (知识库)/_Knowledge_Base_Hub.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Context_Label_Learning/Context_Label_Learning_paper_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Background_and_Unseen_Class_Handling (背景与未知类别处理)/Mitigating_Background_Shift/MBS_paper_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/Training_Free_Segmentation (免训练分割专题)/_TFS_Hub.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.md",
-    "99_Assets (资源文件)/papers/SamRefiner Taming Segment Anything Model for Universal Mask Refinement.pdf",
-    "99_Assets (资源文件)/papers/Swin Transformer Hierarchical Vision Transformer using Shifted Windows.pdf",
-    "99_Assets (资源文件)/papers/AConvNet for the 2020s.pdf",
-    "99_Assets (资源文件)/papers/ReME A Data-Centric Framework for Training-Free Open-Vocabulary Segmentation.pdf",
-    "99_Assets (资源文件)/papers/ITACLIP Boosting Training-Free Semantic Segmentation with Image, Text, and Architectural Enhancements.pdf",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/Segment_Anything_Model(SAM)/sam_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_paper_notes.pdf",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_notes.md",
-    "99_Assets (资源文件)/papers/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/ReME/ReME_paper_notes.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/_CV_Hub.md",
-    "99_Assets (资源文件)/papers/Context Label Learning Improving Background Class Representations in Semantic Segmentation.pdf",
-    "99_Assets (资源文件)/papers/Context Label Learning Improving Background.pdf",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Semantic_Segmentation_Index.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Image_Classification_Index.md",
-    "10_Knowledge_Base (知识库)/1_Math (数学基础)/vector_space_and_orthogonality(空间和正交性).md",
-    "10_Knowledge_Base (知识库)/1_Math (数学基础)/norms_and_cosine_similarity(范数和余弦相似度).md",
-    "10_Knowledge_Base (知识库)/1_Math (数学基础)/maximum_likelihood_estimation(极大似然估计).md",
-    "10_Knowledge_Base (知识库)/1_Math (数学基础)/convex_and_concave_functions(凸函数和凹函数).md",
-    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/global_average_pooling(全局平均池化).md",
-    "10_Knowledge_Base (知识库)/3_DL_Core_Concepts (深度学习核心概念)/multi_head_attention_self_attention_and_positional_encoding_notes(多头注意力、自注意力与位置编码笔记).md"
+    "99_Assets (资源文件)/images/44665c82e0bddc647802c97cd01b0ec9.png"
   ]
 }

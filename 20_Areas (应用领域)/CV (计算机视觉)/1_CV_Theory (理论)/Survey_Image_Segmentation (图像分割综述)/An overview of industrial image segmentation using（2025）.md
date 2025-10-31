@@ -5,7 +5,7 @@ tags:
   - image-segmentation
   - industrial-vision
   - supervised-learning
-  - weakly-supervised-learning
+  - weakly-supervised
   - unsupervised-learning
 status: todo
 paper_title: An overview of industrial image segmentation using deep learning models

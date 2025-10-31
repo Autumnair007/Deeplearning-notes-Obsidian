@@ -1,4 +1,4 @@
-Directory Tree generated on 2025-10-29 14:22:36.197248
+Directory Tree generated on 2025-10-31 11:49:26.885594
 Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 
 │   ├── LICENSE
@@ -51,6 +51,9 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   ├── regularization(正则化).md
 │   │   │   ├── 深度学习思考.md
 │   │   ├── 4_DL_Models_And_Mechanisms (模型与机制)/
+│   │   │   ├── Contrastive_Sparse_Representation(对比稀疏表示)/
+│   │   │   │   ├── csr_notes.md
+│   │   │   │   ├── csr_paper_notes.md
 │   │   │   ├── Generative_Adversarial_Network(生成对抗网络)/
 │   │   │   │   ├── gan_notes.md
 │   │   │   ├── Recurrent Neural Network(循环神经网络)/
@@ -171,9 +174,15 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   │   │   ├── ReME/
 │   │   │   │   │   │   ├── ReME_notes.md
 │   │   │   │   │   │   ├── ReME_paper_notes.md
+│   │   │   │   │   ├── Trident/
+│   │   │   │   │   │   ├── Trident_notes.md
+│   │   │   │   │   │   ├── Trident_paper_notes.md
+│   │   │   │   ├── Weakly_Supervised_Segmentation(弱监督分割)/
+│   │   │   │   │   ├── KnowYour_Attention_Maps_for_WSSS/
+│   │   │   │   │   │   ├── KnowYour_Attention_Maps_paper_notes.md
 │   │   │   ├── 4_CV_Topics (专题研究)/
-│   │   │   │   ├── Training_Free_Segmentation (免训练分割专题)/
-│   │   │   │   │   ├── _TFS_Hub.md
+│   │   │   │   ├── _TFS_Hub.md
+│   │   │   │   ├── _WSSS_Hub.md
 │   │   ├── NLP (自然语言处理)/
 │   │   │   ├── _NLP_Hub.md
 │   │   │   ├── 1_NLP_Theory (理论)/
@@ -256,15 +265,20 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   ├── Word2Vec_impl/
 │   │   │   ├── word2vec.py
 │   ├── 99_Assets (资源文件)/
+│   │   ├── images/
+│   │   │   ├── SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf
 │   │   ├── papers/
 │   │   │   ├── AConvNet for the 2020s.pdf
 │   │   │   ├── An overview of industrial image segmentation using（2025）.pdf
+│   │   │   ├── Beyond Matryoshka Revisiting Sparse Coding for Adaptive Representation.pdf
 │   │   │   ├── Context Label Learning Improving Background Class Representations in Semantic Segmentation.pdf
 │   │   │   ├── DINOv2 Learning Robust Visual Features.pdf
 │   │   │   ├── Encoder-Decoder with Atrous Separable.pdf
 │   │   │   ├── Fully Convolutional Networks for Semantic Segmentation.pdf
+│   │   │   ├── Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf
 │   │   │   ├── ITACLIP Boosting Training-Free Semantic Segmentation with Image, Text, and Architectural Enhancements.pdf
 │   │   │   ├── Image Segmentation Using Deep Learning A Survey.pdf
+│   │   │   ├── Know Your Attention Maps Class-specific Token Masking for Weakly Supervised Semantic Segmentation.pdf
 │   │   │   ├── Masked-attention Mask Transformer for Universal Image Segmentation.pdf
 │   │   │   ├── Mitigating Background Shift in Class-Incremental Semantic Segmentation.pdf
 │   │   │   ├── Panoptic Feature Pyramid Networks.pdf

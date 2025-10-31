@@ -7,7 +7,7 @@ tags:
   - instance-segmentation
   - survey
   - supervised-learning
-  - weakly-supervised-learning
+  - weakly-supervised
   - unsupervised-learning
 status: todo
 year: 2020
