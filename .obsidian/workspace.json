@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "be1221df02f81b46",
+        "id": "41c034e165b9f4b5",
         "type": "tabs",
         "children": [
           {
-            "id": "a8a02f669b93d13e",
+            "id": "832d12c827ae62f5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00_Meta (元数据)/笔记项目框架.md",
+                "file": "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/Trident_paper_notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "笔记项目框架"
+              "title": "Trident_paper_notes"
             }
           }
         ]
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 284.5
   },
   "right": {
     "id": "8ac69e46bf631f95",
@@ -170,8 +169,55 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "a8a02f669b93d13e",
+  "floating": {
+    "id": "280b84d7eb9371d3",
+    "type": "floating",
+    "children": [
+      {
+        "id": "d04cbfb4f9d88160",
+        "type": "window",
+        "children": [
+          {
+            "id": "3c3034bc2a457f5a",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "794ba12ee8ff8d81",
+                "type": "leaf",
+                "state": {
+                  "type": "pdf",
+                  "state": {
+                    "file": "99_Assets (资源文件)/papers/Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf"
+                  },
+                  "icon": "lucide-file-text",
+                  "title": "Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 925,
+        "y": 132,
+        "width": 1591,
+        "height": 992,
+        "maximize": true,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "832d12c827ae62f5",
   "lastOpenFiles": [
+    "99_Assets (资源文件)/images/fd6cb4049513090604a0a9b57e02b48d.png",
+    "99_Assets (资源文件)/papers/Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf",
+    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/Trident_paper_notes.md",
+    "99_Assets (资源文件)/images/a97200b7f134e247de1dd1a68138ba92.png",
+    "99_Assets (资源文件)/images/8b2f691d0906af542b04aa78cfa90f81.png",
+    "30_Projects (项目实践)/MMSegmentation_tutorials/mmsegmentation_usage_tutorial.md",
+    "30_Projects (项目实践)/MMSegmentation_tutorials/Mask2Former/Mask2Former_tutorial_ADE20K_V1.1.md",
+    "30_Projects (项目实践)/MMSegmentation_tutorials/UPerNet_tutorial/upernet_tutorial.md",
+    "30_Projects (项目实践)/MMPretrain_tutorials/mmpretrain_usage_tutorial.md",
+    "00_Meta (元数据)/笔记项目框架.md",
     "99_Assets (资源文件)/papers/SamRefiner Taming Segment Anything Model for Universal Mask Refinement.pdf",
     "20_Areas (应用领域)/CV (计算机视觉)/4_CV_Topics (专题研究)/_WSSS_Hub.md",
     "99_Assets (资源文件)/images/SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf",
@@ -182,7 +228,6 @@
     "99_Assets (资源文件)/papers/KnowYour Attention Maps Class-specific Token Masking for Weakly Supervised Semantic Segmentation.pdf",
     "99_Assets (资源文件)/papers/Hanna_Know_Your_Attention_Maps_Class-specific_Token_Masking_for_Weakly_Supervised_ICCV_2025_paper.pdf",
     "99_Assets (资源文件)/papers/Hanna_Know_Your_Attention_Maps_Class-specific_Token_Masking_for_Weakly_Supervised_ICCV_2025_paper.pdf.crdownload",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/Trident_paper_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Weakly_Supervised_Segmentation(弱监督分割)/KnowYour_Attention_Maps_for_WSSS",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Weakly_Supervised_Segmentation(弱监督分割)",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/_Semantic_Segmentation_Index.md",
@@ -197,26 +242,17 @@
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/ReME_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident/ReME_paper_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Open_Vocabulary_Segmentation (开放词汇分割)/Trident",
-    "99_Assets (资源文件)/papers/Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf",
-    "99_Assets (资源文件)/papers/Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf.crdownload",
-    "30_Projects (项目实践)/MMPretrain_tutorials/mmpretrain_usage_tutorial.md",
     "30_Projects (项目实践)/Custom_Diffusion_reproduction/custom_diffusion_reproduction_guide.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_paper_notes.md",
     "20_Areas (应用领域)/CV (计算机视觉)/2_CV_Models (模型)/self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/dinov2_notes.md",
     "10_Knowledge_Base (知识库)/4_DL_Models_And_Mechanisms (模型与机制)/Contrastive_Sparse_Representation(对比稀疏表示)/csr_paper_notes.md",
     "99_Assets (资源文件)/images/3172cfd5bcf8697088c4f7d73f346a45.png",
     "99_Assets (资源文件)/images/af8fb3c6fc9b549543482696e4fcaec7.png",
-    "10_Knowledge_Base (知识库)/4_DL_Models_And_Mechanisms (模型与机制)/Contrastive_Sparse_Representation(对比稀疏表示)/csr_notes.md",
     "99_Assets (资源文件)/images/2c072cf2068a352affdc402d384b2f56.png",
     "99_Assets (资源文件)/images/7b832bb8d6245f6edb915d272c8782b7.png",
     "99_Assets (资源文件)/images/cc08c910c10b214f07c9c8771e1094f0.png",
     "99_Assets (资源文件)/images/c3ca2a83633de84b97aa0d683dcfaf4d.png",
     "99_Assets (资源文件)/images/2b0fe793c96af2b8400af9102699eada.png",
-    "99_Assets (资源文件)/images/c7e3cd4bcdb529904f14bd03c813b2d2.png",
-    "00_Meta (元数据)/note_template.md",
-    "00_Meta (元数据)/未命名.md",
-    "20_Areas (应用领域)/CV (计算机视觉)/3_Methods_and_Frameworks (方法与框架)/Mask_Refinement (掩码优化)/SAMRefiner/SamRefiner_notes.md",
-    "99_Assets (资源文件)/images/168751dbc7affa26b23f6cf87dc69a00.png",
-    "99_Assets (资源文件)/images/44665c82e0bddc647802c97cd01b0ec9.png"
+    "99_Assets (资源文件)/images/c7e3cd4bcdb529904f14bd03c813b2d2.png"
   ]
 }
