@@ -10,7 +10,7 @@ tags:
   - sam
   - trident
   - tfs
-status: todo
+status: done
 model: Trident
 year: 2025
 ---
@@ -39,16 +39,16 @@ year: 2025
 
     *   **关键组件图解 (Key Component Diagram):**
         *   **CLIP (Contrastive Language-Image Pre-training):**
-            ![CLIP Architecture](figure_not_in_paper_but_conceptually_needed) *(并非论文图，但为理解CLIP工作原理的关键)*
+            ![](../../../../../99_Assets%20(资源文件)/images/81c8b0ddcf61f46b06cf90d423ffaaa7.png) 
             *   **组件 CLIP_text (文本编码器):** 负责将文本（如类别名称）编码为高维度的文本嵌入。
             *   **组件 CLIP_img (图像编码器):** 负责将图像编码为高维度的图像嵌入，通常是ViT (Vision Transformer) 架构，生成一系列视觉token ($x_1, \dots, x_{HW}$) 和一个分类token ($x_{cls}$)。
             *   **作用:** 通过对比学习对齐文本和图像空间，实现开放词汇的图像级别理解。但其Attention机制和稠密特征存在**空间不变性语义**问题，导致像素级分割效果不佳。
         *   **DINO (Self-supervised Vision Transformers):**
-            ![DINO Architecture](figure_not_in_paper_but_conceptually_needed) *(并非论文图，但为理解DINO工作原理的关键)*
+            ![](../../../../../99_Assets%20(资源文件)/images/ca2de875e7afb239ff50e5d640dd3d2e.png)
             *   **组件 ViT Backbone:** 通常也是基于ViT架构进行自监督学习。
             *   **作用:** 学习鲁棒的视觉特征表示，尤其以其**空间协变语义表示**而闻名，能够很好地捕捉像素级特征的空间相关性（如图2(d)所示的DINO特征图，其相似性图能更好地区分不同语义区域）。
         *   **SAM (Segment-Anything Model):**
-            !(Figure 4中左下角的SAM Encoder和Decoder部分)
+            ![](../../../../../99_Assets%20(资源文件)/images/image-20250710094804023%201.png)
             *   **组件 SAM_img (图像编码器):** 负责将高分辨率图像编码为高质量的图像嵌入。
             *   **组件 Prompt Encoder (提示编码器):** 接收点、框或掩码等提示信息。
             *   **组件 Mask Decoder (掩码解码器):** 结合图像嵌入和提示信息生成分割掩码。
@@ -71,8 +71,8 @@ year: 2025
 #### 3.1 整体架构与数据流 (Overall Architecture & Data Flow)
 
 *   **高清架构图 (High-Level Architecture Diagram):**
-    ![Trident Framework](Fig4.png)
-    *上图展示了所提出的Trident模型框架。首先，利用滑动窗口策略对输入图像进行处理，通过CLIP和DINO提取子图像特征。然后，这些子图像特征被拼接起来，并与来自SAM的全局相关矩阵进行聚合，生成增强的图像特征。接着，利用CLIP文本编码器将文本查询转换为文本嵌入，并与聚合后的图像特征计算余弦相似度以生成初步的分割图。最后，对初步分割结果进行后处理，转换为点、框、掩码提示，并利用SAM的提示编码器和掩码解码器进行精进一步的细化，从而得到最终的高质量语义分割结果。*
+    ![](../../../../../99_Assets%20(资源文件)/images/58af9b81dbcded8857ef0d454226a9f1.png)
+    上图展示了所提出的Trident模型框架。首先，利用滑动窗口策略对输入图像进行处理，通过CLIP和DINO提取子图像特征。然后，这些子图像特征被拼接起来，并与来自SAM的全局相关矩阵进行聚合，生成增强的图像特征。接着，利用CLIP文本编码器将文本查询转换为文本嵌入，并与聚合后的图像特征计算余弦相似度以生成初步的分割图。最后，对初步分割结果进行后处理，转换为点、框、掩码提示，并利用SAM的提示编码器和掩码解码器进行精进一步的细化，从而得到最终的高质量语义分割结果。
 
 *   **数据流管道 (Data Pipeline):**
 
@@ -81,8 +81,8 @@ year: 2025
         *   **操作:** 滑动窗口分割 ($\sigma$) 和 CLIP/DINO 图像编码器 ($CLIP_{img}$/$DINO_{img}$) 特征提取。
         *   **细节:**
             1.  将源图像 $I_{src}$ 分割成 $n$ 个子图像 $[I_1^{src}, I_2^{src}, \dots, I_n^{src}]$，每个子图像大小为 $R_{sub} \times R_{sub} \times 3$ (例如，窗口大小 $336 \times 336 \times 3$，步长 $224 \times 224$)。
-            2.  对于每个子图像 $I_i^{src}$，通过CLIP图像编码器的前 $l-1$ 层提取其视觉token $V_i \in \mathbb{R}^{h w \times d}$ (例如，CLIP ViT-B/16模型，图像分辨率 $336 \times 336$，则 $h=21, w=21$，每个token维度 $d=768$，故 $V_i \in \mathbb{R}^{441 \times 768}$)。
-            3.  为了在子图像层面引入空间协变性，结合DINO（如ProxyCLIP），处理CLIP图像编码器最后一层的注意力值 $V_i$，通过线性投影 $LP$ (Linear Projection) 得到子图像的特征 $I_i^{feat} = LP(A_i V_i)$。其中 $A_i$ 是来自DINO的注意力或相关项。$I_i^{feat} \in \mathbb{R}^{hw \times d}$ (例如 $441 \times 768$)。
+            2.  对于每个子图像 $I_i^{src}$，通过CLIP图像编码器的前 $l-1$ 层提取其视觉token $V_i \in \mathbb{R}^{h w \times d}$ (例如，CLIP ViT-B/16模型，图像分辨率 $336 \times 336$，在P=16的情况下每一个patch的大小为： $h=21, w=21$，每个token维度 $d=768$，故 $V_i \in \mathbb{R}^{441 \times 768}$)。
+            3.  为了在子图像层面引入空间协变性，结合DINO（如ProxyCLIP），处理==CLIP图像编码器最后一层的注意力值 $V_i$==，通过线性投影 $LP$ (Linear Projection) 得到子图像的特征 $I_i^{feat} = LP(A_i V_i)$。其中 $A_i$ 是来自DINO的注意力或相关项。$I_i^{feat} \in \mathbb{R}^{hw \times d}$ (例如 $441 \times 768$)。
         *   **Output:** 一系列子图像特征 $[I_1^{feat}, I_2^{feat}, \dots, I_n^{feat}]$。
 
     *   **Step 2. 特征拼接与全局聚合 (Feature Splicing and Global Aggregation):**
@@ -169,14 +169,14 @@ year: 2025
     C = \frac{F}{\|F\|} \left(\frac{F}{\|F\|}\right)^T.
     $$
     **解释：**
-    *   $F \in \mathbb{R}^{HW \times d_S}$：这代表通过 $SAM_{img}$（SAM的图像编码器）处理原始图像 $I_{src}$ 得到的特征图。 $HW$ 是特征图的空间维度展平后的长度（例如 $64 \times 64 = 4096$），$d_S$ 是SAM特征的维度（例如 $d_S=256$）。
+    *   $F \in \mathbb{R}^{HW \times d_S}$：这代表通过 $SAM_{img}$（SAM的图像编码器）处理原始图像 $I_{src}$ 得到的特征图（SAM编码器得到的）。 $HW$ 是特征图的空间维度展平后的长度（例如 $64 \times 64 = 4096$），$d_S$ 是SAM特征的维度（例如 $d_S=256$）。
     *   $\frac{F}{\|F\|}$：表示对特征 $F$ 的每个行向量（即每个像素的特征向量）进行L2范数归一化，使其成为单位向量。
     *   $C \in \mathbb{R}^{HW \times HW}$：表示归一化后的特征 $F$ 及其转置的矩阵乘积，即计算了**所有像素对之间的余弦相似度**。$C_{ij}$ 表示像素 $i$ 和像素 $j$ 之间的视觉相似度。
     *   **具体数字例子：** 如果 $F \in \mathbb{R}^{4096 \times 256}$，那么归一化后仍为 $\mathbb{R}^{4096 \times 256}$。与自身的转置相乘，得到 $C \in \mathbb{R}^{4096 \times 256} \times \mathbb{R}^{256 \times 4096} = \mathbb{R}^{4096 \times 4096}$。$C_{10, 20}$ 代表第10个像素与第20个像素的余弦相似度，其值在 $[-1, 1]$ 之间。
 
     **阶段二：将余弦相似度与SAM注意力权重结合构建亲和矩阵 $A$**
     $$
-    A = \text{Softmax}\left(\frac{W+M}{\|W+M\|_F}\right), \\
+    A = \text{Softmax}\left(\frac{W+M}{\|W+M\|}\right), \\
     \text{where } M_{ij} = \begin{cases} 0, & C_{ij} \ge \epsilon \\ -W_{ij}, & C_{ij} < \epsilon \end{cases}
     $$
     **解释：**
@@ -185,12 +185,18 @@ year: 2025
     *   $M \in \mathbb{R}^{HW \times HW}$：这是一个**掩码矩阵**。
         *   如果 $C_{ij} \ge \epsilon$ (视觉相似度高)，则 $M_{ij}=0$，表示我们信任SAM注意力权重 $W_{ij}$，不进行修改。
         *   如果 $C_{ij} < \epsilon$ (视觉相似度低)，则 $M_{ij}=-W_{ij}$。这意味着我们认为这两个像素视觉上不相似，可能不属于同一对象。为了有效抑制 $W_{ij}$ 的影响，直接将其对应的注意力权重减去，使其在最终的 $W+M$ 中接近于零或负无穷，从而在Softmax后几乎为零。
-    *   $\frac{W+M}{\|W+M\|_F}$：对融合了 $W$ 和 $M$ 的矩阵进行归一化，然后应用Softmax。这里的除法可能是针对Frobenius范数或其他全局范数，确保数值稳定性。`Softmax` 将值转换为概率分布，确保 $A$ 的每一行和为1，从而可以作为聚合权重。
+    *   $\frac{W+M}{\|W+M\|}$：对融合了 $W$ 和 $M$ 的矩阵进行归一化，然后应用Softmax。
     *   $A \in \mathbb{R}^{HW \times HW}$：最终的亲和矩阵。$A_{ij}$ 表示像素 $i$ 的特征在聚合时从像素 $j$ 获得的权重。
     *   **具体数字例子：** 假设 $W \in \mathbb{R}^{4096 \times 4096}$ 且 $C \in \mathbb{R}^{4096 \times 4096}$。给定 $\epsilon = 0.5$。
         *   如果 $C_{10, 20} = 0.8 \ge 0.5$，则 $M_{10, 20} = 0$，最终 $A$ 会保留 $W_{10, 20}$ 的影响。
         *   如果 $C_{10, 21} = 0.2 < 0.5$，则 $M_{10, 21} = -W_{10, 21}$，这会有效地将 $W_{10, 21}$ 抵消，使得 $A_{10, 21}$ 趋近于零。
         *   最终 $A$ 矩阵经过Softmax处理，例如 $A \in \mathbb{R}^{4096 \times 4096}$，其中每一行的和为1。
+
+>    Frobenius 范数 (F-Norm) 的定义:
+    对于一个 $m \times n$ 矩阵 $X$，它的 Frobenius 范数定义为矩阵所有元素的平方和的平方根：
+$$\|X\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n |x_{ij}|^2}$$
+    **理解：** 它本质上是矩阵所有元素的 **"长度"** 或 **"大小"** 的一个标量度量。可以把它想象成将矩阵展平为一个大向量后计算其欧几里得范数（$L_2$ 范数）。
+
 
 *   **设计分析 (Design Analysis):**
     *   **解决SAM低层语义问题：** SAM特征的余弦相似度（如图3所示的青蛙眼睛与蜗牛中心）倾向于捕捉低层视觉相似性，而“过分割”问题也源于此。通过引入注意力权重 $W$，结合更高级别的语义关联，缓解了这一问题。
