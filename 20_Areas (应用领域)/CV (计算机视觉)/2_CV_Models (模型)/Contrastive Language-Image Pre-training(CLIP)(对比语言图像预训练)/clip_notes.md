@@ -16,6 +16,7 @@ tags:
 status: done
 model: CLIP
 key_concept: Learning general visual representations using natural language supervision and contrastive learning to achieve zero-shot transfer.
+year: 2021
 ---
 学习资料：[(6 封私信) 神器CLIP：连接文本和图像，打造可迁移的视觉模型 - 知乎](https://zhuanlan.zhihu.com/p/493489688)
 

@@ -16,6 +16,7 @@ tags:
 status: todo
 model: CLIP
 key_concept: Learning general visual representations using natural language supervision and contrastive learning to achieve zero-shot transfer.
+year: 2021
 ---
 论文原文：[[2103.00020] Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020)
 

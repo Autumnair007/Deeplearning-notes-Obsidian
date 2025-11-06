@@ -13,6 +13,7 @@ tags:
 status: done
 model: CLIP (Simplified)
 key_concept: Contrastive Learning between Image and Text in a Shared Embedding Space.
+year: 2021
 ---
 ## 1. 附有逐行注释的完整代码
 
