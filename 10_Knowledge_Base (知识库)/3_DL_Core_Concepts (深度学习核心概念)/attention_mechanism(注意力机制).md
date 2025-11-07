@@ -251,7 +251,7 @@ status: done
 
 - **起点 - 词嵌入 (Word Embedding):** 输入序列（比如一句话）中的每个词，首先会通过一个嵌入层 (Embedding Layer) 转换成一个稠密的向量。这个嵌入向量就不是独热编码了，它是一个包含了词语语义信息的低维实数向量（比如 100维、300维等）。这些嵌入向量可以是预训练好的（如 Word2Vec, GloVe），也可以是模型自己从头学习的。
     
-    关于词嵌入相关内容可以查看 [Word2Vec](../Natural%20Language%20Process%5CWord2Vec/Word2Vec%20notes.md)
+    关于词嵌入相关内容可以查看 [word2vec_notes](../4_DL_Models_And_Mechanisms%20(模型与机制)/Word2Vec(词向量)/word2vec_notes.md)
     
 - **编码器处理:** 这些词嵌入向量随后被送入编码器（比如一个 RNN/LSTM/GRU 或者 Transformer 的编码层）。编码器的作用是处理整个序列，捕捉每个词在上下文中的信息。
     
