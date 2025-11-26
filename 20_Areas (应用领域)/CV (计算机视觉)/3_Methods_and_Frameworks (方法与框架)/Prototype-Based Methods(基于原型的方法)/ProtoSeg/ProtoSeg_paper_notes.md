@@ -7,6 +7,7 @@ tags:
   - nonparametric
   - full-supervision
   - protoseg
+  - wsss
 status: done
 model: ProtoSeg
 year: 2022

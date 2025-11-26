@@ -6,7 +6,6 @@ tags:
   - semantic-segmentation
   - full-supervision
   - weakly-supervised
-  - open-vocabulary
   - align
   - lseg
   - vision-grounding
