@@ -1,17 +1,19 @@
-Directory Tree generated on 2025-10-31 11:49:26.885594
-Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
+Directory Tree generated on 2025-11-28 11:16:16.330026
+Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 
+│   ├── .gitignore
 │   ├── LICENSE
 │   ├── README.md
 │   ├── .obsidian/
 │   │   ├── app.json
 │   │   ├── appearance.json
+│   │   ├── backlink.json
 │   │   ├── community-plugins.json
 │   │   ├── core-plugins.json
+│   │   ├── hotkeys.json
 │   │   ├── workspace.json
 │   │   ├── plugins/
 │   │   │   ├── dataview/
-│   │   │   │   ├── data.json
 │   │   │   │   ├── main.js
 │   │   │   │   ├── manifest.json
 │   │   │   │   ├── styles.css
@@ -77,6 +79,7 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   │   ├── CV中的Transformer核心概念解析（以SETR为例）.md
 │   │   │   │   ├── Dice系数和IoU.md
 │   │   │   │   ├── class_imbalance(类别不平衡).md
+│   │   │   │   ├── 图像分割领域重新思考.md
 │   │   │   │   ├── Digital_Image_Processing(数字图像处理)/
 │   │   │   │   │   ├── README.md
 │   │   │   │   │   ├── dip_note_template.md
@@ -87,6 +90,7 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   │   ├── Survey_Image_Segmentation (图像分割综述)/
 │   │   │   │   │   ├── An overview of industrial image segmentation using（2025）.md
 │   │   │   │   │   ├── Image Segmentation Using Deep Learning A Survey综述.md
+│   │   │   │   │   ├── 分割总结.md
 │   │   │   ├── 2_CV_Models (模型)/
 │   │   │   │   ├── _Image_Classification_Index.md
 │   │   │   │   ├── _Semantic_Segmentation_Index.md
@@ -95,6 +99,7 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   │   ├── Contrastive Language-Image Pre-training(CLIP)(对比语言图像预训练)/
 │   │   │   │   │   ├── clip_code_notes.md
 │   │   │   │   │   ├── clip_notes.md
+│   │   │   │   │   ├── clip_paper_notes.md
 │   │   │   │   ├── ConvNeXt/
 │   │   │   │   │   ├── convnext_notes.md
 │   │   │   │   │   ├── convnext_paper_notes.md
@@ -115,8 +120,6 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   │   ├── Fully_Convolutional_Networks(FCN)/
 │   │   │   │   │   ├── fcn_notes.md
 │   │   │   │   │   ├── fcn_papers_notes.md
-│   │   │   │   ├── ITACLIP/
-│   │   │   │   │   ├── ITACLIP_papers_notes.md
 │   │   │   │   ├── Mask2Former/
 │   │   │   │   │   ├── mask2former_notes.md
 │   │   │   │   │   ├── mask2former_paper_notes.md
@@ -161,31 +164,56 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   │   │   ├── vision_transformer_code_notes.md
 │   │   │   │   │   ├── vision_transformer_notes.md
 │   │   │   ├── 3_Methods_and_Frameworks (方法与框架)/
-│   │   │   │   ├── Background_and_Unseen_Class_Handling (背景与未知类别处理)/
-│   │   │   │   │   ├── Context_Label_Learning/
-│   │   │   │   │   │   ├── Context_Label_Learning_paper_notes.md
-│   │   │   │   │   ├── Mitigating_Background_Shift/
-│   │   │   │   │   │   ├── MBS_paper_notes.md
-│   │   │   │   ├── Mask_Refinement (掩码优化)/
-│   │   │   │   │   ├── SAMRefiner/
-│   │   │   │   │   │   ├── SamRefiner_notes.md
-│   │   │   │   │   │   ├── SamRefiner_paper_notes.md
-│   │   │   │   ├── Open_Vocabulary_Segmentation (开放词汇分割)/
-│   │   │   │   │   ├── ReME/
-│   │   │   │   │   │   ├── ReME_notes.md
-│   │   │   │   │   │   ├── ReME_paper_notes.md
-│   │   │   │   │   ├── Trident/
-│   │   │   │   │   │   ├── Trident_notes.md
-│   │   │   │   │   │   ├── Trident_paper_notes.md
-│   │   │   │   ├── Weakly_Supervised_Segmentation(弱监督分割)/
-│   │   │   │   │   ├── KnowYour_Attention_Maps_for_WSSS/
-│   │   │   │   │   │   ├── KnowYour_Attention_Maps_paper_notes.md
+│   │   │   │   ├── 未命名.md
+│   │   │   │   ├── 1_Learning_Paradigms/
+│   │   │   │   │   ├── Semi_Supervised_Segmentation(半监督分割)/
+│   │   │   │   │   │   ├── SemiSeg-Contrastive/
+│   │   │   │   │   │   │   ├── SemiSeg-Contrastive_paper_notes.md
+│   │   │   │   │   ├── Weakly_Supervised/
+│   │   │   │   │   │   ├── KnowYour_Attention_Maps_for_WSSS/
+│   │   │   │   │   │   │   ├── KnowYour_Attention_Maps_paper_notes.md
+│   │   │   │   ├── 2_Generalization_and_Open_World/
+│   │   │   │   │   ├── Few_Shot/
+│   │   │   │   │   │   ├── FS‑DINO‑4D/
+│   │   │   │   │   │   │   ├── FS‑DINO‑4D_paper_notes.md
+│   │   │   │   │   ├── Open_Vocabulary/
+│   │   │   │   │   │   ├── CorrCLIP/
+│   │   │   │   │   │   │   ├── CorrCLIP_notes.md
+│   │   │   │   │   │   │   ├── CorrCLIP_paper_notes.md
+│   │   │   │   │   │   ├── ITACLIP/
+│   │   │   │   │   │   │   ├── ITACLIP_papers_notes.md
+│   │   │   │   │   │   ├── OpenSeg/
+│   │   │   │   │   │   │   ├── OpenSeg_paper_notes.md
+│   │   │   │   │   │   ├── ReME/
+│   │   │   │   │   │   │   ├── ReME_notes.md
+│   │   │   │   │   │   │   ├── ReME_paper_notes.md
+│   │   │   │   │   │   ├── Talk2DINO/
+│   │   │   │   │   │   │   ├── Talk2DINO_paper_notes.md
+│   │   │   │   │   │   ├── Trident/
+│   │   │   │   │   │   │   ├── Trident_notes.md
+│   │   │   │   │   │   │   ├── Trident_paper_notes.md
+│   │   │   │   ├── 3_Foundation_Model_Adaptation/
+│   │   │   │   ├── 4_Core_Mechanisms_and_Modules/
+│   │   │   │   │   ├── Background_and_Unseen_Class_Handling (背景与未知类别处理)/
+│   │   │   │   │   │   ├── Context_Label_Learning/
+│   │   │   │   │   │   │   ├── Context_Label_Learning_paper_notes.md
+│   │   │   │   │   │   ├── Mitigating_Background_Shift/
+│   │   │   │   │   │   │   ├── MBS_paper_notes.md
+│   │   │   │   │   ├── Mask_Refinement (掩码优化)/
+│   │   │   │   │   │   ├── SAMRefiner/
+│   │   │   │   │   │   │   ├── SamRefiner_notes.md
+│   │   │   │   │   │   │   ├── SamRefiner_paper_notes.md
+│   │   │   │   │   ├── Prototype-Based Methods(基于原型的方法)/
+│   │   │   │   │   │   ├── ProtoSeg/
+│   │   │   │   │   │   │   ├── ProtoSeg_paper_notes.md
 │   │   │   ├── 4_CV_Topics (专题研究)/
 │   │   │   │   ├── _TFS_Hub.md
 │   │   │   │   ├── _WSSS_Hub.md
 │   │   ├── NLP (自然语言处理)/
 │   │   │   ├── _NLP_Hub.md
 │   │   │   ├── 1_NLP_Theory (理论)/
+│   │   │   │   ├── Retrieval_Augmented_Generation(检索增强生成)/
+│   │   │   │   │   ├── RAG综述.md
 │   │   │   │   ├── Text_Preprocessing(文本预处理)/
 │   │   │   │   │   ├── text_preprocessing(文本预处理).md
 │   ├── 30_Projects (项目实践)/
@@ -264,31 +292,3 @@ Root: D:\AfterDownload\Data\GithubRepository\Deeplearning-notes-Obsidian
 │   │   │   ├── vit_cifar10_tensor.py
 │   │   ├── Word2Vec_impl/
 │   │   │   ├── word2vec.py
-│   ├── 99_Assets (资源文件)/
-│   │   ├── images/
-│   │   │   ├── SAMREFINER TAMING SEGMENT ANYTHING MODEL.pdf
-│   │   ├── papers/
-│   │   │   ├── AConvNet for the 2020s.pdf
-│   │   │   ├── An overview of industrial image segmentation using（2025）.pdf
-│   │   │   ├── Beyond Matryoshka Revisiting Sparse Coding for Adaptive Representation.pdf
-│   │   │   ├── Context Label Learning Improving Background Class Representations in Semantic Segmentation.pdf
-│   │   │   ├── DINOv2 Learning Robust Visual Features.pdf
-│   │   │   ├── Encoder-Decoder with Atrous Separable.pdf
-│   │   │   ├── Fully Convolutional Networks for Semantic Segmentation.pdf
-│   │   │   ├── Harnessing Vision Foundation Models for High-Performance, Training-Free Open Vocabulary Segmentation.pdf
-│   │   │   ├── ITACLIP Boosting Training-Free Semantic Segmentation with Image, Text, and Architectural Enhancements.pdf
-│   │   │   ├── Image Segmentation Using Deep Learning A Survey.pdf
-│   │   │   ├── Know Your Attention Maps Class-specific Token Masking for Weakly Supervised Semantic Segmentation.pdf
-│   │   │   ├── Masked-attention Mask Transformer for Universal Image Segmentation.pdf
-│   │   │   ├── Mitigating Background Shift in Class-Incremental Semantic Segmentation.pdf
-│   │   │   ├── Panoptic Feature Pyramid Networks.pdf
-│   │   │   ├── Per-Pixel Classification is Not All You Need for Semantic Segmentation.pdf
-│   │   │   ├── ReME A Data-Centric Framework for Training-Free Open-Vocabulary Segmentation.pdf
-│   │   │   ├── Rethinking Semantic Segmentation from a Sequence-to-Sequence Perspective.pdf
-│   │   │   ├── SamRefiner Taming Segment Anything Model for Universal Mask Refinement.pdf
-│   │   │   ├── Segment Anything.pdf
-│   │   │   ├── Segmenter Transformer for Semantic Segmentation.pdf
-│   │   │   ├── Simple and Efficient Design for Semantic Segmentation with Transformers.pdf
-│   │   │   ├── Swin Transformer Hierarchical Vision Transformer using Shifted Windows.pdf
-│   │   │   ├── Unified Perceptual Parsing for Scene Understanding.pdf
-│   │   │   ├── Vision Transformers for Dense Prediction.pdf

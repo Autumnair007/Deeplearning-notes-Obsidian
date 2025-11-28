@@ -23,42 +23,70 @@
 
 
 根据当前的笔记内容添加卡片的prompt：
-我已经给了你我当前的笔记内容，我希望你在开头添加如下所示的类似卡片的内容，可以有nlp或者cv的tag，不要有deep-learning的tag，如果主要内容是代码讲解的就是code-note（type类型，如果是concept-note里面有部分代码也可以加这个tag，但是不要乱加），我只需要卡片的内容就行！！！再次强调只需要卡片内容就行！！！除此之外，关于图像分割的部分tag要详细一点，是语义分割还是全景分割，实例分割、是半监督还是全监督(full-supervision)、自监督等等，注意一下，所有的tag都用英文而且全部小写，而且如果是模型的话就这个模型的缩写也成一个tag，这个模型缩写的tag不要加年份，在笔记属性里面加模型的年份，不管是concept-note还是paper-note。
-#### 2. “信息卡片”的模板和示例
-**基础模板 (适用于任何笔记)**
+
+我已经给了你我当前的笔记内容，我希望你在开头添加如下所示的类似卡片的内容。
+请严格遵守以下规则生成 YAML Frontmatter：
+1.  Type (类型):
+主要内容是代码讲解或源码分析  code-note
+主要内容是论文阅读笔记  paper-note
+主要内容是普通模型/概念讲解（即使包含少量代码片段） concept-note
+项目总结 project-summary
+2. Tags (标签):
+    领域标签: 必须包含 cv 或 nlp 其中之一。绝对不要包含 deep-learning 这个泛泛的标签。
+    格式: 所有标签必须是英文且全部小写。单词之间用短横线 - 连接（例如 semantic-segmentation）。
+    分割任务细化 (Segmentation Specifics): 如果涉及图像分割，必须详细区分：
+        semantic-segmentation (语义分割)
+        instance-segmentation (实例分割)
+        panoptic-segmentation (全景分割)
+    监督类型: 必须明确标注监督方式（如适用）：
+        fully-supervised (全监督 - 默认情况可省略，但若强调对比则加上)
+        semi-supervised (半监督)
+        weakly-supervised (弱监督)
+        self-supervised (自监督)
+        few-shot (少样本) / zero-shot (零样本)
+    模型标签: 使用模型的常用缩写作为标签（如 vit, resnet, clip, dino, sam）。不要在标签里加年份。
+    代码标签: 如果 type 是 concept-note 但包含部分关键代码，可以额外添加 code-note 到 tags 列表中（注意 type 仍是 concept-note）。
+3.  Year (年份):
+    不管是 concept-note (模型提出的年份) 还是 paper-note (论文发表年份)，都必须在 year 属性中填写年份，不要写在 tags 里。
+4.  Model (模型全称):
+      如果是论文笔记，请在 model 字段填写模型全称或论文中提出的主要方法名称。
+我只需要 YAML 卡片的内容，不需要任何解释或其他文本！
+“信息卡片”的模板和示例
+基础模板
 ```yaml
 ---
-type: ""        # 笔记类型 (如: concept-note, paper-note, project-summary，conde-note，普通的模型笔记就是concept-note,明显是论文笔记才是paper-note，不要什么都变成paper-note了)
-tags: []        # 标签 (如: cv, nlp, pytorch, transformer等等)
-status: "todo"  # 状态 (如: todo, in-progress, done，默认done状态)
+type: ""        # code-note, paper-note, concept-note, project-summary
+tags: []        # cv, nlp, transformer, semantic-segmentation 等
+status: "todo"  # todo, in-progress, done (默认 done)
 ---
 ```
 **示例1：一篇“知识原子”笔记 (`Transformer.md`)**
 ```yaml
 ---
 type: "concept-note"
-tags: [dl-model, sequence-model, attention]
+tags: [nlp, sequence-model, attention, transformer]
 status: "done"
+year: 2017
 ---
 ```
 **示例2：一篇“论文精读”笔记 (`vit_paper_notes.md`)**
 ```yaml
 ---
 type: "paper-note"
-tags: [cv, image-classification, vit]
+tags: [cv, image-classification, vit, transformer, fully-supervised]
 status: "done"
-model: "Vision Transformer" # 特定于模型笔记的字段
-year: 2020                  # 特定于论文笔记的字段
+model: "Vision Transformer"
+year: 2020
 ---
 ```
-**示例3：一篇“项目总结”笔记 (`README.md` in a project folder)**
+**示例3：一篇“项目总结”笔记 (`README.md`)**
 ```yaml
 ---
 type: "project-summary"
-tags: [pytorch, cifar10, image-classification]
+tags: [cv, pytorch, cifar10, image-classification, resnet]
 status: "in-progress"
-related_models: [ViT, ResNet] # 关联的模型
-summary:
+related_models: [ViT, ResNet]
+summary: "ResNet18在CIFAR10上的复现与训练总结"
 ---
 ```
 如你所见，你可以根据笔记的类型，自由地添加你认为有用的字段。`type`, `tags`, `status` 是最基础也最有用的三个，你可以适当添加，但是不要太多。
