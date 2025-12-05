@@ -83,6 +83,8 @@ $$
 3. **通过LVC生成动态CAM。** 设计一个轻量级适配器，用于从静态CAMs中学习动态令牌关系。这些关系被添加到SVC中，作为分布偏移，使视觉特征更加多样化。动态CAMs通过增强的文本嵌入和LVC特征通过公式(1)生成。
 4. **分割训练。** 动态CAMs被细化为伪标签以进行分割监督。
 
+![](../../../../../../99_Assets%20(资源文件)/images/ba12e56fec2792a4f130ae9a0c312a37.png)
+
 **图2: ExCEL架构。**
 我们通过文本语义增强（TSE）和视觉校准（VC）探索CLIP的密集知识。(a) TSE使用LLMs构建知识库，并将其聚类成隐式属性空间。通过搜索相关属性来增强最终的文本表示 $T_c$。图中展示了LLMs生成的关于[CLASS]的描述，例如“猫有圆而有神的眼睛”、“猫的毛发柔软且颜色多样”、“猫拥有可伸缩的爪子”，以及“船的甲板由木头或金属制成”、“船有一个螺旋桨来移动”等。这些描述首先通过CLIP文本编码器生成嵌入，形成知识库。然后通过聚类生成隐式属性空间，并通过“Attribute Hunting”过程，结合全局文本提示 $t_c$（来自“Template of [Aero.]”）和选定的属性（通过 $t_c A_c$ 的相似性进行选择和加权），最终得到增强的文本表示 $T_c$。这一部分涉及公式(2), (3), (4)。视觉模态方面，(b) 我们引入静态视觉校准（SVC），使用中间 $N$ 个注意力层中的内部关联操作（Intra-correlation）校准视觉特征。它使用 $T_c$ 和校准后的特征 $P_s$ 生成静态CAMs。图中展示了CLIP图像编码器中冻结的层，以及12层注意力层。SVC在 $N$ 到12层之间通过Q, K, V的Intra Correlation操作来获取像素亲和性，从而生成CALIBRATED FEATURES $P_s$。(c) 可学习视觉校准（LVC）设计了一个可学习的适配器，为SVC添加动态偏移量 $R$。它在静态CAMs的指导下生成优化的特征 $P_d$，从而从 $P_d$ 和 $T_c$ 生成动态CAMs。动态CAMs被细化用于分割监督。图中展示了CLIP图像编码器中的所有12层特征F_1到F_12。这些特征通过delta_l(F_l)处理后进行Concate，并通过Conv层生成F_d。F_d通过Inner Product计算Dynamic Relation R，并用于添加Shifting Term $R$到SVC的输出。最终，优化的特征 $P_d$ 再与 $T_c$ 一起生成CAMs。Sum, Cascade Features, Attribute Embeds, Adding Shifting Term, Distribution Shift等均有标注。
 
