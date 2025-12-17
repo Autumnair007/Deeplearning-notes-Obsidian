@@ -1,0 +1,62 @@
+@misc{biSSRSemanticSpatial2025,
+  title = {{{SSR}}: {{Semantic}} and {{Spatial Rectification}} for {{CLIP-based Weakly Supervised Segmentation}}},
+  shorttitle = {{{SSR}}},
+  author = {Bi, Xiuli and Xiao, Die and Fan, Junchao and Xiao, Bin},
+  year = 2025,
+  month = dec,
+  number = {arXiv:2512.01701},
+  eprint = {2512.01701},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2512.01701},
+  urldate = {2025-12-17},
+  abstract = {In recent years, Contrastive Language-Image Pretraining (CLIP) has been widely applied to Weakly Supervised Semantic Segmentation (WSSS) tasks due to its powerful cross-modal semantic understanding capabilities. This paper proposes a novel Semantic and Spatial Rectification (SSR) method to address the limitations of existing CLIPbased weakly supervised semantic segmentation approaches: over-activation in non-target foreground regions and background areas. Specifically, at the semantic level, the CrossModal Prototype Alignment (CMPA) establishes a contrastive learning mechanism to enforce feature space alignment across modalities, reducing inter-class overlap while enhancing semantic correlations, to rectify over-activation in non-target foreground regions effectively; at the spatial level, the Superpixel-Guided Correction (SGC) leverages superpixel-based spatial priors to precisely filter out interference from non-target regions during affinity propagation, significantly rectifying background over-activation. Extensive experiments on the PASCAL VOC and MS COCO datasets demonstrate that our method outperforms all single-stage approaches, as well as more complex multi-stage approaches, achieving mIoU scores of 79.5\% and 50.6\%, respectively.},
+  archiveprefix = {arXiv},
+  langid = {english},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition}
+}
+
+@misc{fuFeatUpModelAgnosticFramework2024,
+  title = {{{FeatUp}}: {{A Model-Agnostic Framework}} for {{Features}} at {{Any Resolution}}},
+  shorttitle = {{{FeatUp}}},
+  author = {Fu, Stephanie and Hamilton, Mark and Brandt, Laura and Feldman, Axel and Zhang, Zhoutong and Freeman, William T.},
+  year = 2024,
+  month = apr,
+  number = {arXiv:2403.10516},
+  eprint = {2403.10516},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2403.10516},
+  urldate = {2025-12-10},
+  abstract = {Deep features are a cornerstone of computer vision research, capturing image semantics and enabling the community to solve downstream tasks even in the zero- or few-shot regime. However, these features often lack the spatial resolution to directly perform dense prediction tasks like segmentation and depth prediction because models aggressively pool information over large areas. In this work, we introduce FeatUp, a task- and model-agnostic framework to restore lost spatial information in deep features. We introduce two variants of FeatUp: one that guides features with high-resolution signal in a single forward pass, and one that fits an implicit model to a single image to reconstruct features at any resolution. Both approaches use a multi-view consistency loss with deep analogies to NeRFs. Our features retain their original semantics and can be swapped into existing applications to yield resolution and performance gains even without re-training. We show that FeatUp significantly outperforms other feature upsampling and image super-resolution approaches in class activation map generation, transfer learning for segmentation and depth prediction, and end-to-end training for semantic segmentation.},
+  archiveprefix = {arXiv},
+  langid = {english},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Information Retrieval,Computer Science - Machine Learning},
+  file = {E:\Data\Zotero\papers\Fu 等 - 2024 - FeatUp A Model-Agnostic Framework for Features at Any Resolution.pdf}
+}
+
+@article{liMaskAdapterDevilMasks,
+  title = {Mask-{{Adapter}}: {{The Devil}} Is in the {{Masks}} for {{Open-Vocabulary Segmentation}}},
+  author = {Li, Yongkang and Cheng, Tianheng and Feng, Bin and Liu, Wenyu and Wang, Xinggang},
+  abstract = {Recent open-vocabulary segmentation methods adopt mask generators to predict segmentation masks and leverage pretrained vision-language models, e.g., CLIP, to classify these masks via mask pooling. Although these approaches show promising results, it is counterintuitive that accurate masks often fail to yield accurate classification results through pooling CLIP image embeddings within the mask regions. In this paper, we reveal the performance limitations of mask pooling and introduce Mask-Adapter, a simple yet effective method to address these challenges in open-vocabulary segmentation. Compared to directly using proposal masks, our proposed Mask-Adapter extracts semantic activation maps from proposal masks, providing richer contextual information and ensuring alignment between masks and CLIP. Additionally, we propose a mask consistency loss that encourages proposal masks with similar IoUs to obtain similar CLIP embeddings to enhance models' robustness to varying predicted masks. Mask-Adapter integrates seamlessly into open-vocabulary segmentation methods based on mask pooling in a plug-and-play manner, delivering more accurate classification results. Extensive experiments across several zero-shot benchmarks demonstrate significant performance gains for the proposed Mask-Adapter on several well-established methods. Notably, Mask-Adapter also extends effectively to SAM and achieves impressive results on several open-vocabulary segmentation datasets. Code and models are available at https://github.com/ hustvl/MaskAdapter.},
+  langid = {english},
+  file = {E:\Data\Zotero\papers\Li 等 - Mask-Adapter The Devil is in the Masks for Open-Vocabulary Segmentation.pdf}
+}
+
+@misc{xuModalityGapVision2024,
+  title = {Toward {{Modality Gap}}: {{Vision Prototype Learning}} for {{Weakly-supervised Semantic Segmentation}} with {{CLIP}}},
+  shorttitle = {Toward {{Modality Gap}}},
+  author = {Xu, Zhongxing and Tang, Feilong and Chen, Zhe and Su, Yingxue and Zhao, Zhiyi and Zhang, Ge and Su, Jionglong and Ge, Zongyuan},
+  year = 2024,
+  month = dec,
+  number = {arXiv:2412.19650},
+  eprint = {2412.19650},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2412.19650},
+  urldate = {2025-12-15},
+  abstract = {The application of Contrastive Language-Image Pre-training (CLIP) in Weakly Supervised Semantic Segmentation (WSSS) research powerful cross-modal semantic understanding capabilities. Existing methods attempt to optimize input text prompts for improved alignment of images and text, by finely adjusting text prototypes to facilitate semantic matching. Nevertheless, given the modality gap between text and vision spaces, the text prototypes employed by these methods have not effectively established a close correspondence with pixel-level vision features. In this work, our theoretical analysis indicates that the inherent modality gap results in misalignment of text and region features, and that this gap cannot be sufficiently reduced by minimizing contrast loss in CLIP. To mitigate the impact of the modality gap, we propose a Vision Prototype Learning (VPL) framework, by introducing more representative vision prototypes. The core of this framework is to learn class-specific vision prototypes in vision space with the help of text prototypes, for capturing highquality localization maps. Moreover, we propose a regional semantic contrast module that contrasts regions embedding with corresponding prototypes, leading to more comprehensive and robust feature learning. Experimental results show that our proposed framework achieves state-of-the-art performance on two benchmark datasets.},
+  archiveprefix = {arXiv},
+  langid = {english},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning}
+}
