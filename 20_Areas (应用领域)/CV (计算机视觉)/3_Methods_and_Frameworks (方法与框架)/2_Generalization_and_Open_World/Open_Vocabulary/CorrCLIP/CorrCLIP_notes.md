@@ -11,10 +11,9 @@ tags:
   - open-vocabulary-segmentation
   - wsss
   - dino
-status: in-progress
+status: done
 model: CorrCLIP
 year: 2025
-
 ---
 ### 第一部分：CLIP 的基础复习 (Vision Transformer 视角)
 
