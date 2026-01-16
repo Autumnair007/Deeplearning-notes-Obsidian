@@ -1,4 +1,19 @@
-
+---
+type: paper-note
+tags:
+  - cv
+  - entity-segmentation
+  - panoptic-segmentation
+  - instance-segmentation
+  - semantic-segmentation
+  - transformer
+  - vit
+  - cropformer
+  - wsss
+status: todo
+model: CropFormer
+year: 2023
+---
 论文网址：[[2211.05776] High-Quality Entity Segmentation](https://arxiv.org/abs/2211.05776)
 
 [High Quality Entity Segmentation](https://openaccess.thecvf.com/content/ICCV2023/papers/Qi_High_Quality_Entity_Segmentation_ICCV_2023_paper.pdf)
