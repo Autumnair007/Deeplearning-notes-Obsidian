@@ -9,6 +9,7 @@ tags:
   - dino
   - contrastive-learning
   - wsss
+  - cam
 status: todo
 model: "SSR: Semantic and Spatial Rectification"
 year: 2025

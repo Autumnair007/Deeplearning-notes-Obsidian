@@ -9,6 +9,7 @@ tags:
   - vit
   - wsss
   - attention
+  - cam
 status: done
 model: Multi-Class Token Transformer
 year: 2022
