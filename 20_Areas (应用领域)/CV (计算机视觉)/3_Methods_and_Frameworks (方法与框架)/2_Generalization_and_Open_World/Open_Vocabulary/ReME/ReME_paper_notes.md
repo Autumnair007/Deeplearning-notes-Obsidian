@@ -15,7 +15,7 @@ year: 2025
 ---
 论文网址：[[2506.21233] ReME: A Data-Centric Framework for Training-Free Open-Vocabulary Segmentation](https://arxiv.org/abs/2506.21233)
 
-本地PDF文件：[ReME](../../../../../99_Assets%20(资源文件)/papers/ReME.pdf)
+本地PDF文件：[ReME](../../../../../../99_Assets%20(资源文件)/papers/ReME%20A%20Data-Centric%20Framework%20for%20Training-Free%20Open-Vocabulary%20Segmentation.pdf)
 ***
 **摘要**
 
