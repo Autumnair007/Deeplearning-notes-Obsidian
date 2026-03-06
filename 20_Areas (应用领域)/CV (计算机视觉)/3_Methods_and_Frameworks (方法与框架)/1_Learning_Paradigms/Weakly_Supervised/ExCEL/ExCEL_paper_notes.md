@@ -24,6 +24,7 @@ year: 2025
 summary: 提出ExCEL，通过patch-文本对齐范式挖掘CLIP的密集知识用于弱监督语义分割。引入文本语义增强（TSE），利用LLM（如GPT-4）构建数据集范围的属性知识库并通过隐式属性搜索丰富文本嵌入；引入视觉校准（VC），包含静态视觉校准（SVC）利用中间层的内部关联挖掘细粒度特征，以及可学习视觉校准（LVC）通过轻量适配器生成动态分布偏移以多样化令牌关系。ExCEL在PASCAL VOC与MS COCO上显著优于现有方法，生成更高质量的CAMs并显著降低训练成本，同时保持CLIP预训练权重不变。
 ---
 论文网址：[[2503.20826v1] Exploring CLIP's Dense Knowledge for Weakly Supervised Semantic Segmentation](https://arxiv.org/abs/2503.20826v1)
+[openaccess.thecvf.com/content/CVPR2025/papers/Yang_Exploring_CLIPs_Dense_Knowledge_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2025_paper.pdf](https://openaccess.thecvf.com/content/CVPR2025/papers/Yang_Exploring_CLIPs_Dense_Knowledge_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2025_paper.pdf)
 
 本地PDF文件：[ExCEL](../../../../../../99_Assets%20(资源文件)/papers/Exploring%20CLIP’s%20Dense%20Knowledge%20for%20Weakly%20Supervised%20Semantic%20Segmentation.pdf)
 ***
