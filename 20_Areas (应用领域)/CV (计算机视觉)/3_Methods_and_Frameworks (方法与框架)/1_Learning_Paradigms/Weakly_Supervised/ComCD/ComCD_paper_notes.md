@@ -29,6 +29,8 @@ ComCD（Complementary synergy of CLIP and Diffusion models）这篇论文提出�
 
 最近，基于对比语言-图像预训练（CLIP）和扩散模型的两种范式在WSSS中获得了广泛关注。CLIP-ES是一种免训练、文本驱动的Grad-CAM，直接定位类判别区域，而ExCEL利用补丁-文本对齐来增强类定位和边界锐度。扩散模型的DiG结合预训练扩散嵌入以促进区域级连续性，iSeg则迭代地精化扩散模型的交叉注意力以产生更具空间一致性的掩码。
 
+![](../../../../../../99_Assets%20(资源文件)/images/eaf270a51c05f69c8418bab1749c5878.png)
+
 通过可视化CLIP和扩散模型生成的CAMs（图1(a)），我们观察到它们具有不同的行为：
 *   **CLIP-based CAMs**: 强调类别定位，对类别判别性区域激活强烈。
 *   **Diffusion-based CAMs**: 偏好空间一致性，显示属于同一语义区域的像素具有相似的激活。
