@@ -10,6 +10,7 @@ tags:
   - contrastive-learning
   - wsss
   - cam
+  - ssr
 status: todo
 model: "SSR: Semantic and Spatial Rectification"
 year: 2025

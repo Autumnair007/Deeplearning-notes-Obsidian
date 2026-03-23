@@ -7,6 +7,7 @@ tags:
   - clip
   - diffusion-model
   - vit
+  - comcd
 status: done
 model: ComCD (Complementary synergy of CLIP and Diffusion models)
 year: 2026

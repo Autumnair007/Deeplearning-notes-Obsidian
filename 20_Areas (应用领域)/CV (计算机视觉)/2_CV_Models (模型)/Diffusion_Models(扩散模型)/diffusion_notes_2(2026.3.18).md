@@ -8,7 +8,7 @@ tags:
   - ddpm
   - ddim
   - score-based
-status: in-progress
+status: done
 model: Denoising Diffusion Probabilistic Models
 year: 2020
 ---
@@ -155,7 +155,7 @@ $$x_{t-1} = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{1 - \alpha_t}{\sqrt{1 -
 不要怕公式，我们拆解这个张量运算，它分为三部分：
 
 **第一部分：走向均值（去噪主体）**
-张量计算：`mean = (1 / sqrt(alpha_t)) * (x_t - (1 - alpha_t) / sqrt(1 - alpha_t_bar) * epsilon_theta)`
+张量计算：$mean = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right)$
 *   这里的 $\alpha_t$ 都是常数。你可以看到，它是把当前的图 $x_t$，减去了一定比例的预测噪声 $\epsilon_\theta$。
 *   **张量意义**：这算出的是向着“真实图像分布”走了一小步后的**均值（Mean）**。如果只做这一步，图像确实会变清晰一点点。
 

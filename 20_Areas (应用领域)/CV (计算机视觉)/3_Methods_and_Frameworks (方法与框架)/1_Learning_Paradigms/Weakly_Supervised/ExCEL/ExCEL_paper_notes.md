@@ -18,6 +18,7 @@ tags:
   - cam
   - wsss
   - weakly-supervised-segmentation
+  - excel
 status: done
 model: ExCEL
 year: 2025
