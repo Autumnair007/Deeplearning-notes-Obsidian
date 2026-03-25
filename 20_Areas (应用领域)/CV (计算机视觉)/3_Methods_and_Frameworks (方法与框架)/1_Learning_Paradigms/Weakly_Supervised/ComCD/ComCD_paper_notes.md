@@ -16,6 +16,8 @@ year: 2026
 论文网址：[Unveiling the complementary synergy of CLIP and diffusion models for weakly supervised semantic segmentation - ScienceDirect](https://www.sciencedirect.com/science/article/pii/S0957417426007979?fr=RR-2&ref=pdf_download&rr=9d81f7f869955251)
 
 本地PDF文件：ComCD [[../../../../../../99_Assets (资源文件)/papers/Unveiling the complementary synergy of CLIP and diffusion models for weakly supervised semantic segmentation.pdf]]
+
+额外笔记资料：[深入理解CAM与注意力图](../深入理解CAM与注意力图.md)
 ***
 ## **揭示 CLIP 和扩散模型在弱监督语义分割中的互补协同作用**
 

@@ -1,4 +1,4 @@
-Directory Tree generated on 2025-11-28 11:16:16.330026
+Directory Tree generated on 2026-03-25 11:15:27.824229
 Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 
 │   ├── .gitignore
@@ -10,6 +10,7 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   ├── backlink.json
 │   │   ├── community-plugins.json
 │   │   ├── core-plugins.json
+│   │   ├── graph.json
 │   │   ├── hotkeys.json
 │   │   ├── workspace.json
 │   │   ├── plugins/
@@ -79,7 +80,6 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   │   │   ├── CV中的Transformer核心概念解析（以SETR为例）.md
 │   │   │   │   ├── Dice系数和IoU.md
 │   │   │   │   ├── class_imbalance(类别不平衡).md
-│   │   │   │   ├── 图像分割领域重新思考.md
 │   │   │   │   ├── Digital_Image_Processing(数字图像处理)/
 │   │   │   │   │   ├── README.md
 │   │   │   │   │   ├── dip_note_template.md
@@ -87,6 +87,9 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   │   │   │   │   ├── 3.1_point_operators(点算子).md
 │   │   │   │   │   ├── References(参考文献)/
 │   │   │   │   │   │   ├── 计算机视觉算法与应用中文版.pdf
+│   │   │   │   ├── Planning_and_Reflections/
+│   │   │   │   │   ├── 2026.3.24 WSSS阅读分析计划.md
+│   │   │   │   │   ├── 图像分割领域重新思考.md
 │   │   │   │   ├── Survey_Image_Segmentation (图像分割综述)/
 │   │   │   │   │   ├── An overview of industrial image segmentation using（2025）.md
 │   │   │   │   │   ├── Image Segmentation Using Deep Learning A Survey综述.md
@@ -109,8 +112,10 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   │   │   │   ├── deeplabv3+_papers_notes.md
 │   │   │   │   ├── Diffusion_Models(扩散模型)/
 │   │   │   │   │   ├── diffusion_notes.md
+│   │   │   │   │   ├── diffusion_notes_2(2026.3.18).md
 │   │   │   │   │   ├── Stable_Diffusion/
 │   │   │   │   │   │   ├── stable_diffusion_notes.md
+│   │   │   │   │   │   ├── stable_diffusion_notes_v2(2026.3.19).md
 │   │   │   │   │   │   ├── stable_diffusion_reproduction_notes.md
 │   │   │   │   │   │   ├── Txt2img_Samples(文生图样本)/
 │   │   │   │   │   │   │   ├── Samples(样本)/
@@ -142,11 +147,6 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   │   │   ├── Segmenter/
 │   │   │   │   │   ├── segmenter_notes.md
 │   │   │   │   │   ├── segmenter_papers_notes.md
-│   │   │   │   ├── Segment_Anything_Model(SAM)/
-│   │   │   │   │   ├── sam_code_notes.md
-│   │   │   │   │   ├── sam_notes.md
-│   │   │   │   │   ├── sam_paper_notes.md
-│   │   │   │   │   ├── sam_paper_notes2(gemini-flash).md
 │   │   │   │   ├── self-DIstillation with NO labels v2(DINOv2)(无标签自蒸馏V2)/
 │   │   │   │   │   ├── dinov2_code_notes.md
 │   │   │   │   │   ├── dinov2_code_notes_detailed.md
@@ -164,20 +164,34 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   │   │   │   ├── vision_transformer_code_notes.md
 │   │   │   │   │   ├── vision_transformer_notes.md
 │   │   │   ├── 3_Methods_and_Frameworks (方法与框架)/
-│   │   │   │   ├── 未命名.md
+│   │   │   │   ├── README.md
 │   │   │   │   ├── 1_Learning_Paradigms/
 │   │   │   │   │   ├── Semi_Supervised_Segmentation(半监督分割)/
 │   │   │   │   │   │   ├── SemiSeg-Contrastive/
 │   │   │   │   │   │   │   ├── SemiSeg-Contrastive_paper_notes.md
 │   │   │   │   │   ├── Weakly_Supervised/
+│   │   │   │   │   │   ├── 深入理解CAM与注意力图.md
+│   │   │   │   │   │   ├── ComCD/
+│   │   │   │   │   │   │   ├── ComCD_Translation.md
+│   │   │   │   │   │   │   ├── ComCD_paper_notes.md
+│   │   │   │   │   │   ├── ExCEL/
+│   │   │   │   │   │   │   ├── ExCEL_paper_notes.md
 │   │   │   │   │   │   ├── KnowYour_Attention_Maps_for_WSSS/
 │   │   │   │   │   │   │   ├── KnowYour_Attention_Maps_paper_notes.md
+│   │   │   │   │   │   ├── MCTformer/
+│   │   │   │   │   │   │   ├── MCTformer_notes.md
+│   │   │   │   │   │   │   ├── MCTformer_paper_notes.md
+│   │   │   │   │   │   ├── SSR/
+│   │   │   │   │   │   │   ├── SSR_paper_notes.md
+│   │   │   │   │   │   ├── WeCLIP/
+│   │   │   │   │   │   │   ├── WeCLIP_Translation.md
+│   │   │   │   │   │   │   ├── WeCLIP_paper_notes.md
+│   │   │   │   │   │   ├── WeCLIP+/
+│   │   │   │   │   │   │   ├── WeCLIP+_paper_notes.md
 │   │   │   │   ├── 2_Generalization_and_Open_World/
-│   │   │   │   │   ├── Few_Shot/
-│   │   │   │   │   │   ├── FS‑DINO‑4D/
-│   │   │   │   │   │   │   ├── FS‑DINO‑4D_paper_notes.md
 │   │   │   │   │   ├── Open_Vocabulary/
 │   │   │   │   │   │   ├── CorrCLIP/
+│   │   │   │   │   │   │   ├── CorrCLIP-PPT讲解.pdf
 │   │   │   │   │   │   │   ├── CorrCLIP_notes.md
 │   │   │   │   │   │   │   ├── CorrCLIP_paper_notes.md
 │   │   │   │   │   │   ├── ITACLIP/
@@ -192,13 +206,20 @@ Root: E:\Data\GitHubRepo\Deeplearning-notes-Obsidian
 │   │   │   │   │   │   ├── Trident/
 │   │   │   │   │   │   │   ├── Trident_notes.md
 │   │   │   │   │   │   │   ├── Trident_paper_notes.md
-│   │   │   │   ├── 3_Foundation_Model_Adaptation/
 │   │   │   │   ├── 4_Core_Mechanisms_and_Modules/
 │   │   │   │   │   ├── Background_and_Unseen_Class_Handling (背景与未知类别处理)/
 │   │   │   │   │   │   ├── Context_Label_Learning/
 │   │   │   │   │   │   │   ├── Context_Label_Learning_paper_notes.md
 │   │   │   │   │   │   ├── Mitigating_Background_Shift/
 │   │   │   │   │   │   │   ├── MBS_paper_notes.md
+│   │   │   │   │   ├── Entity_Segmentation_Frameworks/
+│   │   │   │   │   │   ├── EntitySeg/
+│   │   │   │   │   │   │   ├── EntitySeg_paper_notes.md
+│   │   │   │   │   │   ├── Segment_Anything_Model(SAM)/
+│   │   │   │   │   │   │   ├── sam_code_notes.md
+│   │   │   │   │   │   │   ├── sam_notes.md
+│   │   │   │   │   │   │   ├── sam_paper_notes.md
+│   │   │   │   │   │   │   ├── sam_paper_notes2(gemini-flash).md
 │   │   │   │   │   ├── Mask_Refinement (掩码优化)/
 │   │   │   │   │   │   ├── SAMRefiner/
 │   │   │   │   │   │   │   ├── SamRefiner_notes.md
