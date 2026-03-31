@@ -10,7 +10,7 @@ tags:
   - multimodal
   - zero-shot
   - colpail
-status: todo
+status: in-progress
 model: ColPali
 year: 2024
 ---
