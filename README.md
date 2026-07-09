@@ -1,42 +1,83 @@
-# 🚀 Deeplearning-notes-Obsidian | 我的深度学习奇幻漂流
+# Deeplearning-notes-Obsidian
 
-你好呀，欢迎来到我的个人深度学习知识库！👋
+> 最后更新：2026-07-09
 
-这里是我探索人工智能世界的数字花园，一个用 [Obsidian](https://obsidian.md/) 精心栽培的笔记系统。我尝试将学习过程中的碎片化知识、代码实践和项目思考，系统地组织成一个相互连接的知识网络。
+这是一个使用 [Obsidian](https://obsidian.md/) 维护的深度学习与计算机视觉研究笔记库。
 
-## 🌱 这个仓库是如何组织的？
+仓库主要记录学习过程中的基础概念、论文阅读、代码实践和项目复现。当前内容以计算机视觉为主，尤其关注图像分割、弱监督语义分割，以及 `CLIP`、`SAM`、`DINOv2` 等视觉基础模型在分割任务中的应用。
 
-我采用了类似于 PARA 的思想，将整个知识库分成了几个核心区域，让信息在其中有序地流动：
+## 🗂️ 内容结构
 
-*   `10_Knowledge_Base (知识库)` 🧠
-    *   **这是我的“知识兵工厂”**。这里存放着最基础、最纯粹的“知识原子”，比如数学概念（范数、极大似然估计）、机器学习理论和深度学习的核心模块（注意力机制、归一化、激活函数等）。这些是构建一切上层应用的基础砖块。
+这个仓库整体采用类似 PARA 的组织方式，把基础知识、研究方向、工程实践和资源文件分开管理。
 
-*   `20_Areas (应用领域)` 🎯
-    *   **理论与应用的“交汇区”**。在这里，基础知识被应用到特定的领域。目前我主要关注两大方向：
-        *   **CV (计算机视觉)**: 探索图像分割、分类等任务。最近对各种 Transformer-based 的分割模型（如 `SegFormer`, `SETR`, `Mask2Former`）以及像 `SAM`, `DINOv2` 和 `CLIP` 这样的基础模型非常着迷。
-        *   **NLP (自然语言处理)**: 基础的文本预处理和一些经典模型的学习笔记。
+### `00_Meta (元数据)`
 
-*   `30_Projects (项目实践)` 🛠️
-    *   **“动手为王”的地盘**。这里全是具体的代码实现、项目教程和模型部署记录。你会看到我复现经典模型（`ViT`, `ResNet`）、跑通 `MMSegmentation` 框架下的各种教程，以及把模型用 `TorchServe` 部署上线的折腾记录。毕竟，Talk is cheap, show me the code!
+用于维护知识库本身，包括：
 
-*   `00_Meta (元数据)` & `99_Assets (资源文件)` 🗂️
-    *   这两个是后勤保障区。`Meta` 里放着我的笔记模板、自动化脚本等。`Assets` 则是我收集的各种论文 `PDF` 和其他资源，方便随时查阅。
+- 论文笔记模板、通用笔记模板和写作提示词。
+- 目录说明、归档规则和用于生成目录结构的脚本。
+- 面向 Obsidian 工作流的辅助配置。
 
-## ✨ 当前的研究热点
+### `10_Knowledge_Base (知识库)`
 
-截至 `2025-10-10`，我正把大量精力投入在：
+沉淀相对通用、可复用的基础概念，主要包括：
 
-1.  **CV 图像分割**：深入研究和对比各种 SOTA 的分割模型，特别是基于 Transformer 的架构。
-2.  **多模态与自监督学习**：对 `CLIP`、`DINOv2` 和 `SAM` 这类能够处理多种数据、或者不需要大量标注数据的模型充满好奇。
-3.  **模型部署实践**：努力打通从训练到部署的全流程，正在积极探索 `TorchServe` 的各种玩法。
+- 数学基础：范数、余弦相似度、极大似然估计、凸函数等。
+- 机器学习概念：监督学习、聚类方法等。
+- 深度学习核心模块：注意力机制、归一化、激活函数、正则化、上下采样等。
+- 经典模型机制：Transformer、RNN、Seq2Seq、U-Net、GAN 等。
 
-## 🤖 自动化魔法
+### `20_Areas (应用领域)`
 
-你可能会注意到很多 `_Hub.md` 文件，它们是这个知识库的“动态导航中心”。我大量使用了 Obsidian 的 [Dataview](https://github.com/blacksmithgu/obsidian-dataview) 插件，通过几行简单的查询代码，就能自动生成笔记索引和目录。这让我可以专注于内容创作，而不是手动维护链接，超级方便！
+按研究方向组织的主体内容，目前主要集中在 CV：
 
----
+- CV 理论：图像处理、分割指标、类别不平衡、Transformer 在 CV 中的基本概念。
+- 分割模型：`FCN`、`DeepLabV3+`、`SETR`、`SegFormer`、`MaskFormer`、`Mask2Former`、`UPerNet` 等。
+- 学习范式：弱监督分割、半监督分割、自监督/多模态方法。
+- 开放词汇与泛化：CLIP-based segmentation、open-vocabulary segmentation、foundation model adaptation。
+- NLP 相关内容目前较少，主要作为基础补充。
 
-感谢你的来访！希望这个小仓库能给你带来一些灵感。如果你有任何想法或者问题，也欢迎随时开启一个 Issue 进行交流！
+### `30_Projects (项目实践)`
 
-*Happy Learning!*
-*Autumnair007*
+记录代码实践和实验过程，包括：
+
+- `PyTorch` 基础练习和经典模型复现。
+- `MMSegmentation`、`MMPretrain` 等框架教程。
+- SegFormer、UPerNet 等模型训练与实验记录。
+- `TorchServe` 部署实践，包括 MNIST、ResNet18 等示例。
+
+### `99_Assets (资源文件)`
+
+集中存放笔记中引用的材料：
+
+- 论文 PDF、综述文献和补充材料。
+- 笔记插图、论文截图、实验可视化结果。
+- 一些模型运行结果和辅助文件。
+
+## 🔎 当前关注方向
+
+- 语义分割模型: `FCN`、`DeepLabV3+`、`SETR`、`SegFormer`、`MaskFormer`、`Mask2Former`、`UPerNet` 等。
+- 弱监督语义分割: CAM 生成、伪标签构建、CLIP-based WSSS、原型学习、最优传输和掩码细化。
+- 视觉基础模型: `CLIP`、`DINOv2`、`SAM` 及其在 dense prediction、open-vocabulary segmentation 中的使用。
+- 工程实践: `PyTorch`、`MMSegmentation`、`MMPretrain`、`TorchServe` 等框架和工具链。
+
+## 📌 个人相关工作
+
+- `ModuSeg`: ECCV 2026 相关工作，面向 training-free weakly supervised semantic segmentation。该方法将 object discovery 与 semantic retrieval 解耦，结合通用 mask proposer、视觉语义基础模型和非参数特征检索，减少传统 WSSS 中伪标签噪声与多阶段训练带来的复杂度。相关代码见 [Autumnair007/ModuSeg](https://github.com/Autumnair007/ModuSeg)，论文见 [arXiv:2604.07021](https://arxiv.org/abs/2604.07021)。
+
+## 🧭 笔记组织方式
+
+笔记整体结合 Obsidian 的双链、标签和 Dataview 进行索引。多数论文和模型笔记会通过 YAML 元数据标记主题、状态、年份和模型名称，便于在 `_Hub.md` 页面中自动聚合。
+
+常见笔记类型包括：
+
+- `paper-note`: 论文阅读笔记，通常包含方法动机、核心模块、实验结果和个人理解。
+- `code-note`: 代码阅读或复现笔记，更关注运行流程、张量变化和实现细节。
+- `hub-note`: 索引页，用于按主题自动聚合相关笔记。
+- `concept-note`: 概念解释，服务于后续论文阅读和方法对比。
+
+这个仓库更偏向个人研究过程记录，而不是完整教程或论文复现集合。部分笔记会比较详细地拆解论文方法、张量流和实现细节，也会保留一些尚未整理完成的阅读痕迹。
+
+## 📝 说明
+
+内容会随着后续阅读和实验持续更新。目前的主线是围绕弱监督语义分割梳理近年的方法演进，并逐步把相关论文从“读懂”整理到“可比较、可复现、可用于选题判断”的状态。
