@@ -11,7 +11,7 @@ tags:
   - wsss
 model: Prototypical Optimal Transport (POT)
 venue: CVPR2025
-status: todo
+status: done
 ---
 论文网址：[CVPR 2025 Open Access Repository](https://openaccess.thecvf.com/content/CVPR2025/html/Wang_POT_Prototypical_Optimal_Transport_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2025_paper.html)
 
