@@ -7,6 +7,7 @@ tags:
   - sam
   - resnet
   - s2c
+  - wsss
 status: todo
 model: S2C (From SAM to CAMs)
 year: 2024

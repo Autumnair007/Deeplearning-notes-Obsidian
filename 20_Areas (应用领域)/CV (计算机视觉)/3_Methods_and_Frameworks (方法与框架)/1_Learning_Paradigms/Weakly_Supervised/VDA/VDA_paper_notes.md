@@ -1,3 +1,18 @@
+---
+type: paper-note
+tags:
+  - cv
+  - semantic-segmentation
+  - weakly-supervised
+  - clip
+  - inn
+  - weakly-supervised-segmentation
+  - vda
+  - wsss
+status: done
+model: Visual Description Assembly
+year: 2026
+---
 CVPR网址：[CVPR 2026 Open Access Repository](https://openaccess.thecvf.com/content/CVPR2026/html/Qiu_Beyond_Text_Visual_Description_Assembly_by_Probabilistic_Model_for_CLIP-based_CVPR_2026_paper.html)
 
 本地PDF：[VDA](../../../../../../99_Assets%20(资源文件)/papers/Qiu_Beyond_Text_Visual_Description_Assembly_by_Probabilistic_Model_for_CLIP-based_CVPR_2026_paper.pdf)
@@ -29,16 +44,19 @@ $$
 
 图片内容解释：图2详细展示了VDA方法的四个主要模块的处理流程。(a) 整体框架 (Overall Framework) 显示输入图像经过冻结的CLIP视觉编码器，一方面送到适配器和解码器产生预测和实例原型，另一方面送到基于零样本的过滤器 (Zero-shot Filter) 中停止梯度并收集可靠的实例原型批次。(b) 视觉属性建模与解耦 (VAMD) 模块接收这些批次，使用可逆神经网络 (INN) 将特征映射到潜在空间中，通过构建类间 (Inter-Class) 和类内 (Intra-Class) 的高斯混合模型，解耦出诸如颜色、形状等潜在的属性原型。(c) 视觉描述组装与融合 (VDAF) 模块将新的实例原型输入 INN 进行密度估计获得各个属性的响应强度，以此组装成特定实例的视觉原型，然后和CLIP文本编码器得到的文本原型进行融合，产生最终的查询原型 (Query Prototype) 以生成CAM。(d) 解码器语义增强 (DSE) 模块提取高斯混合模型中的全局类别原型作为锚点 (Class Anchors)，通过对比损失函数对适配后的实例原型进行推拉操作 (Pull/Push)，以增强语义一致性。
 
-> [!note] 我的理解：框架训练流与梯度流
-> 理解这个 single-stage WSSS 框架时，不能只看图中的模块连线，而要把“谁生成监督信号、谁接受监督、梯度回到哪里、推理时还保留什么”分开看。需要特别注意的是，图 2 中并没有画出一条从 CAM 直接连到 decoder 或分割头的箭头；CAM 是 VDAF 右侧生成的输出结果。论文文字里说它 “generates a CAM for decoder supervision”，更精确的意思是：VDAF 生成 CAM，CAM 再被精细化为密集伪标签 $\hat{P}$，然后 $\hat{P}$ 通过 $\mathcal{L}_{\mathrm{ce}}=\mathrm{CE}(P,\hat{P})$ 监督 decoder 的预测 $P$。因此，这里的监督关系是“CAM/refined pseudo-label 作为训练目标”，而不是“CAM 特征流入 decoder”。
+> [!note] 我的理解：框架训练流程（纯流程版）
+> 这篇方法的训练可以先按两个目标、一个闭环来记。冻结的 CLIP visual encoder 提供视觉特征 $V$；adapter 和 decoder 基于 $V$ 输出当前分割预测 $P$；当前预测 $P$ 又作为 mask，在 CLIP visual features 上池化出 instance prototype $P_k$。这些 $P_k$ 一路经过 zero-shot filter，形成 reliable prototype batch $\mathcal{B}$，用于用 $\mathcal{L}_{\mathrm{inn}}$ 训练 VAMD/INN/H-GMM；另一路进入 VDAF，根据 H-GMM 中的属性组件和文本原型组装 query prototype $Q_k$，再由 $Q_k$ 与视觉特征计算相似度生成 CAM。
 >
-> 具体来看，分割网络这条训练流是：冻结的 CLIP 图像编码器产生视觉特征 $V$，adapter 将其转为 adapted visual features，decoder 基于这些特征输出当前分割预测 $P$；同时，当前预测 $P$ 会作为 mask，在原始 CLIP visual features 上做 mask average pooling，得到 instance prototype。这个 instance prototype 一方面进入 zero-shot filter，经过筛选后形成 reliable prototype batch，用于训练 VAMD；另一方面也进入 VDAF，和文本原型一起生成 query prototype。query prototype 再和 CLIP visual features 计算余弦相似度得到 CAM。随后，论文在文字中补充说明：这些 CAM 会被 refined 成密集伪标签 $\hat{P}$，用来监督 decoder prediction $P$。所以从 CE loss 的角度看，$\hat{P}$ 更像在线生成的标签，交叉熵梯度主要回到 adapter/decoder，而不是穿过 CAM、VDAF、VAMD 一路反传。
->
-> VAMD 是另一条相对独立的概率模型训练流。它使用 reliable prototype batch 训练 INN/H-GMM，通过 $\mathcal{L}_{\mathrm{inn}}=\mathcal{L}_{\mathrm{inter}}+\mathcal{L}_{\mathrm{dis}}+\mathcal{L}_{\mathrm{intra}}$ 来学习类间中心和类内属性组件。这里 VAMD 确实是可学习的，但它的反向传播主要更新 INN 和 GMM 相关参数；论文在 3.5 中明确说明 INN 和分割网络的优化是完全独立的，来自 INN 的梯度不会反向传播到 segmentation network。图中 zero-shot filter 到 reliable prototype batch 再到 VAMD 的路径旁边也标了 Stop Gradient，强调 reliable prototypes 被当成训练概率模型的样本，而不是让 VAMD loss 反向拖动前面的 decoder。
->
-> VDAF 可以理解为“使用 VAMD 学到的视觉属性词典来组装当前实例的查询”。当输入一个当前 instance prototype 时，VDAF 先通过 INN 和 intra-class GMM 计算它对多个属性组件的响应 $\omega_i^k$，再把 latent attribute prototypes 经由 INN 逆映射回 CLIP 视觉空间，得到 attribute prototypes，并按响应强度加权求和得到 visual prototype $A_k^{\mathrm{vis}}$。由于当前实例原型来自预测 mask，可能不完整或有噪声，作者没有完全丢掉文本原型 $T_k$，而是用 density estimation 得到的 $\alpha_k$ 在 $T_k$ 和 $A_k^{\mathrm{vis}}$ 之间动态融合，生成最终的 query prototype $Q_k$。这个 $Q_k$ 替代公式 (1) 中的静态文本原型 $T_k$ 来生成 CAM，这是 VDAF 的核心作用。
->
-> 因此，这个框架里确实存在一种“左脚踩右脚”的自训练关系：当前 decoder prediction 参与产生 instance prototype，instance prototype 影响 VDAF 的 query prototype，query prototype 影响 CAM，CAM refined 之后形成的伪标签又监督 decoder prediction。但这个闭环不是毫无约束的端到端互相拉扯，而是被几个机制稳住了：zero-shot filter 只收集较可靠的 prototypes，VAMD 用独立的概率建模损失训练且 stop-gradient，VDAF 中视觉原型还会通过文本原型兜底，DSE 则通过 class anchors 对 adapted instance prototype 做对比学习来增强 adapter embedding 的语义一致性。推理阶段论文明确说明 INN-related components 会被移除，这也说明 VAMD/VDAF/INN 主要是训练时用于构造更好 CAM 监督和语义锚点的 teacher machinery，最终真正用于输出分割结果的是训练好的 adapter 与 decoder。
+> CAM 生成后会被 refined 成密集伪标签 $\hat{P}$，再通过 $\mathcal{L}_{\mathrm{ce}}=\mathrm{CE}(P,\hat{P})$ 监督 decoder prediction $P$；同时 DSE 用 $\mathcal{L}_{\mathrm{con}}$ 约束 adapter 的语义表征。因此 segmentation network 优化的是 $\mathcal{L}_{\mathrm{seg}}=\mathcal{L}_{\mathrm{ce}}+\lambda\mathcal{L}_{\mathrm{con}}$，INN/H-GMM 优化的是 $\mathcal{L}_{\mathrm{inn}}$。两边的梯度目标是分开的，但数据流是耦合的：decoder prediction 影响 instance prototype，instance prototype 影响 CAM query，CAM 伪标签又反过来训练 decoder。
+
+> [!note] 机制理解：CAM 如何监督 decoder
+> 图 2 里没有画出 CAM 直接流入 decoder 的箭头。更准确地说，VDAF 生成 query prototype $Q_k$，再用 $Q_k$ 和 CLIP visual features 计算 CAM；这些 CAM 会被 refined 成伪标签 $\hat{P}$，然后通过 $\mathcal{L}_{\mathrm{ce}}=\mathrm{CE}(P,\hat{P})$ 监督 decoder prediction $P$。所以 CAM 是监督来源，不是 decoder 的输入特征；CE 的梯度主要回到 adapter/decoder，而不是沿着 CAM 生成路径一路反传到 VDAF/VAMD。
+
+> [!note] 机制理解：CAM 侧也会更新，但用的是另一套目标
+> 这里的 CAM 不是完全固定的免训练规则，因为它依赖 VAMD/INN/H-GMM 学到的属性空间。VAMD 使用 reliable prototype batch，通过 $\mathcal{L}_{\mathrm{inn}}=\mathcal{L}_{\mathrm{inter}}+\mathcal{L}_{\mathrm{dis}}+\mathcal{L}_{\mathrm{intra}}$ 更新 INN 和 GMM 参数；VDAF 再使用这些属性组件组装 query prototype。因此 CAM 质量会随着 VAMD 的训练而变化。但这条路径不是被 $\mathcal{L}_{\mathrm{ce}}$ 直接训练的，论文也明确说明 INN 和 segmentation network 的优化彼此独立，INN 梯度不会反传到分割网络。
+
+> [!note] 机制理解：为什么它仍然更接近 single-stage
+> 这个方法确实有两个独立训练目标，看起来不像最简单的 single-stage。但它也不是传统 multi-stage 那种“先离线生成 CAM/伪标签，再另起阶段训练分割网络”的流水线。VDA 中 decoder prediction、instance prototype、H-GMM、CAM 伪标签在同一个训练过程中在线耦合：prediction 影响 prototype，prototype 影响 query 和 CAM，CAM 伪标签又训练 prediction。因此，更准确的理解是：VDA 是 single-stage 框架中的分离优化闭环，而不是标准的离线 multi-stage pipeline。
 
 ### 3.2. 视觉属性建模与解耦
 
@@ -66,6 +84,8 @@ $$
 **层次化高斯混合建模。** 我们的核心洞见是用视觉属性的组装来替代文本描述。然而，正如我们之前讨论的，视觉属性在原始 CLIP 视觉空间中高度分散和纠缠。为了将这种复杂的视觉特征分布解耦为显式属性并进行聚合，我们提出使用 INN 将其映射到一个分层高斯混合模型 (H-GMM) 上。GMM 天然假设一个复杂的分布（目标类）是由多个简单的 GMM 组件（类属性）的混合体构成的。我们选择 INN 是因为它的双射性质，这允许精确的概率估计，并确保我们可以将潜在属性映射回 CLIP 视觉空间。
 
 > [!note] 我的理解：这一段到底在建什么模型
+> GMM（Gaussian Mixture Model，高斯混合模型）的基本思想是：一个复杂分布可以看成多个简单高斯分布的加权组合。单个高斯分布可以理解为一个“椭圆形/球形的数据团”，有自己的中心 $\mu$、协方差 $\Sigma$ 和混合权重 $\pi$；多个高斯组件组合起来，就可以描述多峰、分散、由多个子簇组成的数据分布。在这里，GMM 的作用不是直接分类图像，而是给 latent space 加上结构约束：希望映射后的 prototypes 不要乱散，而是落到若干个可解释的高斯组件附近。
+>
 > 这里的 H-GMM 可以理解为两层“整理空间”的机制：第一层 inter-class GMM 先把不同类别的 reliable instance prototypes 整理成 $K$ 个类别中心；第二层 intra-class GMM 再在每个类别内部拆出 $M$ 个属性组件。需要区分的是，GMM/INN/likelihood 这些是前置数学工具，作者的改造在于把它们用到 WSSS 的 reliable prototypes 上，并把 GMM 组件解释为“类别中心”和“类内视觉属性原型”。
 
 然而，同时优化所有类别及其所有细粒度属性的单一 GMM 是一个复杂且不稳定的优化问题。因此，为了将这一复杂任务分解成更稳定的子问题，我们采用了渐进式的学习策略。我们首先通过建立稳定的类中心来构建类间 GMM，然后才在这个稳定的基础上建立细粒度的类内 GMMs。
@@ -77,9 +97,13 @@ $$
 $$
 
 > [!note] 前置数学：为什么 INN 会出现 NLL 和 Jacobian
-> 公式 (4) 属于 normalizing flow / INN 的基础数学。$x$ 是原始空间中的输入特征，这里对应 reliable instance prototype；$z=f_\theta(x)$ 是 INN 映射后的潜在变量；$p_Z$ 是作者希望潜在空间服从的先验分布；$J$ 是映射 $f_\theta$ 对 $x$ 的雅可比矩阵。由于 INN 是双射映射，概率密度可以通过变量替换公式计算，所以损失里会出现 $-\log p_Z(f_\theta(x))$ 和 $-\log|\det J|$。前者要求映射后的 $z$ 落在高概率区域，后者修正空间变换造成的体积变化。这里的 NLL 不是分割任务特有的，而是可逆网络做密度估计时的标准形式。
+> 公式 (4) 属于 normalizing flow / INN 的基础数学，而不是分割任务特有的公式。INN 的核心特点是可逆：它学习一个双射映射 $f_\theta:X\to Z$，把原始特征空间 $X$ 中的样本 $x$ 映射到潜在空间 $Z$ 中的 $z=f_\theta(x)$，同时还可以通过反函数 $g_\theta=f_\theta^{-1}$ 从 $z$ 回到 $x$。在这篇论文里，$x$ 对应 reliable instance prototype，$z$ 对应映射后的 latent prototype。作者希望 INN 不只是生成一个普通 embedding，而是把这些 prototypes 整理到一个有明确概率结构的 latent space 中，也就是让 $z$ 服从作者指定的先验分布 $p_Z$，后面这个先验会被设成 GMM。
+>
+> NLL 可以理解为“让样本在模型假设的分布下尽可能合理”。如果某个 prototype 经过 INN 后得到的 $z=f_\theta(x)$ 落在 GMM 的高密度区域，例如靠近某个类别中心 $\mu_k$，那么 $p_Z(z)$ 就大，$-\log p_Z(z)$ 就小，损失也小；如果 $z$ 落在低密度区域，损失就会变大。因此，$-\log p_Z(f_\theta(x))$ 这一项是在逼迫 INN 把原本杂乱的视觉原型映射成一个更符合 GMM 结构的潜在表示。这里的“学习”不是直接学分割 mask，而是在学习一个方便做概率建模和属性解耦的空间变换。
+>
+> Jacobian 则来自概率密度的变量替换公式。直觉上，$f_\theta$ 把 $x$ 空间扭曲、拉伸、压缩成 $z$ 空间时，局部体积会发生变化；同样一批点，如果某个区域被压缩，密度会变大，如果某个区域被拉伸，密度会变小。雅可比矩阵 $J=\frac{\partial f_\theta(x)}{\partial x}$ 描述的就是这个局部变换，而 $|\det J|$ 描述局部体积缩放比例。所以在从 $z$ 空间的密度 $p_Z(z)$ 反推原始样本 $x$ 的概率时，必须加上 $\log|\det J|$ 这个修正项。公式 (4) 中的 $-\log|\det J|$ 不是额外的分割监督，而是 normalizing flow 为了严格计算 likelihood 必须带上的体积修正。
 
-其中 $p_Z(z) = \sum_{k=1}^K \pi_k \cdot \mathcal{N}(z|\mu_k, \Sigma_k)$ 意味着将潜在分布 $p_Z(z)$ 建模为具有 $K$ 个组件的高斯混合模型 (GMM)，而 $J$ 是 $f_\theta(x)$ 的雅可比矩阵。为了提高优化的稳定性并简化计算，我们将所有协方差矩阵设置为单位矩阵，即 $\Sigma_k = \mathbb{I}$。此外，混合权重 $\pi_k$ 被参数化为可学习的参数。这是通过对一个可学习的对数几率向量 $\psi \in \mathbb{R}^K$ 应用 Softmax 函数来实现的，使得 $\pi_k = \mathrm{Softmax}(\psi)_k$。将这个 GMM 先验代入 NLL 损失中（详细推导见附录），我们获得了如下的类间最大对数似然损失 $\mathcal{L}_{\mathrm{inter}}$：
+其中 $p_Z(z) = \sum_{k=1}^K \pi_k \cdot \mathcal{N}(z|\mu_k, \Sigma_k)$ 意味着将潜在分布 $p_Z(z)$ 建模为具有 $K$ 个组件的高斯混合模型 (GMM)，而 $J$ 是 $f_\theta(x)$ 的雅可比矩阵。为了提高优化的稳定性并简化计算，我们将所有协方差矩阵设置为单位矩阵，即 $\Sigma_k = \mathbb{I}$。此外，==混合权重 $\pi_k$ 被参数化为可学习的参数==。这是通过对一个可学习的对数几率向量 $\psi \in \mathbb{R}^K$ 应用 Softmax 函数来实现的，使得 $\pi_k = \mathrm{Softmax}(\psi)_k$。将这个 GMM 先验代入 NLL 损失中（详细推导见附录），我们获得了如下的类间最大对数似然损失 $\mathcal{L}_{\mathrm{inter}}$：
 
 $$
 \mathcal{L}_{\mathrm{inter}} = \mathbb{E}_{x \sim \mathcal{B}}[-\underset{k}{\mathrm{LSE}}(c_k - E_k(f_\theta(x), \mu_k)) - \log |\det J|], \tag{5}
@@ -94,7 +118,13 @@ $$
 其中 $k'$ 表示除类别 $k$ 之外的其他类别，且 $\mathrm{LSM}(\cdot)$ 是 logsoftmax 操作。它将 $x$ 拉向与其对应的第 $k$ 个组件关联，并将其推离其他组件。
 
 > [!note] 作者改造：从普通 GMM 到“类别中心”
-> 公式 (5) 和 (6) 是作者把 flow/GMM 用到分割原型建模里的关键改造。$\mathcal{B}$ 是前面 zero-shot filter 筛出来的 reliable prototype batch；$K$ 是数据集前景类别数；$\mu_k$ 是潜在空间中第 $k$ 类的中心；$\pi_k$ 或 $c_k$ 控制第 $k$ 个高斯组件的权重。$\mathcal{L}_{\mathrm{inter}}$ 只要求样本在整个 GMM 下概率高，但 GMM 组件天然有“编号可交换”的问题，因此还需要 $\mathcal{L}_{\mathrm{dis}}$ 把类别标签 $k$ 和组件 $\mu_k$ 对齐。直觉上，前者让样本落进某个合理的团，后者规定 bird 的样本应该落到 bird 的团，而不是落到 dog 或 train 的团。
+> 公式 (5) 和 (6) 是作者把 flow/GMM 用到分割原型建模里的关键改造。$\mathcal{B}$ 是前面 zero-shot filter 筛出来的 reliable prototype batch，$K$ 是数据集前景类别数，$\mu_k$ 是潜在空间中第 $k$ 类的中心，$\pi_k$ 是第 $k$ 个高斯组件的混合权重，$c_k=\log(\pi_k)$ 是它的对数形式。这里把 $\pi_k$ 写成 $c_k$，主要是为了把 GMM 中的“权重乘以高斯概率”变成 log 空间里的加法，计算更稳定。
+>
+> 可以把公式 (5) 的推导粗略理解为：GMM 的概率是 $p_Z(z)=\sum_k \pi_k\mathcal{N}(z|\mu_k,\mathbb{I})$。对于其中第 $k$ 个组件，先取 log 有 $\log[\pi_k\mathcal{N}(z|\mu_k,\mathbb{I})]=\log\pi_k+\log\mathcal{N}(z|\mu_k,\mathbb{I})$。由于单位协方差高斯满足 $\log\mathcal{N}(z|\mu_k,\mathbb{I})=-\frac{D}{2}\log(2\pi)-\frac{1}{2}\|z-\mu_k\|_2^2$，其中第一项是与 $k$ 无关的常数，通常在优化和组件比较时省略；于是第 $k$ 个组件的有效打分就变成 $c_k-E_k(z,\mu_k)$，其中 $E_k(z,\mu_k)=\frac{1}{2}\|z-\mu_k\|_2^2$ 表示“离第 $k$ 个中心有多远”。
+>
+> 对整个混合模型取 log 时，不是只看单个组件，而是要对所有组件的概率求和：$\log p_Z(z)=\log\sum_k\exp(c_k-E_k)$。这就是 $\mathrm{LSE}$（LogSumExp）：$\mathrm{LSE}(a_k)=\log\sum_k\exp(a_k)$。所以 $\mathrm{LSE}$ 可以看作一个“平滑版最大值”：它会主要关注得分最高的高斯组件，但仍然保留其他组件的贡献。
+>
+> 因此，$\mathcal{L}_{\mathrm{inter}}$ 的作用是让每个 reliable prototype 经过 INN 得到的 $z=f_\theta(x)$ 在整个 GMM 下概率高，也就是尽量落进某个合理的类别团里。但仅靠这个 likelihood 还不够，因为 GMM 组件有“编号可交换”的问题：它能学出几个团，却不天然知道哪个团应该叫 bird、哪个团应该叫 dog。公式 (6) 的 $\mathcal{L}_{\mathrm{dis}}$ 就是补这个类别对齐约束。$\mathrm{LSM}$ 是 LogSoftmax，可以把各个类别组件的打分变成 log 概率；它要求类别为 $k$ 的样本靠近自己的中心 $\mu_k$，并远离其他类别中心 $\mu_{k'}$。所以公式 (5) 负责“形成类别团”，公式 (6) 负责“把类别团和类别名字对上”。
 
 类间 GMM 的优化稳定了主要的类中心。随后，在这个稳定的基础之上，我们通过将每个类间组件扩展为其自己的包含 $M$ 个组件的类内 GMM 来进行构建，即 $p(Z|k) = \sum_{i=1}^M \pi_i(k)\mathcal{N}(\mu_{i}^{k}, \mathbb{I})$。每个 $\mu_{i}^{k}$ 代表类别 $k$ 的一个独特潜在视觉属性，而 $\pi_i(k)$ 是类别 $k$ 中第 $i$ 个组件的混合权重。然而，从头开始独立学习所有 $M \times K$ 个属性中心是不稳定的。为了确保这些属性的优化不会灾难性地偏移已经稳定的类中心 $\mu_k$（现在表示为 $\mu_{1}^{k}$），我们将其他 $M - 1$ 个属性中心参数化为相对于这个主中心的偏移量 $\{\Delta\mu_{i}^{k}\}$：
 
@@ -111,7 +141,7 @@ $$
 \mathcal{L}_{\mathrm{intra}} = \mathbb{E}_{(x,k) \sim \mathcal{B}}[-\underset{i}{\mathrm{LSE}}(c_{i}^{k} - E(f_\theta(x), \mu_{i}^{k})) - \log |\det J|], \tag{8}
 $$
 
-这里 $c_{i}^{k} = \log(\pi_i(k))$。最后，我们对这些目标采用渐进式训练策略。INN 首先仅使用 $\mathcal{L}_{\mathrm{inter}}$ 和 $\mathcal{L}_{\mathrm{dis}}$ 进行几次迭代预热，以建模类间 GMM。在预热之后，我们引入 $\mathcal{L}_{\mathrm{intra}}$ 并使用组合损失来优化 INN：
+这里 $c_{i}^{k} = \log(\pi_i(k))$。最后，我们对这些目标采用渐进式训练策略。==INN 首先仅使用 $\mathcal{L}_{\mathrm{inter}}$ 和 $\mathcal{L}_{\mathrm{dis}}$ 进行几次迭代预热，以建模类间 GMM。在预热之后，我们引入 $\mathcal{L}_{\mathrm{intra}}$ 并使用组合损失来优化 INN：==
 
 $$
 \mathcal{L}_{\mathrm{inn}} = \mathcal{L}_{\mathrm{inter}} + \mathcal{L}_{\mathrm{dis}} + \mathcal{L}_{\mathrm{intra}}. \tag{9}
@@ -126,6 +156,9 @@ $$
 
 一旦 INN 训练完成，它就有效地为每个类别学习了一个“视觉属性词汇表”。类内 GMMs 中的组件充当特定潜在视觉属性的分布，这些可以被认为是构成该类的核心视觉构建块。对于任何给定的对象，我们不再依赖静态的、一刀切的文本锚点 $T_k$，而是通过量化对象在多大程度上展现了这些学习到的视觉属性，来动态地组装一个特定目标的视觉描述。这个组装过程包括以下三个步骤：
 
+> [!note] 我的理解：VDAF 在使用 VAMD 学到的“属性词典”
+> 3.2 的 VAMD 负责训练 H-GMM，相当于学出每个类别的 latent attribute prototypes；3.3 的 VDAF 则负责在当前图像上使用这些属性原型。它不是重新学习属性，而是先判断当前 instance prototype 更像哪些属性组件，再把这些属性组件加权组装成当前实例专属的 visual prototype。后面公式 (10) 是“把词典拿回视觉空间”，公式 (11) 是“计算当前实例对每个属性的响应”，公式 (12) 是“按响应组装视觉原型”，公式 (13)(14) 是“根据可靠程度和文本原型融合”。
+
 **视觉属性原型检索。** 学习到的属性原型 $\{\mu_{i}^{k}\}$ 存在于潜在空间 $Z$ 中。然而，要被用作查询，它们最终必须与位于视觉空间中的原始 CLIP 视觉特征 $V$ 进行比较。因此，我们利用 INN 的可逆性 $g_\theta = f_\theta^{-1}$ 将这些潜在属性中心映射回 CLIP 视觉空间：
 
 $$
@@ -133,6 +166,9 @@ a_{i}^{k} = g_\theta(\mu_{i}^{k}). \tag{10}
 $$
 
 这 $M$ 个原型代表了 CLIP 视觉空间中类别 $k$ 的某些抽象属性的压缩，例如颜色、形状和动作等。
+
+> [!note] 公式 (10)：为什么要把属性中心映射回视觉空间
+> $\mu_i^k$ 是 H-GMM 在 latent space 中学到的第 $k$ 类第 $i$ 个属性中心，但 CAM 的生成需要拿 query prototype 和 CLIP visual features 做相似度，所以最终 query 必须回到 CLIP visual space。由于 INN 是可逆的，作者可以用 $g_\theta=f_\theta^{-1}$ 把 latent attribute center $\mu_i^k$ 映射回视觉空间，得到 $a_i^k$。因此，$a_i^k$ 可以理解为“能直接拿去和视觉特征比较的属性原型”。
 
 **属性响应强度计算。** 上一步检索了视觉词汇表 $\{a_{i}^{k}\}$。然而，图像中的某个特定实例仅会展现出这些通用属性的一个子集。例如，该对象可能与某种特定属性强烈匹配，但与另一种属性不匹配。因此，在我们可以组装描述之前，我们必须首先量化当前对象原型 $P_k$ 对这 $M$ 个属性中每一个属性的响应强度。这些响应强度将作为精确的混合权重，允许我们构建一个仅包含对象实际拥有的属性的复合原型。
 
@@ -144,6 +180,9 @@ $$
 
 每个 $\omega_{i}^{k}(z_k)$ 代表目标原型 $P_k$ 对类别 $k$ 内第 $i$ 个视觉属性的响应。现在既然这些特定实例的响应强度被量化了，我们就拥有了构建最终复合视觉描述的所有必要组件。
 
+> [!note] 公式 (11)：属性响应就是类内 GMM 后验权重
+> 当前实例原型 $P_k$ 先经过 INN 得到 $z_k=f_\theta(P_k)$，然后和类别 $k$ 内部的 $M$ 个属性中心 $\mu_i^k$ 比距离。$-\frac{1}{2}\|z_k-\mu_i^k\|_2^2+c_i^k$ 可以看作第 $i$ 个属性组件对当前实例的打分：距离越近分数越高，组件权重越大分数也越高。对 $i$ 做 Softmax 后得到 $\omega_i^k$，它们加起来为 1，可以理解为“当前实例由哪些属性组件组成、各占多少比例”。
+
 **复合视觉属性组装。** 现在我们可以组装最终的复合视觉描述 $A_{k}^{\mathrm{vis}}$，它用作专门针对对象的特定视觉表现量身定制的动态查询原型。这个复合原型被计算为所有视觉属性原型 $\{a_{i}^{k}\}$ 的加权总和，使用它们对应的属性响应强度 $\omega_{i}^{k}(z_k)$ 作为权重：
 
 $$
@@ -151,6 +190,9 @@ A_{k}^{\mathrm{vis}}(P_k) = \sum_{i=1}^M \omega_{i}^{k}(z_k) \cdot a_{i}^{k}. \t
 $$
 
 结果向量 $A_{k}^{\mathrm{vis}}(P_k)$ 是一个动态的、特定于实例的视觉描述，纯粹从学习到的视觉属性空间中组装而来。
+
+> [!note] 公式 (12)：从属性词典组装实例视觉描述
+> 公式 (12) 就是加权求和：$a_i^k$ 是第 $k$ 类的第 $i$ 个视觉属性原型，$\omega_i^k$ 是当前实例对这个属性的响应强度。响应高的属性贡献更多，响应低的属性贡献更少。因此 $A_k^{\mathrm{vis}}(P_k)$ 不是固定类别原型，而是根据当前图像里的实例动态组装出来的视觉 query。
 
 **基于密度的自适应原型融合。** 理想情况下，高质量的 $A_{k}^{\mathrm{vis}}$ 总会优于文本。然而，我们必须面对 WSSS 的一个核心挑战：$A_{k}^{\mathrm{vis}}$ 的质量完全取决于输入原型 $P_k$ 的质量，而该输入原型派生自具有潜在噪声的预测掩码。如果 $P_k$ 是不完整或错误的，$A_{k}^{\mathrm{vis}}$ 将是一个有缺陷、不可靠的描述。尽管模板文本‘一个干净的 [CLASS] 折纸’只能提供通用的语义表示，但它在语义上是稳定的，可以作为一个语义锚点。因此，我们认为不应简单地丢弃可靠的 $T_k$，而是应将其动态融合到视觉原型中。
 
@@ -168,6 +210,18 @@ $$
 
 这个 $Q_k$ 取代了公式 (1) 计算 CAM 中的静态 $T_k$ 作为查询原型，从而提供了一个动态平衡文本语义普适性与特定于实例的视觉描述的查询原型。这些 CAMs 然后被精细化以生成密集的伪标签 $\hat{P}$ 作为解码器预测 $P$ 的监督。
 
+> [!note] 公式 (13)(14)：视觉原型不可靠时用文本兜底
+> $\alpha_k(P_k)$ 本质上是在看当前实例原型 $P_k$ 映射后的 $z_k=f_\theta(P_k)$ 距离第 $k$ 类中心 $\mu_k$ 有多近。公式 (13) 的形式来自单位高斯密度的核心项：如果认为第 $k$ 类在 latent space 中大致服从 $\mathcal{N}(\mu_k,\mathbb{I})$，那么一个点 $z_k$ 越靠近 $\mu_k$，它的密度越高；越远，密度越低。论文用 $\exp(-\frac{1}{2}\|z_k-\mu_k\|_2^2)$ 作为归一化后的典型程度分数，当 $z_k=\mu_k$ 时 $\alpha_k=1$，当距离变大时 $\alpha_k$ 会快速趋近 0。
+>
+> 因此，$\alpha_k$ 可以理解为当前视觉原型的可信度门控。$\alpha_k$ 高，说明这个 instance prototype 很像 H-GMM 学到的第 $k$ 类典型样本，融合时就更相信视觉组装原型 $A_k^{\mathrm{vis}}$；$\alpha_k$ 低，说明它可能来自噪声 mask、不完整预测或非典型样本，融合时就更多依赖稳定的文本原型 $T_k$。文本原型虽然有模态差距、缺少实例细节，但类别语义稳定，适合作为兜底锚点。
+>
+> 公式 (14) 就是在做线性插值：$Q_k=(1-\alpha_k)T_k+\alpha_k A_k^{\mathrm{vis}}$。它和固定权重融合不同，因为每个样本都会根据自己的 $P_k$ 产生不同的 $\alpha_k$。可靠样本可以多用视觉细节，不可靠样本则自动回退到文本语义；最终得到的 $Q_k$ 才拿去和 CLIP visual features 计算相似度生成 CAM。
+
+> [!note] 批判性理解：这个可靠性判断依赖类中心本身可信
+> 这里的 $\alpha_k$ 并不是在判断 $P_k$ 是否“绝对正确”，而是在判断它是否符合当前 H-GMM 学到的第 $k$ 类分布。因此，这个机制隐含了一个前提：类间中心 $\mu_k$ 已经由足够干净的 reliable prototype batch 学得比较稳定。如果 zero-shot filter 放进了较多噪声，或者某个类别外观变化太大、样本覆盖不足，那么 $\mu_k$ 本身可能偏移，此时 $\alpha_k$ 这把“尺子”也会变得不可靠。
+>
+> 这种情况下可能出现两类误判：一类是错信视觉原型，即噪声 prototype 恰好靠近被污染的 $\mu_k$，导致 $\alpha_k$ 偏高，模型过度相信错误的 $A_k^{\mathrm{vis}}$；另一类是错杀视觉原型，即真实但非典型的实例远离 $\mu_k$，导致 $\alpha_k$ 偏低，模型过早退回文本原型 $T_k$。所以 density-based fusion 的优势在于给视觉原型加了一个自适应门控，但它的效果高度依赖前面 VAMD/H-GMM 学到的类别中心质量。
+
 ### 3.4. 解码器语义增强
 
 为了进一步增强解码器嵌入的语义一致性，我们使用一个可学习的适配器将冻结的 CLIP 特征转移到解码器，并引入对比学习，该学习将自适应的特定于实例的特征与来自我们的类间 H-GMM 的稳定的全局类别原型对齐。具体而言，适配器 $f_{\mathrm{adapt}}$ 将冻结的 CLIP 特征 $V$ 映射到 $V_{\mathrm{dec}}$，然后我们可以像公式 (2) 一样通过掩码平均池化得到适配器实例原型 $P_{\mathrm{dec},k}$。全局语义锚点 $G_k$ 是从类间 GMM 的组件中心 $\{\mu_k\}_{k=1}^K$ 派生的，并将它们映射回视觉空间 $V_{k}^{g} = g_\theta(\mu_k)$。然后，我们使用 InfoNCE 损失将适配器实例原型 $P_{\mathrm{dec},k}$ 拉向其对应的全局锚点 $G_k$，同时将其推离其他类的锚点：
@@ -178,6 +232,9 @@ $$
 
 其中 $\mathrm{sim}(\cdot, \cdot)$ 是余弦相似度，而 $\tau$ 是温度。这个过程将适配器的表示与我们的类间 GMM 所学习到的全局语义关系对齐。这些增强了语义一致性的适配器特征 $V_{\mathrm{dec}}$ 然后被送入解码器以生成最终的分割预测 $P$。
 
+> [!note] 公式 (15)：DSE 是给 adapter 表征加语义约束
+> DSE 不是再生成 CAM，而是用 H-GMM 学到的类别中心当作 class anchors。$P_{\mathrm{dec},k}$ 是 adapter 特征经过 mask pooling 得到的实例原型，$G_k$ 是第 $k$ 类的全局语义锚点。InfoNCE 的分子拉近 $P_{\mathrm{dec},k}$ 和正确类别锚点 $G_k$，分母包含所有类别锚点，等价于把其他类别作为负样本推开。这样 adapter/decoder 的特征会更符合 H-GMM 学到的类别语义结构。
+
 ### 3.5. 整体框架训练
 
 我们的框架包括两个主要独立的训练目标。一个是分割网络训练，它使用交叉熵损失 $\mathcal{L}_{\mathrm{ce}} = \mathrm{CE}(P, \hat{P})$ 和我们的对比增强损失 $\mathcal{L}_{\mathrm{con}}$。总损失为：
@@ -187,3 +244,6 @@ $$
 $$
 
 其中 $\lambda$ 是损失平衡项。另一个目标是 INN 训练，它使用公式 (9) 中的损失 $\mathcal{L}_{\mathrm{inn}}$ 来训练我们的概率模型。在我们的训练流水线中，INN 和分割网络的优化是完全独立的，即来自 INN 的梯度不会反向传播到分割网络。并且在推理过程中，与 INN 相关的组件被移除。
+
+> [!note] 公式 (16)：训练目标分成两套
+> 分割网络这边优化 $\mathcal{L}_{\mathrm{seg}}$：$\mathcal{L}_{\mathrm{ce}}$ 让 decoder prediction $P$ 拟合由 CAM refined 得到的伪标签 $\hat{P}$，$\mathcal{L}_{\mathrm{con}}$ 通过 DSE 约束 adapter 表征，$\lambda$ 控制二者权重。INN/H-GMM 这边则单独优化 $\mathcal{L}_{\mathrm{inn}}$。所以这篇方法不是让所有模块被一个 CE loss 端到端串起来，而是分割网络和概率模型各有自己的训练目标；推理时 INN 相关组件会被移除，最终使用训练好的 adapter 和 decoder 输出分割结果。

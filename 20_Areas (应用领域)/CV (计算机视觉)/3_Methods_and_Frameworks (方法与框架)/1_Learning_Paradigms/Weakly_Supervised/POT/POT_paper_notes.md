@@ -8,6 +8,7 @@ tags:
   - clip
   - optimal-transport
   - pot
+  - wsss
 model: Prototypical Optimal Transport (POT)
 year: 2025
 status: todo

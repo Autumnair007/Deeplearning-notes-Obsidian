@@ -9,6 +9,7 @@ tags:
   - vit
   - transformer
   - clip-es
+  - wsss
 status: todo
 year: 2023
 model: CLIP-ES (CLIP Is Also an Efficient Segmenter)
