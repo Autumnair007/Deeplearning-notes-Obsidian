@@ -12,7 +12,7 @@ tags:
   - cam
 status: done
 model: Multi-Class Token Transformer
-year: 2022
+venue: CVPR2022
 ---
 ## 1. 核心设计理念与动机
 **MCTformer (Multi-class Token Transformer)** 旨在解决弱监督语义分割（WSSS）中，利用Transformer生成高质量伪标签（Pseudo Labels）的问题。

@@ -11,7 +11,7 @@ tags:
   - wsss
 status: done
 model: ComCD (Complementary synergy of CLIP and Diffusion models)
-year: 2026
+venue: ESWA2026
 ---
 论文网址：[Unveiling the complementary synergy of CLIP and diffusion models for weakly supervised semantic segmentation - ScienceDirect](https://www.sciencedirect.com/science/article/pii/S0957417426007979?fr=RR-2&ref=pdf_download&rr=9d81f7f869955251)
 

@@ -11,7 +11,7 @@ tags:
   - wsss
 status: done
 model: Visual Description Assembly
-year: 2026
+venue: CVPR2026
 ---
 CVPR网址：[CVPR 2026 Open Access Repository](https://openaccess.thecvf.com/content/CVPR2026/html/Qiu_Beyond_Text_Visual_Description_Assembly_by_Probabilistic_Model_for_CLIP-based_CVPR_2026_paper.html)
 

@@ -15,7 +15,7 @@ tags:
   - weclip-plus
 status: todo
 model: WeCLIP / WeCLIP+
-year: 2024
+venue: TPAMI2025
 ---
 论文网址：[IEEE Xplore Full-Text PDF:](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10891864)
 

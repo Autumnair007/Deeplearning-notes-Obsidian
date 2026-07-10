@@ -10,7 +10,7 @@ tags:
   - wsss
 status: todo
 model: S2C (From SAM to CAMs)
-year: 2024
+venue: CVPR2024
 ---
 论文网址：[From SAM to CAMs: Exploring Segment Anything Model for Weakly Supervised Semantic Segmentation](https://openaccess.thecvf.com/content/CVPR2024/papers/Kweon_From_SAM_to_CAMs_Exploring_Segment_Anything_Model_for_Weakly_CVPR_2024_paper.pdf)
 

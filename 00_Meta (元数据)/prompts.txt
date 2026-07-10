@@ -90,8 +90,9 @@ Markdown 兼容性：不要在公式内部使用 Markdown 的加粗（**）或�
         few-shot (少样本) / zero-shot (零样本)
     模型标签: 使用模型的常用缩写作为标签（如 vit, resnet, clip, dino, sam）。不要在标签里加年份。
     代码标签: 如果 type 是 concept-note 但包含部分关键代码，可以额外添加 code-note 到 tags 列表中（注意 type 仍是 concept-note）。
-3.  Year (年份):
-    不管是 concept-note (模型提出的年份) 还是 paper-note (论文发表年份)，都必须在 year 属性中填写年份，不要写在 tags 里。
+    WSSS 标签: 如果是弱监督语义分割，除上述适用标签外，必须额外添加 wsss。
+3.  Venue (发表会议/期刊):
+    如果笔记对应特定论文或模型，必须在 venue 属性中填写发表会议或期刊的简称加年份，例如 CVPR2025、AAAI2026、TPAMI2025。不要使用 year 属性，也不要将会议、期刊或年份写入 tags。
 4.  Model (模型全称):
       如果是论文笔记，请在 model 字段填写模型全称或论文中提出的主要方法名称。
 我只需要 YAML 卡片的内容，不需要任何解释或其他文本！
@@ -110,7 +111,7 @@ status: "todo"  # todo, in-progress, done (默认 done)
 type: "concept-note"
 tags: [nlp, sequence-model, attention, transformer]
 status: "done"
-year: 2017
+venue: NeurIPS2017
 ---
 ```
 **示例2：一篇“论文精读”笔记 (`vit_paper_notes.md`)**
@@ -120,7 +121,7 @@ type: "paper-note"
 tags: [cv, image-classification, vit, transformer, fully-supervised]
 status: "done"
 model: "Vision Transformer"
-year: 2020
+venue: ICLR2021
 ---
 ```
 **示例3：一篇“项目总结”笔记 (`README.md`)**
@@ -135,5 +136,4 @@ summary: "ResNet18在CIFAR10上的复现与训练总结"
 ```
 如你所见，你可以根据笔记的类型，自由地添加你认为有用的字段。`type`, `tags`, `status` 是最基础也最有用的三个，你可以适当添加，但是不要太多。
 整理好的内容用markdown的格式给我，想要你像代码一样让我能直接粘贴过去。除此之外，每一段之间不要空行，换行就行。所有内容都用中文简体，除非是必要的英文。
-
 

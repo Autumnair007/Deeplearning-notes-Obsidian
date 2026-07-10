@@ -13,7 +13,7 @@ tags:
   - cam
 status: done
 model: "WeCLIP: Frozen CLIP for Weakly Supervised Semantic Segmentation"
-year: 2024
+venue: CVPR2024
 ---
 论文网址：[Frozen CLIP: A Strong Backbone for Weakly Supervised Semantic Segmentation](https://openaccess.thecvf.com/content/CVPR2024/papers/Zhang_Frozen_CLIP_A_Strong_Backbone_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2024_paper.pdf)
 

@@ -9,7 +9,7 @@ tags:
   - diffusion
   - comcd
 status: done
-year: 2024
+venue: ESWA2026
 model: ComCD
 ---
 ### 一、 热力图的本质：内部张量的伪色彩可视化

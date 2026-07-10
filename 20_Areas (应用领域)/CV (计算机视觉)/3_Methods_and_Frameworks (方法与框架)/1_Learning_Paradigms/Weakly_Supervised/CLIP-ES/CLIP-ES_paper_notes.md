@@ -11,7 +11,7 @@ tags:
   - clip-es
   - wsss
 status: todo
-year: 2023
+venue: CVPR2023
 model: CLIP-ES (CLIP Is Also an Efficient Segmenter)
 ---
 论文网址：[CLIP Is Also an Efficient Segmenter: A Text-Driven Approach for Weakly Supervised Semantic Segmentation](https://openaccess.thecvf.com/content/CVPR2023/papers/Lin_CLIP_Is_Also_an_Efficient_Segmenter_A_Text-Driven_Approach_for_CVPR_2023_paper.pdf)

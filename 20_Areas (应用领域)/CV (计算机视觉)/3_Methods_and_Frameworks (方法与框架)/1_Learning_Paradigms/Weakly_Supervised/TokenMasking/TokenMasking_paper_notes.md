@@ -14,7 +14,7 @@ tags:
   - wsss
 status: todo
 model: ViT
-year: 2025
+venue: ICCV2025
 ---
 论文网址：[Know Your Attention Maps: Class-specific Token Masking for Weakly Supervised Semantic Segmentation](https://openaccess.thecvf.com/content/ICCV2025/papers/Hanna_Know_Your_Attention_Maps_Class-specific_Token_Masking_for_Weakly_Supervised_ICCV_2025_paper.pdf)
 

@@ -13,7 +13,7 @@ tags:
   - ssr
 status: done
 model: "SSR: Semantic and Spatial Rectification"
-year: 2025
+venue: AAAI2026
 ---
 论文网址：[SSR: Semantic and Spatial Rectification for CLIP-based Weakly Supervised Segmentation](https://arxiv.org/pdf/2512.01701
 
