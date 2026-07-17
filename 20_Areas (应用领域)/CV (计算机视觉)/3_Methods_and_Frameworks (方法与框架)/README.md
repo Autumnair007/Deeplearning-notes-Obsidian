@@ -16,11 +16,14 @@
 *   `Open_Vocabulary` (开放词汇)：利用 CLIP 等图文对齐模型识别任意文本描述的类别 (如 ITACLIP)。
 *   `Few_Shot` (少样本)：利用少量 Support Set 图像分割 Query Set (如 FS-DINO-4D)。
 *   `Domain_Adaptation` (域适应)：解决训练集与测试集分布不一致的问题。
+
 ### 3_Foundation_Model_Adaptation (大模型适配)
+
 **定义**：核心贡献在于**如何微调或适配**通用的基础模型 (Foundation Models, 如 SAM, DINO, CLIP) 到下游任务，且不局限于特定的少样本或弱监督场景。
 **收录规则**：如果论文纯粹讨论 Prompt Engineering (提示工程)、Adapter 设计或从大模型蒸馏知识，放这里。
 **注意**：如果论文是用 DINO 解决 Few-Shot 问题，优先放入 `2_Generalization_and_Open_World/Few_Shot`，并在笔记 Tag 中标记 `#foundation-model`。
 **子文件夹规划**：
+
 *   `Prompting_and_Adapters` (提示与适配器)：视觉提示、LoRA 微调等。
 *   `Distillation_from_VLM` (大模型蒸馏)：将 SAM/DINO 能力转移到小模型。
 ### 4_Core_Mechanisms_and_Modules (核心机制与组件)
