@@ -10,13 +10,16 @@ tags:
   - semantic-segmentation
   - weakly-supervised
   - open-vocabulary
-status: in-progress
+status: todo
 ---
 
 # Cross-Modal Alignment（跨模态对齐）
 
 > [!abstract] 本页定位
-> 本页不是重复介绍某一篇论文，而是整理**如何让视觉单元与文本语义建立可用于密集预测的对应关系**。当前版本只从 `3_Methods_and_Frameworks` 中弱监督语义分割和开放词汇语义分割相关笔记提炼，后续再补源码位置和其他领域中的实现。
+> 本页不是重复介绍某一篇论文，而是整理**如何让视觉单元与文本语义建立可用于密集预测的对应关系**。当前证据范围限定为 `3_Methods_and_Frameworks` 中的弱监督语义分割与开放词汇语义分割，并以论文原文和官方代码的静态阅读结果为准。
+
+> [!tip] 基础机制入口
+> CLIP的图像/文本编码、L2归一化、温度和对比预训练优先看 [[clip_notes]] 与 [[clip_paper_notes]]；ViT token结构看 [[vision_transformer_notes]]。本页只展开密集对齐时新增的粒度、空间恢复和跨模型映射问题。
 
 ## 1. 这个操作解决什么问题？
 
