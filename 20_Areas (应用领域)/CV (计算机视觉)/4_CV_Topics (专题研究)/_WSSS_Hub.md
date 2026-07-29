@@ -57,7 +57,7 @@ SORT rows.file.name ASC
 
 ### 📝 最近更新 (Recently Modified)
 
-你最近编辑过的10篇WSSS相关笔记。
+你最近编辑过的15篇WSSS相关笔记。
 
 ```dataview
 TABLE WITHOUT ID
@@ -66,5 +66,5 @@ TABLE WITHOUT ID
 FROM #wsss AND !"99_Assets (资源文件)"
 WHERE file.name != "_WSSS_Hub"
 SORT file.mtime DESC
-LIMIT 10
+LIMIT 15
 ```
