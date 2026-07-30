@@ -10,55 +10,28 @@ tags:
   - vision-transformer
   - cam
   - attention
-status: in-progress
+status: done
 model: DiG
 venue: ECCV2024
 ---
+
+论文网址：[Diffusion-Guided Weakly Supervised Semantic Segmentation](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/04703.pdf)
+
+本地PDF文件：[Diffusion-Guided Weakly Supervised Semantic Segmentation](../../../../../../99_Assets%20(资源文件)/papers/Diffusion-Guided%20Weakly%20Supervised%20Semantic%20Segmentation.pdf)
+
+***
+
 # Diffusion-Guided Weakly Supervised Semantic Segmentation
 
 扩散引导的弱监督语义分割
 
-**摘要。** 使用分类标签的弱监督语义分割（WSSS）通常使用类激活图（CAM）基于卷积神经网络（CNN）定位目标。由于感受野有限，基于 CNN 的 CAM 往往无法定位完整目标。视觉 Transformer（ViT）的出现凭借其优越性能缓解了这一问题，但 ViT 缺乏局部性又带来了新的挑战。受去噪扩散概率模型（DDPM）能够捕获高层语义信息这一能力的启发，我们将扩散模型引入 WSSS 来解决该问题。首先，为融合并在语义上对齐 DDPM 与 ViT 之间的信息，我们设计了局部性融合交叉注意力（LFCA）模块。LFCA 利用从预训练 DDPM 去噪过程中聚合的特征，生成扩散 CAM（Diffusion-CAM），以向来自 ViT 的 CAM（ViT-CAM）提供局部性信息。其次，通过向原始图像添加噪声并用 DDPM 去噪，我们获得可作为增强样本使用的去噪图像。为了有效引导 ViT 挖掘图块之间的关系，我们在原始图像与去噪图像的输出之间设计了图块亲和力一致性（Patch Affinity Consistency，PAC）。大量消融研究支持所提方法的优越性。我们的方法在 WSSS 中广泛使用的两个数据集 PASCAL VOC 2012 和 MS-COCO 2014 上取得了新的最先进性能。代码见 https://github.com/yoon307/DiG。
+**摘要。** 使用分类标签的弱监督语义分割（WSSS）通常使用类激活图（CAM）基于卷积神经网络（CNN）定位目标。由于感受野有限，基于 CNN 的 CAM 往往无法定位完整目标。视觉 Transformer（ViT）的出现凭借其优越性能缓解了这一问题，但 ViT 缺乏局部性又带来了新的挑战。受去噪扩散概率模型（DDPM）能够捕获高层语义信息这一能力的启发，我们将扩散模型引入 WSSS 来解决该问题。首先，为融合并在语义上对齐 DDPM 与 ViT 之间的信息，我们设计了局部性融合交叉注意力（Locality Fusion Cross Attention，LFCA）模块。LFCA 利用从预训练 DDPM 去噪过程中聚合的特征，生成扩散 CAM（Diffusion-CAM），以向来自 ViT 的 CAM（ViT-CAM）提供局部性信息。其次，通过向原始图像添加噪声并用 DDPM 去噪，我们获得可作为增强样本使用的去噪图像。为了有效引导 ViT 挖掘图块之间的关系，我们在原始图像与去噪图像的输出之间设计了图块亲和力一致性（Patch Affinity Consistency，PAC）。大量消融研究支持所提方法的优越性。我们的方法在 WSSS 中广泛使用的两个数据集 PASCAL VOC 2012 和 MS-COCO 2014 上取得了新的最先进性能。代码见 https://github.com/yoon307/DiG。
 
 **关键词：** 去噪扩散概率模型 · 弱监督语义分割
 
 ## 1 引言
 
 为缓解全监督语义分割模型中劳动密集且成本高昂的标注过程，研究者提出使用弱标签训练语义分割。借助图像级标签[25,32,42,59,63–65]、涂鸦[33,50]和边界框[24,28]等低廉且易得的标签，弱监督语义分割（WSSS）方法得到积极探索，目标是达到全监督性能。
-
-尽管使用图像级标签训练语义分割模型是最实用的设置，提取定位信息仍很困难，因为标签只告知某些目标是否存在。为从分类器捕获空间信息并生成伪像素级标签，大多数 WSSS 工作采用基于 CNN 的类激活图（CAM）[67]。然而，基于 CNN 的 CAM 由于其固有特性，不仅聚焦于最具判别性的区域（即激活不足），还具有不精确的目标边界。为使获得的 CAM 能作为语义分割的伪标签，各项研究致力于提高 CAM 的质量。
-
-转而使用视觉 Transformer（ViT）提取 CAM，借助多头自注意力（MHSA）机制获得全局特征，能够有效减轻 CNN-CAM 的激活不足问题并显示出可喜结果。然而，用 ViT 提取 CAM 也带来另一挑战：相较于 CNN，ViT 可能不擅长捕获细粒度局部模式。一些方法通过改进位置编码[54]或采用结合 ViT 与 CNN 的混合模型[19]，缓解 ViT 的这种局部性不足[19,31,48,54]。不过在 WSSS 中，对于解决 ViT 局部性缺失所致 CAM 性能下降的关注相对较少。
-
-> [!note] 我的理解｜本文要补的是 ViT 的哪块短板？
->
-> CNN 的局部感很强但容易只盯住最有辨识度的局部；ViT 更容易覆盖物体，却没有足够强的“邻近图块属于同一物体”的偏好。DiG 不把扩散模型当作分割器，而是借它已有的局部语义结构来约束 ViT：LFCA 给 CAM 补局部性，PAC 给图块—图块关系补稳定性。
-
-与此同时，去噪扩散概率模型（DDPM）[21]已在图像生成、修复和超分辨率等多种生成建模任务中展现出良好结果。已有研究表明，DDPM 的特征表示能够捕获对语义分割有价值的高层语义信息[3]。考虑到扩散模型也可以以无标签方式训练，它适合用于 WSSS。基于这一动机，我们提出一个新颖的 WSSS 框架：将语义上聚类良好的 DDPM 特征与 ViT 融合，以提高 CAM 质量；还提出一种自监督学习技术，利用 DDPM 加噪、去噪过程恢复的图像进一步改善 CAM 质量。训练 DDPM 时，我们不使用外部数据集和目标数据集图像之外的额外监督。
-
-> [!note] 文献 [3]｜DDPM 特征为什么能帮助分割？
->
-> [3] 是 Baranchuk 等人的 *[Label-Efficient Semantic Segmentation with Diffusion Models](https://arxiv.org/abs/2112.03126)*（ICLR 2022）。该工作冻结预训练 DDPM，考察其反向去噪网络中的中间激活，发现这些特征能有效编码输入图像的语义，并可作为像素级分割表征；即使只有少量带像素标注的训练图像，配合一个简单的分割方法也能取得很强的结果。
->
-> 它为这里的论断提供了直接依据：DDPM 的 U-Net 不只是生成噪声预测，还在中间层保留了可区分物体区域的语义信息。与 [3] 不同，DiG 不使用像素级标注来训练分割头，而是把这些特征经 LFCA 对齐到 ViT 的类别语义，再用扩散 CAM 和 PAC 反哺仅有图像级标签的 WSSS。
-
-如图 1 所示，我们以 ViT 为分类骨干、以基于 U-Net 的网络为 DDPM，且只使用图像级监督。尽管 DDPM 能够以较高局部性捕获语义信息，它仍需与 ViT 结构的语义对齐。因此，我们提出 LFCA 模块实现这种对齐，并用它改善 ViT-CAM 的局部性。具体地，LFCA 从 ViT 中类别对齐的图块取查询 token，从扩散特征取键/值 token，并以交叉注意力融合不同特征表示。为引导 LFCA 的输出 token，我们施加分类损失，并以 Kullback-Leibler 散度（KLD）从 ViT 模型蒸馏知识，从而连续地将 LFCA 语义对齐到 ViT。充分对齐后，由 LFCA 输出 token 生成的扩散 CAM 用于训练 ViT-CAM。此外，我们引入 PAC，旨在训练 ViT 鲁棒地学习图块间关系。当图像由 DDPM 加噪并去噪时，图像发生人类难以察觉但显著的退化，同时语义特征得以保留。因局部语义在图像退化期间不变，去噪图像与原图的图块亲和力应当相似。PAC 对原图与退化图像的图块亲和力施加相似性约束，以有效引导仅靠分类损失难以正则化的图块亲和力。
-
-> [!note] 概念补充｜DiG 中的 KL 散度与知识蒸馏
->
-> **大白话。** 图像级标签只告诉模型“这张图有火车”，却不告诉它“火车与轨道、树木之间的相对可能性”。ViT 已从分类训练中形成一套较可靠的类别判断；KL 散度要求 LFCA 的扩散分支给出相近的判断。也就是说，ViT 不只传递最终答案，还传递“最像什么、次像什么、分别有多像”的软排序。
->
-> **数学上。** 对两个类别概率分布 $P,Q$，KL 散度定义为
-> $$
-> D_{\mathrm{KL}}(P\Vert Q)=\sum_iP_i\log\frac{P_i}{Q_i}\geq0.
-> $$
-> 在式 (5) 中，$P=\sigma(\hat y/T)$ 是 ViT 的温度概率分布，$Q=\sigma(\hat y_{\mathrm{diff}}/T)$ 是 LFCA/扩散分支的分布；最小化 $D_{\mathrm{KL}}(P\Vert Q)$ 会尤其惩罚“ViT 很确信、扩散分支却给出很低概率”的类别。它是有方向的：$D_{\mathrm{KL}}(P\Vert Q)$ 一般不等于 $D_{\mathrm{KL}}(Q\Vert P)$，此处的方向表达的是“扩散分支向 ViT 学习”。
->
-> **它和分类损失有什么不同？** 图像标签产生的 $\mathcal L_{\mathrm{cls}}$ 是硬监督：类别出现与否应符合标注；KL 是软监督：即使两个分支都预测“火车存在”，也进一步要求它们的整组类别置信度相近。固定 $P$ 时，有 $D_{\mathrm{KL}}(P\Vert Q)=H(P,Q)-H(P)$；由于熵 $H(P)$ 是常数，最小化 KL 等价于以 ViT 的软概率为目标最小化交叉熵。
->
-> **温度 $T$ 与 $T^2$。** 先除以 $T>1$ 再做 Softmax 会把概率分布变平，使“第二像什么”等弱信息也能参与蒸馏；乘回 $T^2$ 是标准的梯度尺度补偿，避免升温后 KL 项的梯度过小。故式 (6) 中 $\alpha$ 平衡硬标签分类与软蒸馏，而不是让扩散分支无条件复制 ViT。
->
-> 延伸阅读：[[Distillation#3.1 像素级软 logit 蒸馏|知识蒸馏算子库：软 logit 蒸馏]]（含张量维度、温度 Softmax 和实现层面的说明）。
 
 ![](../../../../../../99_Assets%20%28资源文件%29/images/dig_fig1.png)
 
@@ -80,19 +53,70 @@ venue: ECCV2024
 >
 > 可以把整张图概括为：**DDPM 给 ViT 提供局部结构证据，ViT 给 DDPM 特征提供类别语义锚点；LFCA 负责融合，diffusion CAM 与 PAC 共同把这种互补性传回 ViT-CAM。**
 
+尽管使用图像级标签训练语义分割模型是最实用的设置，提取定位信息仍很困难，因为标签只告知某些目标是否存在。为从分类器捕获空间信息并生成伪像素级标签，大多数 WSSS 工作采用基于 CNN 的类激活图（CAM）[67]。然而，基于 CNN 的 CAM 由于其固有特性，不仅聚焦于最具判别性的区域（即激活不足），还具有不精确的目标边界。为使获得的 CAM 能作为语义分割的伪标签，各项研究致力于提高 CAM 的质量。
+
+转而使用视觉 Transformer（ViT）提取 CAM，借助多头自注意力（MHSA）机制获得全局特征，能够有效减轻 CNN-CAM 的激活不足问题并显示出可喜结果。然而，用 ViT 提取 CAM 也带来另一挑战：相较于 CNN，ViT 可能不擅长捕获细粒度局部模式。一些方法通过改进位置编码[54]或采用结合 ViT 与 CNN 的混合模型[19]，缓解 ViT 的这种局部性不足[19,31,48,54]。不过在 WSSS 中，对于解决 ViT 局部性缺失所致 CAM 性能下降的关注相对较少。
+
+> [!note] 我的理解｜本文要补的是 ViT 的哪块短板？
+>
+> CNN 的局部感很强但容易只盯住最有辨识度的局部；ViT 更容易覆盖物体，却没有足够强的“邻近图块属于同一物体”的偏好。DiG 不把扩散模型当作分割器，而是借它已有的局部语义结构来约束 ViT：LFCA 给 CAM 补局部性，PAC 给图块—图块关系补稳定性。
+
+与此同时，去噪扩散概率模型（DDPM）[21]已在图像生成、修复和超分辨率等多种生成建模任务中展现出良好结果。已有研究表明，DDPM 的特征表示能够捕获对语义分割有价值的高层语义信息[3]。考虑到扩散模型也可以以无标签方式训练，它适合用于 WSSS。基于这一动机，我们提出一个新颖的 WSSS 框架：将语义上聚类良好的 DDPM 特征与 ViT 融合，以提高 CAM 质量；还提出一种自监督学习技术，利用 DDPM 加噪、去噪过程恢复的图像进一步改善 CAM 质量。训练 DDPM 时，我们不使用外部数据集和目标数据集图像之外的额外监督。
+
+> [!note] 文献 [3]｜DDPM 特征为什么能帮助分割？
+>
+> [3] 是 Baranchuk 等人的 *[Label-Efficient Semantic Segmentation with Diffusion Models](https://arxiv.org/abs/2112.03126)*（ICLR 2022）。该工作冻结预训练 DDPM，考察其反向去噪网络中的中间激活，发现这些特征能有效编码输入图像的语义，并可作为像素级分割表征；即使只有少量带像素标注的训练图像，配合一个简单的分割方法也能取得很强的结果。
+>
+> 它为这里的论断提供了直接依据：DDPM 的 U-Net 不只是生成噪声预测，还在中间层保留了可区分物体区域的语义信息。与 [3] 不同，DiG 不使用像素级标注来训练分割头，而是把这些特征经 LFCA 对齐到 ViT 的类别语义，再用扩散 CAM 和 PAC 反哺仅有图像级标签的 WSSS。
+
+如图 1 所示，我们以 ViT 为分类骨干、以基于 U-Net 的网络为 DDPM，且只使用图像级监督。尽管 DDPM 如图 1(a)所示能够以较高局部性捕获语义信息，它仍需与 ViT 结构的语义对齐。因此，我们提出 LFCA 模块实现这种对齐，并用它改善 ViT-CAM 的局部性。具体地，LFCA 从 ViT 中类别对齐的图块取查询 token，从扩散特征取键/值 token，并以交叉注意力融合不同特征表示。为引导 LFCA 的输出 token，我们施加分类损失，并以 Kullback-Leibler 散度（KLD）从 ViT 模型蒸馏知识，从而连续地将 LFCA 语义对齐到 ViT。充分对齐后，由 LFCA 输出 token 生成的扩散 CAM 用于训练 ViT-CAM。此外，我们引入 PAC，旨在训练 ViT 鲁棒地学习图块间关系。当图像由 DDPM 加噪并去噪时，图像发生人类难以察觉但显著的退化，同时语义特征得以保留。因局部语义在图像退化期间不变，去噪图像与原图的图块亲和力应当相似。PAC 对原图与退化图像的图块亲和力施加相似性约束，以有效引导仅靠分类损失难以正则化的图块亲和力。
+
+> [!note] 概念补充｜DiG 中的 KL 散度与知识蒸馏
+>
+> **大白话。** 图像级标签只告诉模型“这张图有火车”，却不告诉它“火车与轨道、树木之间的相对可能性”。ViT 已从分类训练中形成一套较可靠的类别判断；KL 散度要求 LFCA 的扩散分支给出相近的判断。也就是说，ViT 不只传递最终答案，还传递“最像什么、次像什么、分别有多像”的软排序。
+>
+> **数学上。** 对两个类别概率分布 $P,Q$，KL 散度定义为
+> $$
+> D_{\mathrm{KL}}(P\Vert Q)=\sum_iP_i\log\frac{P_i}{Q_i}\geq0.
+> $$
+> 在式 (5) 中，$P=\sigma(\hat y/T)$ 是 ViT 的温度概率分布，$Q=\sigma(\hat y_{\mathrm{diff}}/T)$ 是 LFCA/扩散分支的分布；最小化 $D_{\mathrm{KL}}(P\Vert Q)$ 会尤其惩罚“ViT 很确信、扩散分支却给出很低概率”的类别。它是有方向的：$D_{\mathrm{KL}}(P\Vert Q)$ 一般不等于 $D_{\mathrm{KL}}(Q\Vert P)$，此处的方向表达的是“扩散分支向 ViT 学习”。
+>
+> **它和分类损失有什么不同？** 图像标签产生的 $\mathcal L_{\mathrm{cls}}$ 是硬监督：类别出现与否应符合标注；KL 是软监督：即使两个分支都预测“火车存在”，也进一步要求它们的整组类别置信度相近。固定 $P$ 时，有 $D_{\mathrm{KL}}(P\Vert Q)=H(P,Q)-H(P)$；由于熵 $H(P)$ 是常数，最小化 KL 等价于以 ViT 的软概率为目标最小化交叉熵。
+>
+> **温度 $T$ 与 $T^2$。** 先除以 $T>1$ 再做 Softmax 会把概率分布变平，使“第二像什么”等弱信息也能参与蒸馏；乘回 $T^2$ 是标准的梯度尺度补偿，避免升温后 KL 项的梯度过小。故式 (6) 中 $\alpha$ 平衡硬标签分类与软蒸馏，而不是让扩散分支无条件复制 ViT。
+>
+> 延伸阅读：[[Distillation#3.1 像素级软 logit 蒸馏|知识蒸馏算子库：软 logit 蒸馏]]（含张量维度、温度 Softmax 和实现层面的说明）。
+
+本文主要贡献如下：
+
+- 提出首个成功将扩散模型融合至基于 ViT 的 WSSS 模型的框架；鉴于任务性质，方法也只利用图像级监督。
+- 提出 LFCA 模块，在将预训练扩散特征对齐至 ViT 语义类别的同时，挖掘其潜力。
+- 设计简单而有效的 PAC：将去噪图像作为空间与语义一致的增强样本，更好地引导用于细化 CAM 的图块亲和力。
+
+PASCAL VOC 2012[15]和 MS COCO[34]的实验结果，通过建立新的最先进性能验证了所提方法的优越性。
+
 ## 2 相关工作
 
 ### 2.1 扩散模型
 
-扩散模型[21,43]是旨在逼近真实图像分布的概率生成模型。给定图像被连续高斯噪声破坏时，模型学习恢复该图像。DDPM[21]建模前向扩散过程，并提出以简化方式逆转扩散过程的训练目标。为加快图像生成推理，DDIM[44]提出具有非马尔可夫链的隐式概率模型。Dhariwal 等人[13]提出面向扩散模型的新架构；凭借强大的模型和修改后的目标，扩散模型首次在样本质量与多样性上超过 GAN。本文遵循 DDPM 过程，采用[13]提出的基于 U-Net 的扩散模型。
+扩散模型[21,43]是旨在逼近真实图像分布的概率生成模型。给定图像被连续高斯噪声破坏时，模型学习恢复该图像。DDPM[21]建模前向扩散过程，并提出以简化方式逆转扩散过程的训练目标。为加快图像生成推理，DDIM[44]提出具有非马尔可夫链的隐式概率模型。Dhariwal 等人[13]受 GAN 模型架构取得进展而扩散模型未获同等关注的观察启发，提出面向扩散模型的新架构；凭借强大的模型和修改后的目标，扩散模型首次在样本质量与多样性上超过 GAN。本文遵循 DDPM 过程，采用[13]提出的基于 U-Net 的扩散模型。
+
+> [!note] 从 DDPM 到 DiG：这段话到底在说什么？
+> **DDPM 的基本机制。** 从真实图像 $x_0$ 出发，前向过程在 $T$ 个时间步中逐步加入很小的高斯噪声：$q(x_t\mid x_{t-1})=\mathcal N(\sqrt{1-\beta_t}x_{t-1},\beta_tI)$。当 $t$ 足够大时，$x_T$ 近似标准高斯噪声；并且可直接写成 $x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon$，其中 $\epsilon\sim\mathcal N(0,I)$。因此训练时随机抽取 $t$ 和噪声 $\epsilon$，令网络 $\epsilon_\theta(x_t,t)$ 预测该噪声，并最小化 $\lVert\epsilon-\epsilon_\theta(x_t,t)\rVert^2$。DiG 使用的是 DDPM U-Net 的中间特征，而不是让 DDPM 直接输出分割图。[Ho et al., 2020](https://arxiv.org/abs/2006.11239)
+>
+> **DDIM 为什么更快。** DDIM 保留 DDPM 的训练目标，却构造一族共享边缘分布的非马尔可夫过程；采样时可跳过大量时间步，在 $\eta=0$ 时反向轨迹还是确定性的。DiG 不使用 DDIM 来生成分割结果。[Song et al., 2020](https://arxiv.org/abs/2010.02502)
+>
+> **[13] 的贡献及其与 DiG 的关系。** Dhariwal 与 Nichol 通过系统消融改进扩散 U-Net，并以 classifier guidance 改进条件生成。DiG 采用这一类 DDPM 式 U-Net 的中间特征作为局部结构来源。[Dhariwal & Nichol, 2021](https://arxiv.org/abs/2105.05233)
 
 ### 2.2 基于生成模型的图像分割
 
-与 WSSS 旨在减轻语义分割标注负担的目标相似，已有大量工作利用生成模型做语义分割。DDPM 出现前，多数研究专注于利用 GAN 表示进行语义分割。随着在图像合成上超越 GAN 的扩散模型出现[13]，许多研究[3,4,47,53]致力于将扩散模型用于语义分割。本文不从扩散模型直接解码分割图，而将其冻结特征作为 ViT-CAM 的局部性来源。
+与 WSSS 旨在减轻语义分割标注负担的目标相似，已有大量工作利用生成模型做语义分割。DDPM 出现前，多数研究专注于利用 GAN 表示进行语义分割。Tritrong 等人[49]提出利用 GAN 表示的一次学习语义部件分割框架。Xu 等人[58]和 Galeev 等人[17]表明 GAN 以简单方式编码图像语义，施加线性变换或构建轻量解码器即可将 GAN 特征投影为语义分割图。随着在图像合成上超越 GAN 的扩散模型出现[13]，许多研究[3,4,47,53]致力于将扩散模型用于语义分割。Baranchuk 等人[3]表明扩散模型能够用于语义分割，同时捕获对其他任务有价值的高层语义；Rahman 等人[38,53]提出基于扩散模型的医学图像分割框架。
 
 ### 2.3 弱监督语义分割
 
-大多数使用图像级标签的 WSSS 方法用 CAM[67]定位图像中的目标；未经细化的 CAM 无法发现较不具判别性的区域，并且目标边界不精确。已有方法利用跨图像语义关系[16,30,45]、注意力机制[37,52,55]、互补图块[65]、局部—全局一致性[22]、额外类别[5,60]及对抗学习[26]改善 CAM。许多 WSSS 工作[18,35,40–42,59,60]已经采用 ViT，但据作者所知，尚无研究处理 ViT 的局部性缺失。CAM 的后处理可利用像素亲和力[1,2]或边界信息[7]；本研究重点是 **CAM 改进阶段**，而非 CAM 细化阶段。
+**CAM 改进。** 大多数使用图像级标签的 WSSS 方法用 CAM[67]定位图像中的目标。然而，未经细化的 CAM 无法发现较不具判别性的区域，并且目标边界不精确。为改善 CAM，研究提出：利用跨图像语义关系[16,30,45]、注意力机制[37,52,55]、将图像拆分为互补图块[65]、局部—全局视图图像间的一致性[22]、引入额外类别[5,60]，以及重建器与分类器间的对抗学习[26]。除这些方法外，还引入了基于“擦除并寻找”机制的对抗擦除（AE）方法[25,29,46,62,66]。除扩展 CAM 外，基于对比学习的方法[8,57,68]引导 CAM 获得更准确目标边界。随着 ViT 显示出有希望的定位能力，许多 WSSS 工作[18,35,40–42,59,60]采用 ViT 而非 CNN 作为定位骨干。为提取注意力图，MCTformer[59]将单一类别 token 扩展为多个类别 token，并提出在 ViT 内以类别特定方式提取和细化 CAM 的框架。Xu 等人[60]和 Lin 等人[35]引入视觉—语言（VL）模型以丰富 ViT 的类别表示能力；但这些方法使用的语言模型在大型外部数据集上训练、引入额外语言监督，故不宜与仅图像级监督方法比较。尽管已有许多基于 ViT 的 WSSS 方法，据我们所知，尚无研究处理 ViT 的局部性缺失。
+
+**CAM 细化。** 为进一步细化 CAM 质量以作为语义分割标签，[1,2]利用邻近像素间语义亲和力，[7]使用边界信息。MARS[23]利用无监督语义分割模型的特征生成去偏伪标签。Mat-Label[51]将图像抠图带入 WSSS 伪标签生成过程。BECO[39]提出通过标签混合改善语义边界处伪标签的协同训练框架。由于这些后处理技术依赖 CAM 质量并可与 CAM 改进方法整合，本研究重点放在 **CAM 改进阶段**，而非 CAM 细化阶段。
 
 > [!note] 我的理解｜DiG和普通CAM后处理的区别
 >
@@ -102,13 +126,15 @@ venue: ECCV2024
 
 ### 3.1 预备知识
 
-**去噪扩散概率模型。** DDPM 包括前向过程 $q(x_t|x_{t-1})$：在 $T$ 步中逐步将输入数据 $x_0$ 破坏为高斯噪声 $x_T\sim\mathcal{N}(0,1)$；以及反向（即去噪）过程 $p_\theta(x_{t-1}|x_t)$：预测前向过程中的噪声，获得更干净的样本 $x_t$。本文直接预测噪声 $\epsilon_\theta(x_t,t)$，采用训练目标：
+**去噪扩散概率模型。** 本文采用扩散模型[21,43]为提取 CAM 的分类器提供结构良好的高层语义信息。DDPM 包括前向过程 $q(x_t|x_{t-1})$：在 $T$ 步中逐步将输入数据 $x_0$ 破坏为高斯噪声 $x_T\sim\mathcal{N}(0,1)$；以及反向（即去噪）过程 $p_\theta(x_{t-1}|x_t)$：预测前向扩散过程中的噪声，获得更干净的样本 $x_t$。
+
+Ho 等人[21]经验发现，网络直接预测噪声 $\epsilon_\theta(x_t,t)$ 而非预测均值 $\mu_\theta(x_t,t)$，能生成更多高频细节，故本文遵循这一先前工作。Ho 等人[21]的简化训练目标为：
 
 $$
 \mathcal{L}_{\mathrm{simple}}=\mathbb{E}_{t,x_0,\epsilon}[\lVert\epsilon-\epsilon_\theta(x_t,t)\rVert^2]. \tag{1}
 $$
 
-因此，训练扩散模型时除图像本身外不使用任何标签。
+因此，在扩散模型训练过程中，除图像本身外不使用任何标签。关于 DDPM 的额外数学细节见补充材料。
 
 > [!note] 我的理解｜公式1：DDPM在本文中先学会“从噪声还原结构”
 >
@@ -116,23 +142,31 @@ $$
 >
 > 这里的DDPM训练目标是通用背景，并不是DiG新提出的损失。DiG的新设计在于如何复用两类产物：一类是不同轻微噪声时间步的**中间扩散特征**，交给LFCA；另一类是从原图加噪后恢复出的**去噪图像**，交给PAC。因为式(1)只需要知道人为加入的噪声，不需要类别或像素标签，所以扩散模型仍符合图像级弱监督设置。不过它需要在目标数据集图像上预训练，这部分计算成本不能理解为“免费”。
 
-**用于 WSSS 的视觉 Transformer。** 图像被分为 $N\times N$ 个图块并嵌入为 $T_p\in\mathbb{R}^{N^2\times D}$；将 $C$ 个类别 token $T_c\in\mathbb{R}^{C\times D}$ 与图块 token 拼接、加入位置嵌入后，$T_{\mathrm{in}}\in\mathbb{R}^{(C+N^2)\times D}$ 送入 ViT。输出被拆为类别 token 和图块 token。对前者池化得到 $\hat y_c$；重塑后者并施加 $C$ 通道卷积，得到 $A\in\mathbb{R}^{N\times N\times C}$ 和 $\hat y_p$：
+**用于 WSSS 的视觉 Transformer。** 为把输入图像 $x_0$ 输入 ViT，先将图像分为 $N\times N$ 个图块，继而嵌入为图块 token $T_p\in\mathbb{R}^{N^2\times D}$，其中 $D$ 为嵌入维度。随后，将 $C$ 个类别 token $T_c\in\mathbb{R}^{C\times D}$ 与图块 token 拼接并加入位置嵌入。拼接 token 输入 $T_{\mathrm{in}}\in\mathbb{R}^{(C+N^2)\times D}$ 按[59]送入 ViT；输出 token $T_{\mathrm{out}}\in\mathbb{R}^{(C+N^2)\times D}$ 被拆分为类别 token $T^c_{\mathrm{out}}\in\mathbb{R}^{C\times D}$ 与图块 token $T^p_{\mathrm{out}}\in\mathbb{R}^{N^2\times D}$。对 $T^c_{\mathrm{out}}$ 池化得到类别预测 $\hat y_c$。将图块 token $T^p_{\mathrm{out}}$ 重塑并施加具有 $C$ 个通道的卷积层，可得到 CAM $A\in\mathbb{R}^{N\times N\times C}$ 和 ViT 的类别预测 $\hat y_p$。其中：
 
 $$
 \hat y_p=\operatorname{TopK}(\operatorname{ReLU}(\dot A),K)-\operatorname{TopK}(\operatorname{ReLU}(-\dot A),K). \tag{2}
 $$
 
+其中，$\dot A$ 和 $K$ 分别为生成 $A$ 前、施加 ReLU 前的图块级特征以及选择数量。
+
 > [!note] 我的理解｜公式2：Min-Max K池化同时收集正证据和负证据
 >
 > 先看目的：CAM $A$ 是空间图，但分类损失需要每个类别一个分数，式(2)负责把整张响应图压成类别预测 $\hat y_p$。第一项取该类别最强的 $K$ 个正响应并求平均，表示“哪些图块支持该类存在”；第二项对 $-\dot A$ 做同样操作，等价于寻找最强的负响应，再从正证据中减掉它。这样分类分数不只由最显著的一个图块决定，也显式利用了反对该类别的区域。
 >
-> 例如某类别的四个响应为 $[3,2,-1,-4]$，若 $K=1$，正分支取 $3$，负分支在 $[{-3},{-2},1,4]$ 中取 $4$，最后得到 $3-4=-1$；强负证据会压低类别置信度。若整张图只有少量高正响应而其余区域强烈反对，该类别不会仅靠一个峰值轻易通过。作者把MCTformer的GAP替换成这一操作，消融中仅更换池化就把CAM mIoU从63.3提高到65.7；这是基线改动，不是扩散模块带来的增益。
+> 例如某类别的四个响应为 $[3,2,-1,-4]$，若 $K=1$，正分支取 $3$，负分支在 $[{-3},{-2},1,4]$ 中取 $4$，最后得到 $3-4=-1$；强负证据会压低类别置信度。若整张图只有少量高正响应而其余区域强烈反对，该类别不会仅靠一个峰值轻易通过。作者把MCTformer的GAP替换成这一操作，消融中仅更换池化就把CAM mIoU从63.3提高到65.7；这是基线改动，不是扩散模块带来的增益。$\operatorname{TopK}(\cdot)$ 是 Top-K 池化操作：沿每个通道的空间维选择并平均 $K$ 个最高值。虽然基线[59]用全局平均池化计算类别预测，本文用式(2)修改池化过程。分类损失 $\mathcal{L}_{\mathrm{cls-vit}}=\mathcal{L}_{\mathrm{cls}}(\hat y_c,y)+\mathcal{L}_{\mathrm{cls}}(\hat y_p,y)$ 用于监督 ViT 的类别预测 $\hat y_c,\hat y_p$；其中 $\mathcal{L}_{\mathrm{cls}}(\hat y,y)$ 表示预测 $\hat y$ 与标签 $y$ 之间的多标签 soft margin 损失。
 
-分类损失为 $\mathcal{L}_{\mathrm{cls-vit}}=\mathcal{L}_{\mathrm{cls}}(\hat y_c,y)+\mathcal{L}_{\mathrm{cls}}(\hat y_p,y)$。从 token 对 token 注意力图提取、融合 $L$ 层类别到图块注意力和图块到图块注意力，得到 $A_{\mathrm{att}}=\sum_{l=1}^{L}A_{c2p}^{l}$ 和 $A_{\mathrm{aff}}=\sum_{l=1}^{L}A_{p2p}^{l}$，用它们细化 CAM：
+> [!note] $C$ 个类别 token 从哪里来？它们不是 CLIP 文本 token
+>
+> MCTformer 将普通 ViT 的单个可学习 $[\mathrm{CLS}]$ token 扩展为 $C$ 个随机初始化的视觉 token。第 $c$ 个 token 通过图像级标签的第 $c$ 维监督获得类别身份；$C$ 是数据集预设类别数，不会按图像动态产生。类别 token 只进入 ViT，DDPM 只接收加噪图像。
+
+此外，可从 ViT 提取 token 对 token 注意力图 $A_{t2t}\in\mathbb{R}^{(C+N^2)\times(C+N^2)}$。由此获得类别到图块注意力 $A_{c2p}\in\mathbb{R}^{C\times N^2}$ 及图块到图块注意力 $A_{p2p}\in\mathbb{R}^{N^2\times N^2}$。为聚合全局—局部信息，融合 ViT 的 $L$ 层类别到图块注意力，得到类别特定注意力图 $A_{\mathrm{att}}=\sum_{l=1}^{L}A_{c2p}^{l}$；将其转置、重塑为 $\mathbb{R}^{N\times N\times C}$。类似地，融合并重塑 $L$ 层图块到图块注意力，得到 $A_{\mathrm{aff}}\in\mathbb{R}^{N\times N\times N\times N}$，表示图块 token 间的亲和力：$A_{\mathrm{aff}}=\sum_{l=1}^{L}A_{p2p}^{l}$。最后，利用 $A_{\mathrm{att}}$ 与 $A_{\mathrm{aff}}$ 细化 CAM $A$，生成 $A_{\mathrm{ref}}\in\mathbb{R}^{N\times N\times C}$：
 
 $$
-A_{\mathrm{ref}}(i,j,c)=\sum_m^N\sum_n^N A_{\mathrm{aff}}(i,j,m,n)\cdot(A\odot A_{\mathrm{att}})(m,n,c). \tag{3}
+A_{\mathrm{ref}}(i,j,c)=\sum_m^N\sum_n^N A_{\mathrm{aff}}(i,j,m,n)\cdot(A\odot A_{\mathrm{att}})(m,n,c), \tag{3}
 $$
+
+其中 $\odot$ 表示逐元素乘法，$\cdot$ 表示乘法。
 
 > [!note] 我的理解｜CAM 细化前已经有两种关系
 >
@@ -150,9 +184,9 @@ $$
 
 **图 2：** 所提框架的可视化。图像 $x_0$ 与 $C$ 个类别 token 一同输入 ViT 和在不同时间步 $t$ 下冻结的 DDPM。键（$K_f$）和值（$V_f$）由聚合扩散特征构成；查询（$Q$）从 ViT 后部层的图块 token 中提取。$Q,K_f,V_f$ 被用于 LFCA，生成语义对齐特征，进而产生扩散 CAM $A_f$。同时，由 ViT 输出图块 token 创建 CAM $A$。在训练若干 epoch、语义对齐 LFCA 模块后，在 $A$ 与 $A_f$ 间施加 $L_1$ 损失，以传播基于扩散的语义局部性。为简洁起见，图中省略分类损失。
 
-**图片内容解释：** 原图和去噪图共同经过共享 ViT，以 PAC 约束细化 CAM；多时间步噪声图经锁定扩散 U-Net 生成聚合特征，LFCA 输出扩散 CAM 并以停止梯度方式监督 ViT-CAM。
+**图片内容解释：** 上方是原图和去噪图共同经过共享 ViT、以 PAC 约束细化 CAM；下方是多时间步噪声图经锁定的扩散 U-Net 生成聚合特征，LFCA 输出扩散 CAM 并以停止梯度方式监督 ViT-CAM。
 
-如图 2，框架有两条互补路径。LFCA 将冻结 DDPM 的多时间步中间特征变为局部、但尚未带类别语义的记忆；ViT 图块 token 作为查询，把这份局部信息对齐到类别，从而产生用于监督普通 ViT-CAM 的扩散 CAM。PAC 则将原图加噪、去噪成 $\tilde{x}_0$，让同一 ViT 对原图和语义保持的去噪图给出一致的细化 CAM。
+如图 2 所示，我们提出两种将 DDPM 能力传播至 CAM 的方法。由于使用预训练 DDPM 而不微调，先以式(1)目标训练基于 U-Net 的 DDPM。为将 DDPM 语义和局部性均良好聚类的特征对齐到语义类别，我们设计图 3 所示 LFCA。另将原图 $x_0$ 迭代加噪、再用 DDPM 去噪回原始步骤，得到去噪图像 $\tilde{x}_0$ 作为增强样本；据此提出 PAC，检查干净图像 $x_0$ 与去噪图像 $\tilde{x}_0$ 的图块 token 间亲和力是否一致。
 
 > [!note] 我的理解｜整体流程
 >
@@ -170,7 +204,7 @@ $$
 
 ### 3.3 局部性融合交叉注意力
 
-对不同时间步的噪声图像 $x_t$，从扩散编码器瓶颈提取 $F_t\in\mathbb{R}^{H_f\times W_f\times D_f}$，拼接后经卷积和层归一化得到 $F_{\mathrm{diff}}\in\mathbb{R}^{H_f\times W_f\times D_f}$。从 ViT 后部层取 $Q\in\mathbb{R}^{(C+N^2)\times D}$；将扩散特征重塑为 $T_f\in\mathbb{R}^{N_f^2\times D_f}$（$N_f^2=H_fW_f$），再投影出 $K_f\in\mathbb{R}^{N_f^2\times D}$ 和 $V_f\in\mathbb{R}^{N_f^2\times D_f}$。交叉注意力为：
+在 LFCA 中，我们聚合将不同时间步 $t$ 的噪声图像 $x_t$ 送入扩散编码器（瓶颈特征）得到的扩散特征 $F_t\in\mathbb{R}^{H_f\times W_f\times D_f}$，其中 $H_f,W_f$ 是扩散特征的高和宽，$D_f$ 是特征维度。不同噪声图像的扩散特征被拼接，再通过一系列卷积和层归一化操作降维，获得聚合扩散特征 $F_{\mathrm{diff}}\in\mathbb{R}^{H_f\times W_f\times D_f}$。尽管 $F_{\mathrm{diff}}$ 能向 ViT 提供有意义的局部性信息，它尚未与 ViT 在语义上对齐。为有效将扩散特征语义与 ViT 特征语义对齐，我们以交叉注意力融合 ViT 层的查询 token 与聚合扩散特征。为计算交叉注意力，先从 ViT 层提取查询 $Q\in\mathbb{R}^{(C+N^2)\times D}$，提供类别对齐语义信息。为从扩散特征提取局部对齐信息，先将 $F_{\mathrm{diff}}$ 重塑为 $T_f\in\mathbb{R}^{N_f^2\times D_f}$，其中 $N_f^2=H_f\times W_f$；从 $F_{\mathrm{diff}}$ 提取键 $K_f\in\mathbb{R}^{N_f^2\times D}$ 和值 $V_f\in\mathbb{R}^{N_f^2\times D_f}$。随后按交叉注意力机制融合特征：
 
 $$
 \operatorname{LFCA}(Q,K_f,V_f)=\operatorname{softmax}\left(\frac{QK_f^{\top}}{\sqrt D}\right)V_f. \tag{4}
@@ -180,7 +214,7 @@ $$
 
 **图 3：** 局部性融合交叉注意力模块的可视化。该模块使用来自 ViT 层的查询 $Q$ token，通过交叉注意力对扩散特征进行语义对齐。对类别 token 和图块 token 的类别预测都计算 KD 损失 $\mathcal{L}_{\mathrm{kd}}$。扩散 CAM $A_{\mathrm{diff}}$ 用于引导 ViT-CAM，以提供局部性信息。
 
-**图片内容解释：** 多个扩散编码器中间特征汇聚为 $F_{\mathrm{diff}}$，经投影生成键和值；ViT token 给出查询。交叉注意力输出产生类别/图块预测和扩散 CAM。
+**图片内容解释：** 多个扩散编码器中间特征先汇聚为 $F_{\mathrm{diff}}$ 并投影为键和值；ViT token 提供查询。交叉注意力输出同时产生类别/图块预测与扩散 CAM，后者经残差与卷积得到。
 
 > [!note] 我的理解｜LFCA 本质上做了什么？
 >
@@ -198,7 +232,7 @@ $$
 >
 > 交叉注意力是通用机制；DiG的新设计是查询来自已做类别学习的ViT，而键和值来自冻结DDPM的聚合局部特征，并让所得token同时接受分类、蒸馏与CAM监督链。公式只表达数值检索，“语义对齐”是后续损失赋予这次检索的任务含义。
 
-将 $T_{\mathrm{lfca}}\in\mathbb{R}^{(C+N^2)\times D_f}$ 拆为 $T_{c-\mathrm{diff}}$ 和 $T_{p-\mathrm{diff}}$。前者沿 $D_f$ 池化得 $\hat y_{c-\mathrm{diff}}$，后者按式(2)得 $\hat y_{p-\mathrm{diff}}$，并重塑、插值为 $F_{p-\mathrm{diff}}$。$F_{p-\mathrm{diff}}$ 加上 $F_{\mathrm{diff}}$ 残差，经卷积产生 $A_{\mathrm{diff}}$。除多标签损失外，作者以温度 $T$ 的 KL 蒸馏定义：
+将融合 token $T_{\mathrm{lfca}}\in\mathbb{R}^{(C+N^2)\times D_f}$ 拆成类别 token $T_{c-\mathrm{diff}}\in\mathbb{R}^{C\times D_f}$ 和图块 token $T_{p-\mathrm{diff}}\in\mathbb{R}^{N^2\times D_f}$，以施加分类损失并生成 CAM。沿 $D_f$ 维池化 $T_{c-\mathrm{diff}}$ 得类别预测 $\hat y_{c-\mathrm{diff}}$；$\hat y_{p-\mathrm{diff}}$ 可按式(2)得到。同时，将 $T_{p-\mathrm{diff}}$ 重塑为 $N\times N\times D_f$ 特征图并插值为 $F_{p-\mathrm{diff}}\in\mathbb{R}^{H_f\times W_f\times D_f}$。$F_{p-\mathrm{diff}}$ 与 $F_{\mathrm{diff}}$ 的残差相加，送入卷积层，获得扩散 CAM $A_{\mathrm{diff}}\in\mathbb{R}^{H_f\times W_f\times C}$ 和类别预测 $\hat y_{p-\mathrm{diff}}$。
 
 > [!note] 我的理解｜为什么输出要同时走类别token和图块token两条监督？
 >
@@ -206,100 +240,73 @@ $$
 >
 > 生成 $A_{\mathrm{diff}}$ 时还保留 $F_{\mathrm{diff}}$ 的残差：LFCA输出的图块特征已经获得类别对齐，原聚合扩散特征保留更直接的局部结构；相加后卷积为每个空间位置产生 $C$ 个类别通道。直观上，交叉注意力负责“这块扩散结构对应哪个语义”，残差负责“不要在对齐时丢掉扩散模型原有的空间细节”。
 
+> [!note] 这像 CLIP 的“语义锚点找局部证据”吗？像，但不能画等号
+>
+> 类别 token 提供全局类别锚点，图块 token 与 DDPM 特征提供空间证据；LFCA 让前者读取后者。但 DiG token 来自图像级分类监督，不是 CLIP 的文本 embedding；标准 CLIP 也没有这里的跨注意力路径。
+
+为监督扩散特征的类别预测 $\hat y_{c-\mathrm{diff}}$ 和 $\hat y_{p-\mathrm{diff}}$，使用两种损失。首先，对图像级标签 $y$ 施加多标签 soft margin 损失 $\mathcal{L}_{\mathrm{cls}}(\cdot)$。此外，在类别预测间施加 Kullback-Leibler（KL）散度，使扩散特征理解并对齐 ViT 的概率分布。先以温度 $T$ 缩放 $\hat y_c,\hat y_{c-\mathrm{diff}}$，并施加 softmax 函数 $\sigma$ 计算用于 KL 散度的概率分布；KL 散度损失定义为：
+
 $$
 \mathcal{L}_{\mathrm{kl}}(\hat y,\hat y_{\mathrm{diff}})=D\bigl(\sigma(\hat y/T)\Vert\sigma(\hat y_{\mathrm{diff}}/T)\bigr), \tag{5}
 $$
 
+其中，对于概率分布 $P,Q$，$D(P\Vert Q)=\sum_xP(x)\log\frac{P(x)}{Q(x)}$。最终，为平衡监督 $\hat y_{\mathrm{diff}}$ 的多标签 soft margin 损失和 KL 散度损失，采用平衡参数 $\alpha$：
+
 $$
-\mathcal{L}_{\mathrm{kd}}=\alpha\mathcal{L}_{\mathrm{cls}}(\hat y_{\mathrm{diff}},y)+(1-\alpha)T^2\mathcal{L}_{\mathrm{kl}}(\hat y,\hat y_{\mathrm{diff}}), \tag{6}
+\mathcal{L}_{\mathrm{kd}}(\hat y,\hat y_{\mathrm{diff}},y)=\alpha\mathcal{L}_{\mathrm{cls}}(\hat y_{\mathrm{diff}},y)+(1-\alpha)T^2\mathcal{L}_{\mathrm{kl}}(\hat y,\hat y_{\mathrm{diff}}). \tag{6}
 $$
+
+这里引入 $T^2$ 校正温度缩放。上述方程可同时用于类别 token 与图块 token 的类别预测。训练 LFCA 的整体分类损失为：
 
 $$
 \mathcal{L}_{\mathrm{cls-diff}}=\mathcal{L}_{\mathrm{kd}}(\hat y_c,\hat y_{c-\mathrm{diff}},y)+\mathcal{L}_{\mathrm{kd}}(\hat y_p,\hat y_{p-\mathrm{diff}},y). \tag{7}
 $$
 
-> [!note] 我的理解｜公式5–7：硬标签与软教师共同校准LFCA
+> [!note] 公式5–7：为什么先让 ViT 教 LFCA“认类别”？
 >
-> 这三式整体在做一件事：让LFCA输出既符合真实图像级标签，又尽量复现ViT对各类别的相对判断。$\mathcal L_{\mathrm{cls}}$ 使用多标签真值 $y$，回答“哪些类别存在”；$\mathcal L_{\mathrm{kl}}$ 使用ViT预测 $\hat y$ 作为教师，回答“各类别置信度之间应当呈现什么分布”。前者是硬监督，后者是软监督。
->
-> 式(5)先把教师和学生logit都除以温度 $T$ 再softmax。较大的 $T$ 会把分布变平，使非最高类别的相对概率也参与蒸馏；$T^2$ 用来补偿温度缩放导致的梯度幅度变化。式(6)中的 $\alpha$ 平衡硬标签与KL蒸馏：论文设 $\alpha=0.2$，意味着语义对齐较依赖ViT教师分布，但真实标签仍负责防止学生只复制教师错误。
->
-> 式(7)把同一KD规则分别用于类别预测和图块预测。这里的“知识蒸馏”不是把DDPM教给ViT，而是先由**ViT教LFCA认类别**；随后式(8)才反过来由**LFCA生成的扩散CAM教ViT补局部性**。这是一个先校准教师、再使用教师的两阶段关系。
+> ViT 给出 $(\hat y_c,\hat y_p,A)$，LFCA 从 DDPM 特征得到 $(\hat y_{c-\mathrm{diff}},\hat y_{p-\mathrm{diff}},A_{\mathrm{diff}})$。DDPM 特征有局部结构却没有类别坐标，因此 LFCA 在此是学生、ViT 是教师。硬标签告诉 LFCA 有哪些类，KL 要求它复现 ViT 的相对置信度；类别 token 与图块汇总预测都要对齐，才使 $A_{\mathrm{diff}}$ 的类别通道可用。
 
-仅在经过设定数量 epoch 后，以扩散 CAM 监督 ViT-CAM：
+LFCA 的最终目的是将 DDPM 的局部性信息提供给 ViT。然而在训练早期 LFCA 尚未语义对齐，因此仅在经过设定数量的 epoch 后，使用下式以扩散 CAM $A_{\mathrm{diff}}$ 监督 ViT-CAM $A$：
 
 $$
 \mathcal{L}_{\mathrm{lfca}}=\lvert A-A_{\mathrm{diff}}\rvert_1. \tag{8}
 $$
 
-其中 $A_{\mathrm{diff}}$ 经插值匹配 $A$，且式(8)不向 $A_{\mathrm{diff}}$ 反向传播；它只作为监督。
+其中 $\lvert\cdot\rvert_1$ 表示 $L_1$ 损失。在式(8)中，$\mathcal{L}_{\mathrm{lfca}}$ 不会向 $A_{\mathrm{diff}}$ 反向传播，因为扩散 CAM 仅用作监督；此处通过插值重设 $A_{\mathrm{diff}}$ 的大小以匹配 $A$。
 
-> [!note] 我的理解｜公式8：为什么要延迟10个epoch并停止教师梯度？
+> [!note] 公式8：校准过的 LFCA 如何反过来教 ViT？
 >
-> 式(8)直接缩小ViT-CAM $A$ 与扩散CAM $A_{\mathrm{diff}}$ 的逐位置差异，作用是把扩散分支的局部性转移给ViT。问题在于训练初期LFCA还不知道扩散区域对应哪个类别，如果立刻让它监督ViT，错误类别对齐会污染本来较稳定的ViT-CAM。因此作者先用式(5)–(7)训练LFCA，根据分类准确率选择从第10个epoch才启用 $\mathcal L_{\mathrm{lfca}}$。
->
-> 停止 $A_{\mathrm{diff}}$ 的梯度保证式(8)只把ViT-CAM拉向扩散CAM；否则两边可以同时移动，甚至出现教师为了降低损失而追随学生、局部知识没有真正转移的情况。要注意，$A_{\mathrm{diff}}$ 只对这项损失detach：LFCA仍继续接受 $\mathcal L_{\mathrm{cls-diff}}$ 的梯度。插值仅解决 $H_f\times W_f$ 与 $N\times N$ 空间分辨率不一致，不创造新的语义信息。
-
-> [!note] 我的理解｜这几种损失是谁教谁？
->
-> $\mathcal{L}_{\mathrm{cls-vit}}$ 直接用图像标签训练 ViT；$\mathcal{L}_{\mathrm{cls-diff}}$ 用同一图像标签训练 LFCA，并由 ViT 的预测分布蒸馏它；待 LFCA 对齐后，$\mathcal{L}_{\mathrm{lfca}}$ 用其 CAM 教 ViT。最后这一步的扩散 CAM 被停止梯度，因而“局部教师”不会为了追随学生 CAM 而改变。冻结 DDPM 没有梯度；可学习的是 ViT、LFCA 和后续分割网络。
+> 前 10 个 epoch 不开启 $\mathcal L_{\mathrm{lfca}}$；LFCA 先通过式(5)–(7)完成类别对齐。之后 $A_{\mathrm{diff}}$ 作为停止梯度的 target，以 $L_1$ 损失更新 ViT-CAM；它不接收这项损失的梯度，LFCA 仍通过 $\mathcal L_{\mathrm{cls-diff}}$ 学习，DDPM 始终冻结。
 
 ### 3.4 图块亲和力一致性
 
-尽管图块亲和力 $A_{\mathrm{aff}}$ 可用于细化而显著提高 ViT-CAM $A$ 质量，但它没有空间约束且仅受分类损失监督，容易增加假阳性。作者从 $x_0$ 加噪 $t$ 步为 $x_t$，再以 DDPM 复原为 $\tilde{x}_0$；不同于会改变空间一致性的常规增强，该图像保留语义内容与近似图块亲和力。原图与去噪图均经过共享 ViT，分别产生 $A_{\mathrm{ref}}$ 和 $\tilde A_{\mathrm{ref}}$，并定义：
+尽管图块亲和力 $A_{\mathrm{aff}}$ 可用作细化而显著提高 ViT-CAM $A$ 质量，但图块亲和力自身由于没有空间约束、只受分类损失监督，容易提高假阳性激活。为改善图块亲和力，我们将扩散模型用作数据增强形式：它保持空间一致性，同时确保图块间亲和力相对相似。不同于传统 DDPM 从随机噪声 $x_T$ 生成新图像的做法，我们从原图 $x_0$ 经 $t$ 步得到最小但充分加噪的版本 $x_t$，再用 DDPM 恢复，获得 $\tilde{x}_0$。与会改变空间一致性并影响逐图块亲和力的常规增强（如变换）不同，扩散模型以空间一致方式去噪，同时保留语义内容：输出的模糊图像仍具有与原图相似的图块亲和力。虽然还存在其他空间一致的数据增强技术（如高斯模糊），它们未必保留语义一致性；扩散不同之处在于，它只在共享语义对齐的区域内选择性去噪。该增强保证不同语义区域之间的信息仍然隔离。因此，经扩散的图像 $\tilde{x}_0$ 在保留语义细节时只产生很小的亲和力变化，适合作为亲和力学习候选。
 
-> [!note] 我的理解｜PAC为什么不用普通模糊或几何增强？
+> [!note] PAC 流程｜图 2 上方绿色区域到底在做什么？
 >
-> PAC需要一对“外观有扰动，但同一空间位置仍表达同一语义”的图像。裁剪、旋转等几何增强会改变图块坐标，需要额外把两张亲和力图做几何对齐；普通高斯模糊虽然不移动坐标，却会跨物体边界无差别地混合像素，未必保持语义区域隔离。DDPM的去噪受学到的图像分布约束，作者认为它更倾向于在语义一致区域内部恢复内容，因此适合作为空间一致、语义近似一致的增强。
+> 这里没有再使用 LFCA 的 $F_{\mathrm{diff}}$、$K_f$、$V_f$ 或 $A_{\mathrm{diff}}$；那些属于图 2 下方的橙色 LFCA 路径。PAC 只使用图 2 上方的两条共享 ViT 路径：
 >
-> 实际流程不是从纯噪声生成一张新图，而是把当前原图只加噪到中等时间步，再从该 $x_t$ 恢复到 $\tilde x_0$。这样人物、物体和背景布局仍与原图对应，只改变纹理与部分细节。论文把 $t=60$ 作为折中：扰动太小，两个分支几乎完全相同、约束过于容易；扰动太大，去噪结果会发生形变，原图亲和力不再应与其一致。
+> 1. 原图 $x_0$ 经过 ViT，得到普通 CAM $A$，以及类别到图块注意力 $A_{\mathrm{att}}$ 和图块到图块亲和力 $A_{\mathrm{aff}}$；按式(3)将它们组合为细化 CAM $A_{\mathrm{ref}}$。
+> 2. 同一张图经“加噪 $\rightarrow$ 冻结 DDPM 去噪”得到 $\tilde{x}_0$。这不是从纯噪声生成的新图，而是原图的去噪版本；论文实验使用 $t=60$。
+> 3. $\tilde{x}_0$ 经**同一个** ViT（图中 Shared Weights），同样得到 $\tilde A,\tilde A_{\mathrm{att}},\tilde A_{\mathrm{aff}}$，再按式(3)得到 $\tilde A_{\mathrm{ref}}$。
+> 4. PAC 只要求两份细化 CAM 接近。于是模型若想减小该损失，就要让两张外观略有变化但语义相同的图具有稳定的 CAM 与图块亲和力。
+>
+> 图中的圆圈叉号就是式(3)的简写：它把 CAM 和 $A_{\mathrm{att}},A_{\mathrm{aff}}$ 组合为 $A_{\mathrm{ref}}$。亲和力矩阵本身是图块—图块的 $N^2\times N^2$ 关系，因此图中没有把它画成一张“局部特征图”，而是以回接箭头标为 $A_{\mathrm{aff}}$。
+
+为以扩散增强正则化图块亲和力，原图 $x_0$ 与去噪图像 $\tilde{x}_0$ 都经过 ViT。$x_0$ 经 ViT 后按式(3)生成细化 CAM $A_{\mathrm{ref}}$，而 $\tilde{x}_0$ 经 ViT 得到细化 CAM $\tilde A_{\mathrm{ref}}$。如式(3)，图块亲和力 $A_{\mathrm{aff}}$ 与 $\tilde A_{\mathrm{aff}}$ 分别施加于 $A$ 和 $\tilde A$。因此，PAC 以下式训练这些亲和力，使其对空间与语义一致的数据增强保持鲁棒：
 
 $$
 \mathcal{L}_{\mathrm{pac}}=\lvert A_{\mathrm{ref}}-\tilde A_{\mathrm{ref}}\rvert_1. \tag{9}
 $$
 
-> [!note] 我的理解｜公式9：它没有直接比较亲和力，却能训练亲和力
->
-> 原图分支先得到 $A,A_{\mathrm{att}},A_{\mathrm{aff}}$，再按式(3)生成 $A_{\mathrm{ref}}$；去噪图分支用同一个ViT得到 $\tilde A,\tilde A_{\mathrm{att}},\tilde A_{\mathrm{aff}}$，生成 $\tilde A_{\mathrm{ref}}$。式(9)比较的是两份**经过亲和力传播后的最终CAM**，不是直接计算 $\lvert A_{\mathrm{aff}}-\tilde A_{\mathrm{aff}}\rvert$。
->
-> 这样设计让监督围绕最终目标：只要两套亲和力都能把类别响应传播为一致的细化CAM，它们不必在每个元素上完全相同。反向传播时，$L_1$ 梯度会沿式(3)同时到达原始CAM、类别注意力和图块亲和力，因此论文说PAC“引导图块亲和力”是功能解释，而不是说损失只更新亲和力矩阵。
->
-> 一个直观例子是：原图中狗腿纹理清晰，去噪图中狗腿略模糊；如果两者亲和力都正确连接狗头与狗腿，传播后的dog CAM仍应覆盖完整身体。若去噪分支误把狗腿连到草地，$\tilde A_{\mathrm{ref}}$ 会多出背景响应，式(9)就会惩罚这类不稳定关系。
-
-最终训练目标为：
+其中 $\lvert\cdot\rvert_1$ 表示 $L_1$ 损失。PAC 是增强图块亲和力韧性的简单有效方法，而该参数原本难以正则化。所提框架最终损失为：
 
 $$
-\mathcal{L}_{\mathrm{total}}=\mathcal{L}_{\mathrm{cls-vit}}+\mathcal{L}_{\mathrm{cls-diff}}+\mathcal{L}_{\mathrm{lfca}}+\lambda\mathcal{L}_{\mathrm{pac}}. \tag{10}
+\mathcal{L}_{\mathrm{total}}=\mathcal{L}_{\mathrm{cls-vit}}+\mathcal{L}_{\mathrm{cls-diff}}+\mathcal{L}_{\mathrm{lfca}}+\lambda\mathcal{L}_{\mathrm{pac}}, \tag{10}
 $$
 
-> [!note] 我的理解｜公式10：四个损失分别管哪一段？
+其中 $\lambda$ 是平衡各损失项的超参数。
+
+> [!note] 式(9) 与式(10)｜PAC 在总训练中负责什么？
 >
-> 可以按“谁教谁”整理：① $\mathcal L_{\mathrm{cls-vit}}$：图像标签教ViT的类别token和图块CAM正确分类；② $\mathcal L_{\mathrm{cls-diff}}$：图像标签加ViT软预测共同教LFCA完成类别对齐；③ $\mathcal L_{\mathrm{lfca}}$：已经对齐的扩散CAM教ViT-CAM补局部性，而且教师端停止梯度；④ $\mathcal L_{\mathrm{pac}}$：原图与去噪图彼此提供一致性监督，使共享ViT的CAM细化过程对语义保持扰动稳定。
->
-> $\lambda$ 只显式加在PAC前，因为该项的数值尺度与其他损失不同，论文设为10做平衡。四项并不是从第一步起全部同时生效：$\mathcal L_{\mathrm{lfca}}$ 延迟到第10个epoch；其余项先帮助ViT和LFCA建立基本语义。DDPM没有优化项，整个训练目标不会更新扩散U-Net。
-
-> [!note] 我的理解｜PAC 约束的对象与边界
->
-> 它比较的是两个输入得到的**细化 CAM**，不是直接逐元素比较 $A_{\mathrm{aff}}$；这样梯度通过式(3)回到 ViT 的图块关系。它依赖“去噪后语义和空间布局不变”的假设：时间步过大时图像形变会使该假设失效，实验中 $t=300$ 已明显退化。DDPM 在 PAC 中仍是冻结的增强器，去噪过程、图像采样和其中的离散时间步都不由该损失反向更新。
-
-> [!note] 我的理解｜能力边界：扩散先验也可能把错误传给CAM
->
-> LFCA依赖“DDPM中间特征的空间聚类比ViT更可靠”。如果扩散模型把共现物体、反射、遮挡或纹理相似的背景混在一起，$A_{\mathrm{diff}}$ 会成为带偏差的教师；延迟启用和语义蒸馏只能降低风险，不能保证纠正所有错误。PAC则依赖“加噪—去噪不改变局部语义与布局”，时间步过大或小目标本来就不稳定时，这一假设容易失效。
->
-> 计算上，训练CAM网络需要对每张图运行冻结DDPM的多个时间步特征提取，还要额外生成去噪图，明显高于普通ViT分类训练。优势是这些成本主要发生在伪标签生成阶段，最终分割模型推理不带扩散模型。论文没有声称扩散模型能提供精确像素边界；它提供的是更好的局部结构先验，最终边界仍受CAM分辨率、后处理和分割网络学习能力限制。
-
-## 4 实验要点
-
-在 PASCAL VOC 2012 与 MS-COCO 2014 上，分类骨干为 ImageNet 预训练 DeiT-S；扩散特征取 U-Net 中间层的 $t\in\{0,1,2,3,4\}$，$T=5$、$\alpha=0.2$，第 10 个 epoch 起启用 $\mathcal{L}_{\mathrm{lfca}}$，$\lambda=10$。表中报告最佳设置在 VOC train 的 CAM mIoU 为 69.3，IRN/PSA 后的伪标签分别为 73.3/74.3；最终 WRN38 分割模型在 VOC val/test 为 73.9/73.7，COCO val 为 45.5。
-
-> [!note] 我的理解｜消融结果怎样支持两条支路互补？
->
-> 先把Min-Max K池化后的65.7视为真正基线。只加入LFCA后为67.4，提升1.7；只加入PAC后为67.3，提升1.6；两者同时使用达到69.3，提升3.6。联合增益接近两项单独增益之和，说明它们没有明显重复：LFCA主要改善CAM本身的局部语义覆盖，PAC主要改善用于传播CAM的图块亲和力稳定性。
->
-> 去掉KL蒸馏后联合结果为68.2，说明仅用图像硬标签也能训练扩散分支，但ViT的软类别分布确实有助于语义对齐。即使用GAP而非Min-Max K池化，完整方法仍达到67.9，相对MCTformer的63.3提升4.6；因此主要收益不能只归因于更换池化。时间步实验中 $t<150$ 的PAC结果约为 $67.3\pm0.3$，而更大时间步下降，也直接支持“增强必须保持亲和力”的前提。
-
-![](../../../../../../99_Assets%20%28资源文件%29/images/dig_fig5.png)
-
-**图 5：** 不同时间步 $t$ 的加噪图像（下）与扩散去噪图像（上）。红框表示导致亲和力变化的显著变形，蓝框表示具有不同语义信息的区域间清晰边界。
-
-**图片内容解释：** 随时间步增大，去噪图像细节更少、偏离原图更明显；这说明 PAC 的增强幅度不能过大。
+> 式(9)比较两份细化 CAM，而非直接比较 $A_{\mathrm{aff}}$；由于细化 CAM 经式(3)产生，损失会间接约束 ViT 的亲和力。PAC 更新共享 ViT，不更新冻结 DDPM。
