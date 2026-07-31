@@ -216,33 +216,27 @@ $$
 
 **图片内容解释：** 多个扩散编码器中间特征先汇聚为 $F_{\mathrm{diff}}$ 并投影为键和值；ViT token 提供查询。交叉注意力输出同时产生类别/图块预测与扩散 CAM，后者经残差与卷积得到。
 
-> [!note] 我的理解｜LFCA 本质上做了什么？
+> [!note] 图 3 全流程｜从冻结 DDPM 特征到 $\mathcal L_{\mathrm{lfca}}$（按箭头顺序）
 >
-> 它处理的不是类别原型，而是DDPM特征图上每个位置的局部视觉表示。输入有两部分：ViT后部层的类别/图块token，以及多个时间步聚合后的扩散特征。ViT token已经接受图像级分类训练，较清楚“当前图像有哪些类别”；扩散特征局部结构更好，却没有与数据集类别一一对齐。
+> **1. 取多时刻的局部扩散特征。** 对同一图像的浅层加噪版本 $x_0,\ldots,x_4$，冻结的 Diffusion Encoder 分别输出 $F_0,\ldots,F_4\in\mathbb R^{H_f\times W_f\times D_f}$。它们先拼接、再经卷积和归一化，得到聚合特征 $F_{\mathrm{diff}}$。此时每个位置有较强的局部结构信息，但它还不知道应对应 VOC/COCO 的哪个类别。
 >
-> 实际操作是：ViT token变成查询 $Q$，扩散位置变成键 $K_f$ 和值 $V_f$；每个ViT token先用查询—键相似度选择相关扩散位置，再把这些位置的值加权读出。输出仍按原来的类别token与图块token结构排列，因此既能做图像级分类，也能恢复为空间特征图并生成扩散CAM。
+> **2. 将扩散特征准备成可被查询的“局部记忆”。** 把 $F_{\mathrm{diff}}$ 展平成 $N_f^2=H_fW_f$ 个位置 token。两条独立的 $1\times1$ 投影分别生成键 $K_f$ 与值 $V_f$：$K_f$ 用于和 ViT 查询计算“该读哪个扩散位置”，$V_f$ 保存“读到该位置后返回什么局部内容”。图左侧两个 $1\times1$ 方块正是这两件事。
 >
-> 可以把它理解为“ViT带着类别问题去查扩散特征地图”：$K_f$ 回答哪个位置与问题相关，$V_f$ 提供该位置的局部视觉内容。输出交给分类/KD损失做语义校准，充分校准后的 $A_{\mathrm{diff}}$ 再交给ViT-CAM分支当局部教师。它解决的是扩散特征有局部性却没有类别对齐的问题。
-
-> [!note] 我的理解｜公式4：交叉注意力怎样完成一次局部信息检索？
+> **3. ViT 提出问题，LFCA 从扩散特征中检索答案。** ViT 的查询 $Q$ 包含 $C$ 个类别 token 和 $N^2$ 个图块 token。LFCA 先算 $QK_f^\top$，每一行都得到“这个 ViT token 对所有扩散位置的相关度”；softmax 后作为权重，再对 $V_f$ 加权求和。输出 $T_{\mathrm{lfca}}\in\mathbb R^{(C+N^2)\times D_f}$ 的关键含义是：**token 的类别语义来自 ViT，token 读取的局部证据来自 DDPM。**
 >
-> 先忽略形状，式(4)分三步：① $QK_f^\top$ 计算每个ViT token与每个扩散位置的匹配分数；②除以 $\sqrt D$，避免特征维度增大时点积数值过大、softmax过早饱和；③softmax把每个查询对应的分数归一化为读取权重，再乘 $V_f$ 汇总扩散局部特征。
+> **4. 右侧第一分叉：类别 token 做整图语义校准。** $T_{\mathrm{lfca}}$ 顶部的 $C$ 个 token 被拆为 $T_{c-\mathrm{diff}}$，沿特征维池化得到整图类别预测 $\hat y_{c-\mathrm{diff}}$。它与 ViT 的类别预测 $\hat y_c$、以及图像级标签 $y$ 一起进入上方第一个 $\mathcal L_{\mathrm{kd}}$：标签保证“图中确实有哪些类”，KL 蒸馏保证扩散分支的置信度结构与 ViT 一致。
 >
-> 若查询数为 $C+N^2$、扩散位置数为 $N_f^2$，则 $QK_f^\top$ 的形状为 $(C+N^2)\times N_f^2$：每一行表示一个类别或图块token“想从哪些扩散位置取信息”。乘上 $V_f\in\mathbb R^{N_f^2\times D_f}$ 后得到 $(C+N^2)\times D_f$，所以输出可再次拆成 $C$ 个类别token和 $N^2$ 个图块token。
+> **5. 右侧第二分叉：图块 token 有两件并行的事。** 剩下的 $N^2$ 个 token 是 $T_{p-\mathrm{diff}}$。其图块级类别响应先汇总为 $\hat y_{p-\mathrm{diff}}$，再与 ViT 的图块汇总预测 $\hat y_p$、图像标签 $y$ 进入第二个 $\mathcal L_{\mathrm{kd}}$。两路 KD 不是重复计算：前者保证全局类别 token 会认类，后者迫使**空间图块**也携带可用于 CAM 的类别信息；与此同时，同一批图块 token 还会走下方的空间恢复路径。
 >
-> 交叉注意力是通用机制；DiG的新设计是查询来自已做类别学习的ViT，而键和值来自冻结DDPM的聚合局部特征，并让所得token同时接受分类、蒸馏与CAM监督链。公式只表达数值检索，“语义对齐”是后续损失赋予这次检索的任务含义。
+> **6. 与分类汇总并行，图块 token 还要变回二维特征图。** $T_{p-\mathrm{diff}}$ 被重排为 $N\times N\times D_f$，再插值到扩散特征的空间大小，得到 $F_{p-\mathrm{diff}}\in\mathbb R^{H_f\times W_f\times D_f}$。图中的 `Interp.` 只是在对齐空间分辨率，并不产生新的语义。
+>
+> **7. 残差融合后生成 diffusion CAM。** 将 $F_{p-\mathrm{diff}}$ 与原始 $F_{\mathrm{diff}}$ 相加（图中的 $\oplus$），再经卷积得到 $A_{\mathrm{diff}}\in\mathbb R^{H_f\times W_f\times C}$。残差的作用是同时保留：LFCA 已对齐的类别信息，以及 DDPM 原有的局部细节；每个空间位置的 $C$ 个通道就是该位置属于各类的响应。图最右上方的 $\hat y_{p-\mathrm{diff}}$ 是该图块/CAM 路径汇总出的分类预测，故也接收第二个 KD 损失。
+>
+> **8. 最终才用 $A_{\mathrm{diff}}$ 教 ViT-CAM。** 两个 $\mathcal L_{\mathrm{kd}}$ 先让 LFCA 学会“这些局部特征在类别上是什么意思”。对齐稳定后，才将 $A_{\mathrm{diff}}$ 调整到与 ViT-CAM $A$ 相同的大小，并以 $\mathcal L_{\mathrm{lfca}}=\lVert A-A_{\mathrm{diff}}\rVert_1$ 监督 $A$。这条损失对 $A_{\mathrm{diff}}$ 停止梯度：它更新 ViT-CAM，不反过来把未对齐的 ViT 噪声写回扩散分支。
+>
+> **一句话串起来：**多时刻 DDPM 特征 $\rightarrow F_{\mathrm{diff}}\rightarrow(K_f,V_f)$，ViT token $\rightarrow Q$，交叉注意力 $\rightarrow T_{c-\mathrm{diff}}/T_{p-\mathrm{diff}}$；前者走整图 KD，后者一边走图块 KD、一边经插值、残差和卷积生成 $A_{\mathrm{diff}}$；待两路 KD 完成语义校准后，再由 $A_{\mathrm{diff}}$ 通过 $\mathcal L_{\mathrm{lfca}}$ 改善 ViT-CAM。
 
 将融合 token $T_{\mathrm{lfca}}\in\mathbb{R}^{(C+N^2)\times D_f}$ 拆成类别 token $T_{c-\mathrm{diff}}\in\mathbb{R}^{C\times D_f}$ 和图块 token $T_{p-\mathrm{diff}}\in\mathbb{R}^{N^2\times D_f}$，以施加分类损失并生成 CAM。沿 $D_f$ 维池化 $T_{c-\mathrm{diff}}$ 得类别预测 $\hat y_{c-\mathrm{diff}}$；$\hat y_{p-\mathrm{diff}}$ 可按式(2)得到。同时，将 $T_{p-\mathrm{diff}}$ 重塑为 $N\times N\times D_f$ 特征图并插值为 $F_{p-\mathrm{diff}}\in\mathbb{R}^{H_f\times W_f\times D_f}$。$F_{p-\mathrm{diff}}$ 与 $F_{\mathrm{diff}}$ 的残差相加，送入卷积层，获得扩散 CAM $A_{\mathrm{diff}}\in\mathbb{R}^{H_f\times W_f\times C}$ 和类别预测 $\hat y_{p-\mathrm{diff}}$。
-
-> [!note] 我的理解｜为什么输出要同时走类别token和图块token两条监督？
->
-> 类别token分支检查LFCA是否理解整图有哪些类别；图块token分支检查局部输出汇总后能否支持同样的图像级类别。只监督类别token，局部图块可能仍无法产生可靠CAM；只监督图块token，又可能缺少稳定的全局类别锚点。因此作者分别得到 $\hat y_{c-\mathrm{diff}}$ 与 $\hat y_{p-\mathrm{diff}}$，在式(7)中都做KD。
->
-> 生成 $A_{\mathrm{diff}}$ 时还保留 $F_{\mathrm{diff}}$ 的残差：LFCA输出的图块特征已经获得类别对齐，原聚合扩散特征保留更直接的局部结构；相加后卷积为每个空间位置产生 $C$ 个类别通道。直观上，交叉注意力负责“这块扩散结构对应哪个语义”，残差负责“不要在对齐时丢掉扩散模型原有的空间细节”。
-
-> [!note] 这像 CLIP 的“语义锚点找局部证据”吗？像，但不能画等号
->
-> 类别 token 提供全局类别锚点，图块 token 与 DDPM 特征提供空间证据；LFCA 让前者读取后者。但 DiG token 来自图像级分类监督，不是 CLIP 的文本 embedding；标准 CLIP 也没有这里的跨注意力路径。
 
 为监督扩散特征的类别预测 $\hat y_{c-\mathrm{diff}}$ 和 $\hat y_{p-\mathrm{diff}}$，使用两种损失。首先，对图像级标签 $y$ 施加多标签 soft margin 损失 $\mathcal{L}_{\mathrm{cls}}(\cdot)$。此外，在类别预测间施加 Kullback-Leibler（KL）散度，使扩散特征理解并对齐 ViT 的概率分布。先以温度 $T$ 缩放 $\hat y_c,\hat y_{c-\mathrm{diff}}$，并施加 softmax 函数 $\sigma$ 计算用于 KL 散度的概率分布；KL 散度损失定义为：
 
@@ -310,3 +304,19 @@ $$
 > [!note] 式(9) 与式(10)｜PAC 在总训练中负责什么？
 >
 > 式(9)比较两份细化 CAM，而非直接比较 $A_{\mathrm{aff}}$；由于细化 CAM 经式(3)产生，损失会间接约束 ViT 的亲和力。PAC 更新共享 ViT，不更新冻结 DDPM。
+
+## 4 实验结果阅读
+
+> [!note] 表 2–3 解读｜骨干网络、后处理和分数应如何分开看？
+>
+> **先区分两个阶段。** 表 2 的 `Seed` 衡量分类网络直接产出的初始 CAM，`Mask` 衡量 CAM 经后处理扩展、再生成伪标签后的质量；这里的 `DeiT-S` 是 DiG 用来产生 CAM 的**分类/定位骨干**。表 3 则报告用伪标签另行训练的最终语义分割模型；其中 `RN101` 和 `WRN38` 是该分割模型（论文中分别配合 DeepLab V2、DeepLab V1）的**分割骨干**。因此，不能把表 2 的 DeiT-S 与表 3 的 RN101/WRN38 当作同一个网络的不同大小版本，也不应跨骨干把 mIoU 的微小差异完全归因于方法本身。
+>
+> **DeiT-S（Data-efficient Image Transformer, Small）。** 它是较小的 ViT：将图像划成 patch、通过多头自注意力让远距离 patch 直接交互，并采用适合较少数据预训练的 DeiT 训练策略。它的全局建模有利于 CAM 覆盖同一物体的远距离部分，却天然缺少 CNN 那样的邻域归纳偏置；DiG 的 DDPM 特征、LFCA 与 PAC 正是在补这一局部性短板。这里的 DeiT-S 不等于最终部署时输出像素标签的 DeepLab。
+>
+> **RN101 与 WRN38。** RN101（ResNet-101）是 101 层残差 CNN，依靠残差连接训练较深网络；WRN38（Wide ResNet-38）层数较少但通道更宽，用较大的每层容量换取表达能力。二者都是成熟的密集预测特征提取器，但容量、预训练、DeepLab 版本和训练配方均可能影响结果。故表 3 最稳妥的读法是：优先在**同一骨干组内**比较 DiG 与其他方法；DiG 在 WRN38 组的 VOC val/test 最好，在 RN101 组的 COCO val 最好。
+>
+> **PSA 做什么？** PSA（Pixel Semantic Affinity）从初始 CAM 的高置信种子出发，学习像素对是否语义相近，再将类别响应沿高亲和力路径传播。它的目标是补全 CAM 没有激活的同类区域，同时尽量不跨越语义边界；输出是更稠密的伪分割标签，而非改变 DiG 的 DDPM 或 ViT 参数。
+>
+> **IRN 做什么？** IRN（Inter-pixel Relation Network）学习像素间关系与边界感知信息，用这些关系把 CAM 的可靠激活向同一区域扩散、并在物体边缘处抑制传播，进而生成伪标签。它同样位于 DiG 分类网络训练完成之后，属于多阶段 WSSS 的伪标签细化步骤。可继续参阅 [[多阶段弱监督语义分割详细流程#Q6: IRN（Inter-pixel Relation Network）在某些方法中的作用？|IRN 说明]]。
+>
+> **为何同一个 Seed 会有两个 Mask？** DiG 的 Seed 都是 69.3，但 IRN 后为 73.3、PSA 后为 74.3；这一 1.0 mIoU 的差异说明后处理本身会显著影响最终伪标签质量。因而表 2 的公平比较应同时看 `Seed`（DiG 是否真的改善了 CAM）和**相同后处理下**的 `Mask`，而非只比较最终 Mask。图 6 则提供定性补充：除了看大区域有没有找全，还应观察预测是否越过真实边界、是否漏掉低判别性的物体部分。
