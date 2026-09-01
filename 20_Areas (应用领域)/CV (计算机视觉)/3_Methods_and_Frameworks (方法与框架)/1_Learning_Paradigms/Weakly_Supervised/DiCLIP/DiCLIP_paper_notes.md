@@ -13,7 +13,7 @@ venue: TIP2026
 ---
 Arxiv网址：[[2605.04593] DiCLIP: Diffusion Model Enhances CLIP's Dense Knowledge for Weakly Supervised Semantic Segmentation](https://arxiv.org/abs/2605.04593)
 
-stable diffusion笔记：[stable_diffusion_notes_v2(2026.3.19)](../../../../2_CV_Models%20(模型)/Diffusion_Models(扩散模型)/Stable_Diffusion/stable_diffusion_notes_v2(2026.3.19).md)
+stable diffusion笔记：[stable_diffusion_notes_v2](../../../../2_CV_Models%20(模型)/Diffusion_Models(扩散模型)/Stable_Diffusion/stable_diffusion_notes_v2.md)
 
 本地PDF: [DiCLIP](../../../../../../99_Assets%20(资源文件)/papers/DiCLIP%20Diffusion%20Model%20Enhances%20CLIP’s%20Dense%20Knowledge%20for%20Weakly%20Supervised%20Semantic%20Segmentation.pdf)
 ***
