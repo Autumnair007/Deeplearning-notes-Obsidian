@@ -19,7 +19,7 @@ venue: AAAI2026
 
 AAAI网址：[SSR: Semantic and Spatial Rectification for CLIP-based Weakly Supervised Segmentation | Proceedings of the AAAI Conference on Artificial Intelligence](https://ojs.aaai.org/index.php/AAAI/article/view/37230)
 
-本地PDF文件：[SSR](../../../../../../99_Assets%20(资源文件)/images/SSR%20Semantic%20and%20Spatial%20Rectification%20for%20CLIP-based%20Weakly%20Supervised%20Segmentation.pdf)
+本地PDF文件：[SSR](../../../../../../99_Assets%20(资源文件)/papers/SSR%20Semantic%20and%20Spatial%20Rectification%20for%20CLIP-based%20Weakly%20Supervised%20Segmentation.pdf)
 
 ***
 # SSR：基于CLIP的弱监督语义分割的语义和空间校正

@@ -17,7 +17,7 @@ year: 2025
 ---
 论文网址：[[2502.06756] SAMRefiner: Taming Segment Anything Model for Universal Mask Refinement](https://arxiv.org/abs/2502.06756)
 
-本地PDF文件：[SamRefiner](../../../../../99_Assets%20(资源文件)/images/SAMREFINER%20TAMING%20SEGMENT%20ANYTHING%20MODEL.pdf)
+本地PDF文件：[SamRefiner](../../../../../../99_Assets%20(资源文件)/papers/SamRefiner%20Taming%20Segment%20Anything%20Model%20for%20Universal%20Mask%20Refinement.pdf)
 ***
 # SAMRefiner: 驯服Segment Anything模型实现通用掩码精修
 

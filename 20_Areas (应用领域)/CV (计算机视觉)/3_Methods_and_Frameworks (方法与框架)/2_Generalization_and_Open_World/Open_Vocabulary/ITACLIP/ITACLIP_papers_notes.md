@@ -14,7 +14,7 @@ year: 2025
 ---
 论文原文：[ITACLIP: Boosting Training-Free Semantic Segmentation with Image, Text, and Architectural Enhancements](https://openaccess.thecvf.com/content/CVPR2025W/PixFoundation/papers/Aydin_ITACLIP_Boosting_Training-Free_Semantic_Segmentation_with_Image_Text_and_Architectural_CVPRW_2025_paper.pdf)
 
-本地PDF：[ITACLIP](../../../../99_Assets%20(资源文件)/papers/ITACLIP%20Boosting%20Training-Free%20Semantic%20Segmentation%20with%20Image,%20Text,%20and%20Architectural%20Enhancements.pdf)
+本地PDF：[ITACLIP](../../../../../../99_Assets%20(资源文件)/papers/ITACLIP%20Boosting%20Training-Free%20Semantic%20Segmentation%20with%20Image,%20Text,%20and%20Architectural%20Enhancements.pdf)
 ***
 这篇论文《ITACLIP: Boosting Training-Free Semantic Segmentation with Image, Text, and Architectural Enhancements》提出了一种名为 ITACLIP 的无训练语义分割方法，通过结合图像、文本和架构上的增强，显著提升了 CLIP 模型在密集预测任务中的性能。该方法在 COCO-Stuff、COCO-Object、Pascal Context、Pascal VOC 和 Cityscapes 等五个流行分割基准上超越了现有最先进的方法。
 
