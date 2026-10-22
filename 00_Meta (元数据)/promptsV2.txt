@@ -5,7 +5,7 @@
 
 如果可以访问工作区，请直接创建或修改这两个.md文件，不要创建临时代码文件。两份文件必须在同一次任务中完成，不要完成第一份后停止。
 
-除此之外，请你以DiCLIP的两个.md（Deeplearning-notes-Obsidian\20_Areas (应用领域)\CV (计算机视觉)\3_Methods_and_Frameworks (方法与框架)\1_Learning_Paradigms\Weakly_Supervised\DiCLIP）为参考，要做成它们那样。完成之后，至少调用两个subagent（gpt 5.6 sol high）进行两遍的检查，确保你的内容充实，而且没有错误。全文翻译至少检查一遍，是否像DiCLIP那样内容充实也要再检查一遍。
+除此之外，请你以DiCLIP的两个.md（Deeplearning-notes-Obsidian\20_Areas (应用领域)\CV (计算机视觉)\3_Methods_and_Frameworks (方法与框架)\1_Learning_Paradigms\Weakly_Supervised\DiCLIP）为参考，要做成它们那样。你可以调用subagent(gpt 6.1 sol high)帮你查阅资料或者加快进度，但是分析必须你来写（或者至少一个gpt-6 astra high级别的subagent）。完成之后，至少调用两个新的subagent（gpt 6.1 sol high）进行检查，确保你的内容充实，而且没有错误。全文翻译至少检查一遍，除此之外你还要检查其他内容。
 
 一、全文翻译文件
 
@@ -17,6 +17,8 @@
 
 `Translation.md`只包含论文翻译和客观图片解释，不插入“我的理解”、评价、代码分析或额外总结。
 
+如果有补充材料，你只要在Translation部分略微说明有啥内容，不需要完全翻译，补充材料不需要太过于重视。
+
 二、论文笔记文件的正文基础
 
 `paper_notes.md`必须以已经完成的全文翻译为底稿，不能脱离原文重新概括成另一篇文章。再次强调，就相当于是复制过来再做笔记，不允许对原文内容有任何删减。.md开头必须有论文网址和本地的pdf链接。
@@ -25,7 +27,7 @@
 
 Method之后的Experiments、Discussion和Appendix可以不完整复制。论文笔记中可以只保留主要实验结果、关键消融、重要讨论和结论，如果你觉得实验都很重要就全部复制，可以斟酌，但是必须是原文一字不差地翻译过来，如果你觉得这一个小章节不错就完整写入，不要自己对正文做任何其他的改动；但完整内容必须存在于`Translation.md`中。
 
-文件开头添加YAML Frontmatter，这里的tag可以适当多插入一点内容，你可以参考prompts.txt。注意，这里的prompt请尽量去贴合一下现有的笔记的tag，不要自己单独创造过多的没有关联的tag。强调，可以创造新的tag，但是也要相对泛化一点，tag还是尽量要和现有文章笔记搭上关联，方便记忆与管理分析：
+文件开头添加YAML Frontmatter，这里的tag可以适当多插入一点内容，你可以参考prompts.txt。注意，这里的prompt请尽量去贴合一下现有的笔记的tag，不要自己单独创造过多的没有关联的tag。强调，可以创造新的tag，但是也要相对泛化一点，tag还是尽量要和现有文章笔记搭上关联，方便记忆与管理分析，再次强调，尽量用现有笔记的tag：
 
 如果我给你的是arxiv论文，那么你自己上网搜索会议或者期刊简称+年份。
 
