@@ -11,8 +11,13 @@ status: done
 
 - [仓库首页](../README.md)
 - [速览笔记模板](../00_Meta%20%28%E5%85%83%E6%95%B0%E6%8D%AE%29/overview_note_template.md)
+- [知识探索提示词](../00_Meta%20%28%E5%85%83%E6%95%B0%E6%8D%AE%29/exploration_prompt.txt)：可直接提供主题或粘贴材料，生成带前置知识与配图的探索笔记。
 - [知识库总览](../10_Knowledge_Base%20%28%E7%9F%A5%E8%AF%86%E5%BA%93%29/_Knowledge_Base_Hub.md)
 - [应用领域总览](../20_Areas%20%28%E5%BA%94%E7%94%A8%E9%A2%86%E5%9F%9F%29/_Areas_Hub.md)
+
+## 主题笔记
+
+- [3DGS：从前置知识理解三维高斯泼溅](3DGS_overview.md)：从坐标、投影和高斯出发，配合示意图理解表示、渲染、学习及其与三维分割的联系。
 
 ## 记录与升级
 
