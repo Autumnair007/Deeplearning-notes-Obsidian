@@ -7,7 +7,7 @@ tags:
   - wsss
   - diffusion-model
   - ddpm
-  - vision-transformer
+  - vit
   - cam
   - attention
 status: done

@@ -2,8 +2,8 @@
 type: concept-note
 tags:
   - machine-learning
-  - supervised
-  - unsupervised
+  - supervised-learning
+  - unsupervised-learning
   - semi-supervised
   - self-supervised
   - weakly-supervised

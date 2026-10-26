@@ -1,10 +1,11 @@
 ---
+type: paper-note
 title: SenseNova-Vision 论文总结
 aliases:
   - Vision as Unified Multimodal Generation 总结
   - SenseNova-Vision Summary
 tags:
-  - computer-vision
+  - cv
   - multimodal-generation
   - unified-multimodal-model
   - segmentation

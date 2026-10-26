@@ -6,7 +6,7 @@ tags:
   - transformer
   - vit
   - self-attention
-  - full-supervision
+  - fully-supervised
   - activation-function
 status: done
 model: Vision Transformer

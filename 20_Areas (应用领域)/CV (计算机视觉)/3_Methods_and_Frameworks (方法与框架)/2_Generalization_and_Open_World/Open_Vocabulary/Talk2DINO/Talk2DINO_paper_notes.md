@@ -4,8 +4,8 @@ tags:
   - cv
   - open-vocabulary-segmentation
   - semantic-segmentation
-  - full-supervision
-  - self-supervision
+  - fully-supervised
+  - self-supervised
   - clip
   - dinov2
   - talk2dino

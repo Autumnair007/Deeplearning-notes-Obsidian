@@ -1,0 +1,47 @@
+请按本仓库的组织规则，仅为适用笔记新增或修整开头的 YAML 信息卡片。先阅读 `00_Meta (元数据)/笔记项目框架.md` 和 `00_Meta (元数据)/标签规范.md`，它们是目录、字段和标签的组织依据。不要改写、增删、排版正文，也不要修改标题、公式、图片、代码、资源路径、外链或现有 prompt txt。
+
+一、判断适用范围
+
+只处理用户指定范围内的核心知识笔记：知识库中的概念、机制、研究算子，以及应用领域的主要论文、方法分析。结合实际用途与正文判断，不仅依赖 type。译文、附录翻译、随手记、资料占位、教程和代码笔记不强制补卡片；不因缺 YAML 就纳入。探索笔记可选元数据，可使用 overview-note；未要求时不批量补齐这些例外。
+
+二、读取和保留
+
+先完整读取笔记并识别文件最开头的真实 YAML，不把正文中的代码示例或分隔线当成 Frontmatter。已有卡片只修整有依据的组织字段；缺少卡片的适用核心页新增最小字段。保留所有有意义的自定义属性，包括 model、aliases、year、paper_year、来源、链接和模型特征；不按统一小写改写模型名、别名、标题或其他属性，不重写文献事实。
+
+三、核心字段
+
+type：保留既有合法类型，不按目录或篇幅批量重分类。缺少时依据内容选择 concept-note、paper-note、operator-note、concept-comparison 等；Hub 使用 hub-note 或 map-of-content。无法确认时说明疑问，不猜测。
+
+tags：平铺英文小写列表，词组用连字符，不带 #，去除完全重复标签。优先复用标签规范和相关页面的现行标签，保留有不同语义的专用缩写；cv/nlp 不是必填。只添加正文或可靠来源能证明的领域、任务、监督方式、模型和操作，不因模型名、文件名或常见做法推定分类。
+
+status：只表示整理进度，使用 todo、in-progress、done。保留已有值，不根据笔记长度、详细程度、模型重要性或自己对完成度的猜测改动。新增核心卡片默认 in-progress；新 Hub 可用 done，模板可用 todo 或 in-progress。
+
+四、标签语义
+
+确认是弱监督语义分割时选 semantic-segmentation、weakly-supervised、wsss；一般弱监督不自动加 wsss，weakly-supervised-segmentation 保留自身语义。training-free 表示目标方法免额外训练/微调，tfs 专指免训练分割；不相互替换，冻结骨干不足以证明整套方法免训练。分别保留 zero-shot 与 open-vocabulary、open-vocabulary-segmentation、各类 segmentation、supervised-learning 与 fully-supervised。含义不明确的缩写先查来源，不能一律展开或合并。标签规范未覆盖的合法模型、算法和操作标签可以保留，不为简短词表删掉专用标签。
+
+五、论文来源与年份
+
+新论文使用字符串 venue，如 CVPR2026；未确认正式发表时写真实 arXiv 来源或已知标识，不猜测会期与年份，不新增 year。已有 year、paper_year 和 venue 原始事实保留。
+
+如需查询展示年份，依次读取有效四位整数 year、有效四位整数 paper_year、venue 中唯一明确四位年份；venue 有多个不同年份时留空。明确的 arXiv:YYMM.NNNNN 且月份为 01 至 12 时，可换算为 20YY。无法确定时留空，不通过改写属性制造年份。
+
+六、最小示例
+
+---
+type: concept-note
+tags: [attention, transformer]
+status: in-progress
+---
+
+论文示例：
+
+---
+type: paper-note
+tags: [semantic-segmentation, weakly-supervised, wsss]
+status: in-progress
+model: 方法名
+venue: CVPR2026
+---
+
+示例只表示格式和粒度，不是给每篇笔记机械复制的标签。完成后检查 YAML 可读、类型和值无误、列表无重复，并逐字节核对卡片之后的原始正文保持一致。简要列出实际修改的文件、跳过的例外和仍需确认的分类；不要另建迁移历史或审计文档。

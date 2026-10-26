@@ -3,9 +3,9 @@ type: paper-note
 tags:
   - cv
   - semantic-segmentation
-  - full-supervision
+  - fully-supervised
   - context-learning
-  - self-supervised-learning
+  - self-supervised
   - multi-task-learning
   - meta-learning
   - medical-imaging

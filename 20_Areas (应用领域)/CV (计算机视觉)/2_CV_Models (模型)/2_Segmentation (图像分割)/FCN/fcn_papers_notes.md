@@ -9,7 +9,7 @@ tags:
   - skip-connection
   - transposed-convolution
   - upsampling
-  - full-supervision
+  - fully-supervised
 status: done
 model: Fully Convolutional Networks
 year: 2015

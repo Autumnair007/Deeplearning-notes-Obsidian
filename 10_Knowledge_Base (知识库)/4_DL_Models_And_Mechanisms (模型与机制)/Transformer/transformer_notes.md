@@ -55,7 +55,7 @@ Transformer 使用 **正弦和余弦函数** 来生成位置编码，其公式�
 
 **最终输入 = 词嵌入 (Word Embedding) + 位置编码 (Positional Encoding)**
 
-详情请看： [多头注意力、自注意力与位置编码笔记](../Basic Concepts-NLP/多头注意力、自注意力与位置编码笔记.md)
+详情请看： [多头注意力、自注意力与位置编码笔记](../../3_DL_Core_Concepts%20%28%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%29/multi_head_attention_self_attention_and_positional_encoding_notes%28%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E3%80%81%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E4%B8%8E%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0%29.md)
 
 ### 3. 编码器 (Encoder)
 

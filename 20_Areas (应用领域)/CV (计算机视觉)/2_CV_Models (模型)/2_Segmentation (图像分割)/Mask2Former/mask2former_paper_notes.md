@@ -6,9 +6,9 @@ tags:
   - panoptic-segmentation
   - instance-segmentation
   - semantic-segmentation
-  - full-supervision
+  - fully-supervised
   - transformer
-  - Mask2Former
+  - mask2former
   - attention
   - code-note
 status: done

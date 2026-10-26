@@ -4,8 +4,8 @@ tags:
   - cv
   - image-segmentation
   - semantic-segmentation
-  - full-supervision
-  - u-net
+  - fully-supervised
+  - unet
   - skip-connection
   - code-note
 status: done

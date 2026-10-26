@@ -11,7 +11,7 @@ tags:
   - autoencoder
   - csr
   - mrl
-  - full-supervision
+  - fully-supervised
 status: todo
 model: CSR
 year: 2025

@@ -5,11 +5,16 @@ aliases:
   - 研究算子库
 tags:
   - research-operator
-  - MOC
+  - moc
 status: todo
 ---
 
 # Research Operators（研究算子库）
+
+## 常用入口
+
+- [知识库总览](../_Knowledge_Base_Hub.md)
+
 
 > [!abstract] 这套笔记怎样使用
 > 这里整理的不是“某篇论文得到了什么结果”，而是“模型对张量做了什么操作、为什么这样做、还能怎样替换”。证据主线来自 `3_Methods_and_Frameworks` 下的弱监督与开放词汇笔记，并用FCN、DeepLabV3+、UPerNet、SegFormer、MaskFormer/Mask2Former和SAM等经典/基础分割笔记建立对照；以论文、已有笔记和静态代码阅读为主，不把未复现实验写成已验证结论。
@@ -207,4 +212,4 @@ Efficient_Adaptation & Distillation ─→ constrain how the whole chain is trai
 - [ExCEL｜arXiv 2503.20826](https://arxiv.org/abs/2503.20826)、[Token Masking｜arXiv 2507.06848](https://arxiv.org/abs/2507.06848)、[DiCLIP｜arXiv 2605.04593](https://arxiv.org/abs/2605.04593)。
 - [OpenSeg｜arXiv 2112.12143](https://arxiv.org/abs/2112.12143)、[Talk2DINO｜arXiv 2411.19331](https://arxiv.org/abs/2411.19331)、[Trident｜arXiv 2411.09219](https://arxiv.org/abs/2411.09219)、[ReME｜arXiv 2506.21233](https://arxiv.org/abs/2506.21233)。
 
-代码链接固定到提交哈希；论文若后续更新版本，算子页的结论仍需重新核查，所以所有页面统一标记为 `todo`。
+代码链接固定到提交哈希；论文若后续更新版本，算子页的结论仍需重新核查。`status` 仅表示各页当前整理进度，保留已有状态；证据强度依正文说明判断。

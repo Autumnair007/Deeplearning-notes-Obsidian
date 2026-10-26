@@ -6,7 +6,7 @@ tags:
   - foundation-model
   - dinov2
   - vit
-  - student-teacher
+  - teacher-student
   - contrastive-learning
   - masked-image-modeling
   - mim

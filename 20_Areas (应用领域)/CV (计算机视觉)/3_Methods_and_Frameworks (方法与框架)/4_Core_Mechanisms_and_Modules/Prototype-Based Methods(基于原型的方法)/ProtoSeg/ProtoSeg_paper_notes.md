@@ -5,7 +5,7 @@ tags:
   - semantic-segmentation
   - prototype-based-segmentation
   - nonparametric
-  - full-supervision
+  - fully-supervised
   - protoseg
   - wsss
 status: done

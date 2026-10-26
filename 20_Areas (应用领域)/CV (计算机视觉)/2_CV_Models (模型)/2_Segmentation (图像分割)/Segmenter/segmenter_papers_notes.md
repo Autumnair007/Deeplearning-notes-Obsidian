@@ -1,6 +1,13 @@
 ---
 type: "paper-note"
-tags: [cv, semantic-segmentation, transformer, vit, segmenter, full-supervision, encoder-decoder]
+tags:
+  - cv
+  - semantic-segmentation
+  - transformer
+  - vit
+  - segmenter
+  - fully-supervised
+  - encoder-decoder
 status: "done"
 model: "Segmenter"
 year: 2021

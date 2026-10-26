@@ -11,6 +11,13 @@ status: done
 
 > **核心原则**: 此处汇集了所有与“免训练分割”（TFS）相关的模型、方法和理论笔记。TFS旨在利用预训练的通用大模型（如SAM, DINOv2）的能力，在不进行额外训练或微调的情况下，实现对下游任务的分割。
 
+## 常用入口
+
+- [计算机视觉总览](../_CV_Hub.md)
+- [CorrCLIP论文](../3_Methods_and_Frameworks%20%28%E6%96%B9%E6%B3%95%E4%B8%8E%E6%A1%86%E6%9E%B6%29/2_Generalization_and_Open_World/Open_Vocabulary/CorrCLIP/CorrCLIP_paper_notes.md)
+- [Trident论文](../3_Methods_and_Frameworks%20%28%E6%96%B9%E6%B3%95%E4%B8%8E%E6%A1%86%E6%9E%B6%29/2_Generalization_and_Open_World/Open_Vocabulary/Trident/Trident_paper_notes.md)
+- [ReME论文](../3_Methods_and_Frameworks%20%28%E6%96%B9%E6%B3%95%E4%B8%8E%E6%A1%86%E6%9E%B6%29/2_Generalization_and_Open_World/Open_Vocabulary/ReME/ReME_paper_notes.md)
+
 ---
 
 ## ✨ 如何将笔记添加到这里？
@@ -22,6 +29,17 @@ status: done
 
 ---
 
+## 待整理笔记
+
+只按显式的整理状态列出；`tfs` 与更宽泛的学习范式标签分别保留。
+
+```dataview
+LIST
+FROM #tfs AND !"99_Assets (资源文件)"
+WHERE contains(map(default(tags, []), (tag) => lower(tag)), "tfs") AND contains(["todo", "in-progress"], status) AND file.path != this.file.path AND !contains(["hub-note", "map-of-content"], default(type, ""))
+SORT file.name ASC
+```
+
 ## ⚡ 核心模型与方法 (Core Models & Methods)
 
 这里会自动列出所有被你标记为 `tfs` 的笔记，方便你快速查阅。
@@ -32,7 +50,7 @@ TABLE
     file.folder AS "所属文件夹",
     status AS "状态"
 FROM #tfs AND !"99_Assets (资源文件)" 
-WHERE file.name != "_TFS_Hub"
+WHERE contains(map(default(tags, []), (tag) => lower(tag)), "tfs") AND file.path != this.file.path AND !contains(["hub-note", "map-of-content"], default(type, ""))
 SORT file.name ASC
 ```
 
@@ -43,7 +61,7 @@ SORT file.name ASC
 ```dataview
 LIST
 FROM #tfs AND !"99_Assets (资源文件)"
-WHERE file.name != "_TFS_Hub"
+WHERE contains(map(default(tags, []), (tag) => lower(tag)), "tfs") AND file.path != this.file.path AND !contains(["hub-note", "map-of-content"], default(type, ""))
 GROUP BY file.folder
 SORT rows.file.name ASC
 ```
@@ -57,7 +75,7 @@ TABLE WITHOUT ID
 	file.link AS "笔记名称",
 	file.mtime AS "修改日期"
 FROM #tfs AND !"99_Assets (资源文件)"
-WHERE file.name != "_TFS_Hub"
+WHERE contains(map(default(tags, []), (tag) => lower(tag)), "tfs") AND file.path != this.file.path AND !contains(["hub-note", "map-of-content"], default(type, ""))
 SORT file.mtime DESC
 LIMIT 10
 ```

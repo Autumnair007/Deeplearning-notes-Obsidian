@@ -6,7 +6,6 @@ tags:
   - foundation-model
   - dinov2
   - vit
-  - ssl
   - image-level-objective
   - patch-level-objective
   - regularization

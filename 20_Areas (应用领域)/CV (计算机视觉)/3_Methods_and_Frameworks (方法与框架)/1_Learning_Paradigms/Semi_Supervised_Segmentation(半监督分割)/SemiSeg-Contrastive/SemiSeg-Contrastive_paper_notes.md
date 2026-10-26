@@ -4,7 +4,7 @@ tags:
   - cv
   - semantic-segmentation
   - semi-supervised
-  - full-supervision
+  - fully-supervised
   - contrastive-learning
   - sscpc
   - wsss

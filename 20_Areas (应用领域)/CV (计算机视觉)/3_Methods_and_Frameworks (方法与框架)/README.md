@@ -1,49 +1,36 @@
-# 方法与框架 (Methods and Frameworks) 目录结构指南
-本文档用于指导本目录下论文笔记与概念笔记的归档规则。为了解决深度学习领域“方法交叉”（如：基于原型的少样本弱监督分割）导致的归档困难，本目录采用 **“核心问题定义优先，技术手段为辅”** 的分类逻辑。
-## 1. 核心文件夹分类标准
-目前我们将所有方法划分为以下四大类，请按照优先级顺序判断归档位置：
-### 1_Learning_Paradigms (学习范式)
-**定义**：在**标准闭集 (Closed-set)** 类别下，致力于**降低标注成本**或**利用非标准数据**的方法。
-**收录规则**：只要论文的核心贡献在于使用了非全监督的数据设置，且不涉及新类别的发现，均放于此。
-**子文件夹示例**：
-*   `Weakly_Supervised` (弱监督)：仅使用级标签 (image-level)、点标签 (point)、框标签 (box) 进行训练。
-*   `Semi_Supervised` (半监督)：混合使用少量有标签数据和大量无标签数据。
-*   `Self_Supervised` (自监督/无监督)：无标签预训练或聚类。
-### 2_Generalization_and_Open_World (泛化与开放世界)
-**定义**：致力于**打破固定类别限制**，解决**新类别 (Novel Class)**、**新领域 (New Domain)** 识别问题的方法。这是当前最前沿的分类。
-**收录规则**：如果论文涉及“未见类别”、“少样本”、“零样本”、“开放词汇”，**优先级高于学习范式**，一律放这里。
-**子文件夹示例**：
-*   `Open_Vocabulary` (开放词汇)：利用 CLIP 等图文对齐模型识别任意文本描述的类别 (如 ITACLIP)。
-*   `Few_Shot` (少样本)：利用少量 Support Set 图像分割 Query Set (如 FS-DINO-4D)。
-*   `Domain_Adaptation` (域适应)：解决训练集与测试集分布不一致的问题。
+# 方法与框架目录指南
 
-### 3_Foundation_Model_Adaptation (大模型适配)
+按论文主要解决的任务和问题归档，技术手段作为辅助标签。一篇论文只放一个主位置，其他主题通过双链和 Hub 连接。
 
-**定义**：核心贡献在于**如何微调或适配**通用的基础模型 (Foundation Models, 如 SAM, DINO, CLIP) 到下游任务，且不局限于特定的少样本或弱监督场景。
-**收录规则**：如果论文纯粹讨论 Prompt Engineering (提示工程)、Adapter 设计或从大模型蒸馏知识，放这里。
-**注意**：如果论文是用 DINO 解决 Few-Shot 问题，优先放入 `2_Generalization_and_Open_World/Few_Shot`，并在笔记 Tag 中标记 `#foundation-model`。
-**子文件夹规划**：
+## 现有目录职责
 
-*   `Prompting_and_Adapters` (提示与适配器)：视觉提示、LoRA 微调等。
-*   `Distillation_from_VLM` (大模型蒸馏)：将 SAM/DINO 能力转移到小模型。
-### 4_Core_Mechanisms_and_Modules (核心机制与组件)
-**定义**：通用的**技术改进模块**或**特定子问题处理**，通常可以即插即用到上述任何范式中。
-**收录规则**：如果论文不改变监督方式（范式），也不改变任务设定（开放世界），只是提出了一个新的 Loss、一个新的注意力模块、或者一种后处理方法，放这里。
-**子文件夹示例**：
-*   `Prototype-Based_Methods` (基于原型的方法)：单纯研究原型特征提取与更新机制。
-*   `Mask_Refinement` (掩码优化)：边缘细化、后处理模块 (如 SAMRefiner)。
-*   `Background_and_Unseen_Class_Handling` (背景处理)：专门解决背景偏移或长尾分布的模块。
-*   `Attention_and_CAMs` (注意力与类激活图)：可解释性分析或注意力机制改进。
-## 2. 归档决策流程 (Decision Logic)
-当你拿到一篇新论文时，请按以下流程提问：
-1.  **这篇论文是否试图识别训练集里没有的类别？**
-    *   是 $\rightarrow$ `2_Generalization_and_Open_World` (Few-Shot / Open-Vocab)
-2.  **如果类别是固定的，它的核心卖点是否是节省标注？**
-    *   是 $\rightarrow$ `1_Learning_Paradigms` (Weakly / Semi)
-3.  **它的核心贡献是否是关于如何写 Prompt 或设计 Adapter 来微调大模型？**
-    *   是 $\rightarrow$ `3_Foundation_Model_Adaptation`
-4.  **以上都不是，它是否只是改进了网络中的某一个模块（如边缘细化、原型更新、注意力计算）？**
-    *   是 $\rightarrow$ `4_Core_Mechanisms_and_Modules`
-## 3. 创建文件夹与命名规范
-*   **文件夹命名**：使用英语，单词首字母大写，单词间用下划线 `_` 连接 (Snake_Case)。例如：`Context_Label_Learning`。
-*   **文件命名**：保持当前风格，即 `Paper_Title_paper_notes.md` 或 `Method_Name_notes.md`。
+| 目录 | 归档条件与现有子目录 |
+|---|---|
+| `1_Learning_Paradigms` | 核心问题是标注来源、标注成本或学习范式。现有 `Weakly_Supervised`、`Semi_Supervised_Segmentation(半监督分割)`。 |
+| `2_Generalization_and_Open_World` | 核心任务是未见类别、开放词汇或泛化；现有 `Open_Vocabulary`。不要仅因用了 CLIP 就归入开放词汇。 |
+| `3_Foundation_Model` | 基础模型本体、能力分析、增强或应用；四个子类见下表。 |
+| `4_Core_Mechanisms_and_Modules` | 核心贡献是可复用机制或子问题处理；现有 `Background_and_Unseen_Class_Handling (背景与未知类别处理)`、`Entity_Segmentation_Frameworks`、`Mask_Refinement (掩码优化)`、`Prototype-Based Methods(基于原型的方法)`。 |
+
+### `3_Foundation_Model` 的四个子类
+
+| 子目录 | 内容与判断 |
+|---|---|
+| `Models (基础模型)` | 模型本体、结构和通用能力，如 CLIP、DINOv2、Depth Anything、SenseNova-Vision。 |
+| `Foundation_Model_Analysis` | 对已有基础模型表征、空间结构、行为与局限的分析，如 Geosubprobe。 |
+| `Foundation_Model_Enhancement` | 以改善基础模型能力或推理行为为核心的增强方法，如 SteerViT；适配、提示等按实际问题判断，可参考本目录已有 README。 |
+| `Applications (应用)` | 将基础模型用于具体应用，且该应用没有更优先的现有任务归档位置，如 ColPali。 |
+
+## 任务优先的决策顺序
+
+1. 先问论文明确解决什么任务。若主线是开放词汇/未见类别识别，优先进入泛化与开放世界；使用何种监督和基础模型用标签补充。
+2. 若核心问题是固定任务下的弱监督、半监督等标注设定，优先进入学习范式。基于 SAM、DINO 或 CLIP 的 WSSS 论文仍按 WSSS 主线归档。
+3. 若主题是基础模型本体、能力分析、通用增强或应用，再按 `3_Foundation_Model` 的四个实际子类选择；不能把所有使用基础模型的论文都放在这里。
+4. 若主要讨论通用模块、掩码细化、背景处理、实体分割框架或原型机制，按 `4_Core_Mechanisms_and_Modules` 的实际子目录归档。某个模块服务于明确的 WSSS/开放词汇任务时，仍先看论文主问题。
+
+任务需要目录中尚无的分类时，先复用最贴近的现有位置，并用标签、双链说明交叉关系；只有实际内容形成持续主题时才增加目录，不创建规划中的空目录。
+
+## 文件与关联
+
+沿用所在目录的 `{方法名}_paper_notes.md`、`{方法名}_Translation.md`、`{方法名}_code_notes.md` 命名习惯，既有文件保留名称与位置。通用原理链接到知识库，复用操作链接到研究算子库，实验和框架教程链接到项目实践；不复制多份正文。
+
+组织依据为 [笔记项目框架](../../../00_Meta%20(元数据)/笔记项目框架.md) 与 [标签规范](../../../00_Meta%20(元数据)/标签规范.md)。元数据按内容用途确定，译文和代码笔记不强制补卡片；领域标签不强制添加。

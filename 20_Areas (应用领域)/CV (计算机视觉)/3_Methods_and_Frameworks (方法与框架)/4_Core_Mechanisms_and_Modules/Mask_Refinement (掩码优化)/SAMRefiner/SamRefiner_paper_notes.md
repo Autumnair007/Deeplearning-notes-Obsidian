@@ -5,8 +5,8 @@ tags:
   - image-segmentation
   - mask-refinement
   - sam
-  - full-supervision
-  - semi-supervision
+  - fully-supervised
+  - semi-supervised
   - weakly-supervised
   - instance-segmentation
   - semantic-segmentation

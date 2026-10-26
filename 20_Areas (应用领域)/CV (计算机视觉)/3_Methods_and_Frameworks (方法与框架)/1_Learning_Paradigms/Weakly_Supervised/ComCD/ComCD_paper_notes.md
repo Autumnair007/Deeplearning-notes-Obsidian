@@ -17,7 +17,7 @@ venue: ESWA2026
 
 本地PDF文件：ComCD [[../../../../../../99_Assets (资源文件)/papers/Unveiling the complementary synergy of CLIP and diffusion models for weakly supervised semantic segmentation.pdf]]
 
-额外笔记资料：[深入理解CAM与注意力图](../深入理解CAM与注意力图.md)
+额外笔记资料：[深入理解CAM与注意力图](../Analysis/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3CAM%E4%B8%8E%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%9B%BE.md)
 ***
 ## **揭示 CLIP 和扩散模型在弱监督语义分割中的互补协同作用**
 

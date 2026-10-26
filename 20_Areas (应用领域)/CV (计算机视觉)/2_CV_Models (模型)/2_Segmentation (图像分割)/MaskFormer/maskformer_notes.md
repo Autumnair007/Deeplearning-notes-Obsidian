@@ -6,7 +6,7 @@ tags:
   - panoptic-segmentation
   - instance-segmentation
   - semantic-segmentation
-  - full-supervision
+  - fully-supervised
   - transformer
   - detr
   - maskformer

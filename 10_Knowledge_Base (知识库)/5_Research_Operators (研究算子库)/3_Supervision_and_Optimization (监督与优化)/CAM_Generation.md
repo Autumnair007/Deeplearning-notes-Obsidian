@@ -6,7 +6,7 @@ aliases:
   - 类激活图生成
 tags:
   - research-operator
-  - CAM
+  - cam
   - weakly-supervised
   - open-vocabulary
   - semantic-segmentation

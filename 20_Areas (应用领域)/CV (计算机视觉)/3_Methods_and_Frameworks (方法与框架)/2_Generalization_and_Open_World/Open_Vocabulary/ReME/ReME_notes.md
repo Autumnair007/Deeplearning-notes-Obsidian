@@ -4,7 +4,7 @@ tags:
   - cv
   - open-vocabulary-segmentation
   - semantic-segmentation
-  - unsupervised
+  - unsupervised-learning
   - retrieval
   - clip
   - dinov2

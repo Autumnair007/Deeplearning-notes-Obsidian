@@ -5,7 +5,7 @@ tags:
   - semantic-segmentation
   - open-vocabulary-segmentation
   - weakly-supervised
-  - self-supervision
+  - self-supervised
   - zero-shot
   - clip
   - dinov3

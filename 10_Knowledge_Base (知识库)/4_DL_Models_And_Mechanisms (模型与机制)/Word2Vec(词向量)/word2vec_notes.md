@@ -276,7 +276,7 @@ $$
   $$
   这个损失函数衡量了模型预测的概率分布 $y$ 与真实的 one-hot 分布 $t$ 之间的差异。当模型对真实目标词 $w_O$ 预测的概率 $y_{j^*}$ 越低时，损失 $E$ 越大。
 
-  关于交叉熵损失可以查看[交叉熵损失](../Basic Concepts-NLP/交叉熵损失(语言模型).md)。
+  关于交叉熵损失可以查看[交叉熵损失](../../3_DL_Core_Concepts%20%28%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%29/cross_entropy_loss_for_language_models%5B%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%28%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%29%5D.md)。
 
 ## 4. 反向传播与参数更新
 

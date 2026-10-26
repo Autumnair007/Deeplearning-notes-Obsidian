@@ -1,3 +1,15 @@
+---
+type: paper-note
+tags:
+  - cv
+  - semantic-segmentation
+  - weakly-supervised
+  - wsss
+  - tfs
+  - training-free
+  - moduseg
+status: in-progress
+---
 # 从 CAM 到“提议—检索”：ModuSeg 如何重写弱监督语义分割
 
 > 论文：ModuSeg: Decoupling Object Discovery and Semantic Retrieval for Training-Free Weakly Supervised Segmentation<br>

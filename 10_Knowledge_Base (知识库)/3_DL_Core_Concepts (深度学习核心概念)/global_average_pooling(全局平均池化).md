@@ -4,12 +4,11 @@ tags:
   - cv
   - transformer
   - vit
-  - vision-transformer
   - global-average-pooling
   - feature-extraction
   - image-classification
   - semantic-segmentation
-  - full-supervision
+  - fully-supervised
   - self-supervised
   - dinov2
   - code-note

@@ -1,3 +1,15 @@
+> 组织与元数据：[项目框架](笔记项目框架.md)｜[标签规范](标签规范.md)｜[元数据提示词 V2](metadata_promptV2.txt)。以下写作提纲按内容需要使用；探索概览也可选用 [简短模板](overview_note_template.md)。
+>
+> 核心知识笔记可在文件最开头填写下例；标签以内容证据为准，`cv` / `nlp` 非必填。译文、随手记、资料占位、教程和代码笔记不强制补卡片，探索笔记可选。`status` 只表示整理进度，新增核心卡片默认 `in-progress`。
+
+```yaml
+---
+type: concept-note
+tags: [attention, transformer]
+status: in-progress
+---
+```
+
 #  笔记
 
 学习资料：

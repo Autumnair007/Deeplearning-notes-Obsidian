@@ -4,7 +4,7 @@ tags:
   - cv
   - image-segmentation
   - semantic-segmentation
-  - full-supervision
+  - fully-supervised
   - weakly-supervised
   - align
   - lseg

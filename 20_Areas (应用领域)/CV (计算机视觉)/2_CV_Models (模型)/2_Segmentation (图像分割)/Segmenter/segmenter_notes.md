@@ -7,7 +7,7 @@ tags:
   - segmenter
   - vit
   - encoder-decoder
-  - full-supervision
+  - fully-supervised
 status: done
 model: Segmenter
 year: 2021

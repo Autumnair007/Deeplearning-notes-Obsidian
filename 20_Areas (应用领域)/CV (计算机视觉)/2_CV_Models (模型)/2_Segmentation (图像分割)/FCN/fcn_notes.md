@@ -8,7 +8,7 @@ tags:
   - skip-connection
   - fcn
   - upsampling
-  - full-supervision
+  - fully-supervised
 status: done
 model: Fully Convolutional Networks
 year: 2015

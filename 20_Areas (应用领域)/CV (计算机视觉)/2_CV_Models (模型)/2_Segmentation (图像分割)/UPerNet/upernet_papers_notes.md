@@ -8,7 +8,7 @@ tags:
   - fpn
   - ppm
   - scene-parsing
-  - full-supervision
+  - fully-supervised
 status: done
 model: UPerNet
 year: 2018

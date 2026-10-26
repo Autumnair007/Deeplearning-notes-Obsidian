@@ -7,7 +7,6 @@ tags:
   - retrieval-based
   - reme
   - semantic-segmentation
-  - ReME
   - tfs
 status: done
 model: ReME

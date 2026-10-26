@@ -137,23 +137,23 @@
 
 ### 4.1 文件头与资源入口
 
-文件开头使用 YAML Frontmatter。所有标签必须为英文小写并用短横线连接；不要把年份写入 tags。基础格式为：
+论文精读笔记属于核心知识范围，使用文件开头的真实 YAML Frontmatter。组织依据为 [笔记项目框架](笔记项目框架.md)、[标签规范](标签规范.md) 与 [元数据提示词 V2](metadata_promptV2.txt)。译文、附录翻译和代码笔记不强制补卡片。
+
+`type`、`tags`、`status` 为核心字段。标签使用平铺英文小写，词组用连字符，不写年份标签；`cv` / `nlp` 按内容选用，不是必填。按可靠来源确认具体任务、监督方式和模型后再加标签，不把下列说明词当作实际标签。
 
 ```yaml
 ---
 type: paper-note
-tags:
-  - cv
-  - 具体任务
-  - 监督方式
-  - 核心基础模型
+tags: [semantic-segmentation, clip]
 status: in-progress
 model: 方法名
 venue: 会议或期刊简称加年份
 ---
 ```
 
-如果是弱监督语义分割，必须包含 `cv`、`semantic-segmentation`、`weakly-supervised` 和 `wsss`。`venue` 采用 `CVPR2026`、`ICCV2025`、`TIP2026` 等形式，不另设 `year` 字段。
+确认是弱监督语义分割时使用 `semantic-segmentation`、`weakly-supervised`、`wsss`；`weakly-supervised-segmentation` 保留自身语义。确认是免训练分割时可使用 `tfs` 与 `training-free`，仅冻结部分模型不足以证明整套方法免训练。开放词汇、零样本和各类分割标签分别按真实设定判断。
+
+`status` 仅表示整理进度，新增核心卡片默认 `in-progress`，不能按正文长短重判已有值。新论文使用字符串 `venue`，如 `CVPR2026`、`ICCV2025`、`TIP2026`；未确认正式发表时如实写 `arXiv` 或已知 arXiv 标识，不新增 `year`。已有 `year`、`paper_year`、`model`、`aliases` 和其他有意义属性均保留，不改写文献事实；小写约定只适用于标签。
 
 YAML 后提供实际存在的资源入口：
 
@@ -181,13 +181,13 @@ tags:
   - clip
   - stable-diffusion
   - wsss
-status: done
+status: in-progress
 model: DiCLIP
 venue: TIP2026
 ---
 ```
 
-这个例子说明字段和标签粒度，不代表所有论文都要使用 WSSS、CLIP 或 Stable Diffusion 标签。
+这个例子说明字段和标签粒度，不代表所有论文都要使用 WSSS、CLIP 或 Stable Diffusion 标签；实际整理完成时再设 `done`。
 
 ### 4.2 正文与 Translation 的复用关系
 

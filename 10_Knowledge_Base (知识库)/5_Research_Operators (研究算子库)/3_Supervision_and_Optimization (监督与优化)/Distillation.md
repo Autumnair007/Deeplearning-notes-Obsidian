@@ -6,7 +6,7 @@ aliases:
   - 知识蒸馏
 tags:
   - research-operator
-  - distillation
+  - knowledge-distillation
   - teacher-student
   - weakly-supervised-segmentation
   - open-vocabulary-segmentation
