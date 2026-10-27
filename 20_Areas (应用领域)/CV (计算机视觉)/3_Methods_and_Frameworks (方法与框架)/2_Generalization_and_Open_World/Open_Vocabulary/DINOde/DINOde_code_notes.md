@@ -480,14 +480,14 @@ pred_labels_raw = torch.argmax(pred_masks, dim=1)
 
 ## 10. 回头看，最值得自己写会的几段代码
 
-| 实现思路 | 再读入口 | 将来适合用在哪里 |
-|---|---|---|
-| 固定大编码器，在边界之外训练小映射 | `CLIPTextEncoder.encode`、`forward_grid`、`_encode_texts_captions_batch` | 复用预训练特征、缓存特征后做轻量对齐 |
-| 不同模态先整理到统一状态维度 | `text_flow_init`、`cls_flow_init` | 跨模态融合前的接口设计；维度对齐后仍需语义对齐 |
-| 时间编码 + FiLM + 残差速度预测 | `sinusoidal_time_embedding`、`TimeConditionedTextFlowNet` | 连续条件模型、迭代细化、共享参数多步更新 |
-| 点积和广播实现切向更新 | `apply_text_flow`、`apply_cls_flow` | 方向型表示的迭代优化；明确离散归一化位置 |
-| 逐通道 top/bottom-k 汇总 | `min_max_k_pooling` | 只有图像级监督时汇总密集视觉证据 |
-| 联合分数与非对称梯度分开设计 | caption 拼接处、`clip_style_contrastive_loss` | 既利用多个分支，又限制某条监督的梯度方向 |
-| 特征通道收缩与空间维恢复 | `TextCondHead.forward`、`eval.py` 的插值处 | 开放词汇分类、patch CAM、密集相似度解码 |
+| 实现思路                 | 再读入口                                                                   | 将来适合用在哪里                 |
+| -------------------- | ---------------------------------------------------------------------- | ------------------------ |
+| 固定大编码器，在边界之外训练小映射    | `CLIPTextEncoder.encode`、`forward_grid`、`_encode_texts_captions_batch` | 复用预训练特征、缓存特征后做轻量对齐       |
+| 不同模态先整理到统一状态维度       | `text_flow_init`、`cls_flow_init`                                       | 跨模态融合前的接口设计；维度对齐后仍需语义对齐  |
+| 时间编码 + FiLM + 残差速度预测 | `sinusoidal_time_embedding`、`TimeConditionedTextFlowNet`               | 连续条件模型、迭代细化、共享参数多步更新     |
+| 点积和广播实现切向更新          | `apply_text_flow`、`apply_cls_flow`                                     | 方向型表示的迭代优化；明确离散归一化位置     |
+| 逐通道 top/bottom-k 汇总  | `min_max_k_pooling`                                                    | 只有图像级监督时汇总密集视觉证据         |
+| 联合分数与非对称梯度分开设计       | caption 拼接处、`clip_style_contrastive_loss`                              | 既利用多个分支，又限制某条监督的梯度方向     |
+| 特征通道收缩与空间维恢复         | `TextCondHead.forward`、`eval.py` 的插值处                                  | 开放词汇分类、patch CAM、密集相似度解码 |
 
 这份代码的关键连接是：冻结视觉表征提供稳定的空间坐标，STF 学会把文本放进去，池化和 GCF 把图像级监督送到对齐模块，而推理把学好的文本方向直接应用于每个 patch。自己借鉴时，最应先画清楚的是“哪一维被聚合、哪一端允许学习、在哪一步归一化、最终类别分数从哪次点积产生”。这些关系清楚后，ODE、FiLM、拼接和 `einsum` 就能成为可独立修改的实现选择。
