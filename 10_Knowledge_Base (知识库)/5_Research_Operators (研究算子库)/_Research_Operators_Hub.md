@@ -6,7 +6,7 @@ aliases:
 tags:
   - research-operator
   - moc
-status: todo
+status: in-progress
 ---
 
 # Research Operators（研究算子库）
@@ -186,9 +186,19 @@ Efficient_Adaptation & Distillation ─→ constrain how the whole chain is trai
 ## 9. 当前范围说明
 
 - 弱监督：[[CLIP-ES_paper_notes]]、[[ComCD_paper_notes]]、[[DiCLIP_paper_notes]]、[[ExCEL_paper_notes]]、[[MCTformer_paper_notes]]、[[POT_paper_notes]]、[[S2C_paper_notes]]、[[SSR_paper_notes]]、[[TokenMasking_paper_notes]]、[[UGRL_paper_notes]]、[[VDA_paper_notes]]、[[WeCLIP_paper_notes]]、[[WeCLIP+_paper_notes]]。
-- 开放词汇：[[CorrCLIP_paper_notes]]、[[OpenSeg_paper_notes]]、[[ReME_paper_notes]]、[[Talk2DINO_paper_notes]]、[[Trident_paper_notes]]。
+- 开放词汇：[[CLIPer_paper_notes]]、[[CorrCLIP_paper_notes]]、[[OpenSeg_paper_notes]]、[[ReME_paper_notes]]、[[Talk2DINO_paper_notes]]、[[Trident_paper_notes]]。
 - 经典与基础分割对照：[[fcn_notes]]、[[deeplabv3+_notes]]、[[upernet_notes]]、[[segformer_notes]]、[[maskformer_notes]]、[[mask2former_notes]]、[[sam_notes]]。
 - 本库优先整理可迁移的操作，不追求覆盖这些论文的每一个模块。
+
+CLIPer的复用入口（2026-10-28核对官方核心源码）：
+
+| 实践问题 | 算子案例 |
+|---|---|
+| 冻结ViT怎样利用多层内容，而不训练新融合头？ | [[Multi_Level_Fusion#6.5 CLIPer案例：多层内容复用冻结读出头，再在类别空间融合]] |
+| 怎样把SD自注意力处理成可用的空间关系？ | [[Attention_and_Affinity_Refinement#6.4 CLIPer案例：把扩散注意力变成可串联的空间关系]] |
+| 多个关系怎样串联，能否省去完整关系乘积？ | [[Spatial_Propagation#7.4 CLIPer案例：异构关系串联与避免显式矩阵连乘]] |
+
+类别仍来自CLIP文本匹配；这里没有新的视觉原型或跨样本记忆机制，因此未为CLIPer扩写检索、记忆与原型页。`CLIPer_code_notes.md` 尚不存在，本轮只补算子案例和真实链接。
 
 ## 10. 证据强度与写作规则
 
@@ -204,6 +214,8 @@ Efficient_Adaptation & Distillation ─→ constrain how the whole chain is trai
 ## 11. 在线核对入口
 
 论文特有结论优先以作者论文页和官方代码为准，而不是只依据二手总结。当前已交叉核对的入口包括：
+
+- [CLIPer｜ICCV 2025](https://doi.org/10.1109/ICCV51701.2025.02154) 与 [官方代码固定提交](https://github.com/linsun449/cliper.code/tree/c05fa41a4966d0a43af513546b17c346ccd42559)：以 [[CLIPer_paper_notes]] 为论文入口，核对 `modified_clip/model.py`、`ovs/pipeline.py`、`diffusion_model/Processor.py` 与 `diffusion_model/stable_diffusion.py`。算子案例区分论文抽象、源码行为和工程改写；未复现分割指标。
 
 - [CLIP-ES｜arXiv 2212.09506](https://arxiv.org/abs/2212.09506) 与 [官方代码](https://github.com/linyq2117/CLIP-ES/tree/3893f817be359c5ee1dbf8111cad381a532c7acc)。
 - [POT｜CVPR 2025](https://openaccess.thecvf.com/content/CVPR2025/html/Wang_POT_Prototypical_Optimal_Transport_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2025_paper.html) 与 [官方代码](https://github.com/jianwang91/POT/tree/60fd4ce4934c07744d0afe7426fd8aae94860f56)。

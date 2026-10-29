@@ -166,6 +166,7 @@ $$
 | [[ComCD_paper_notes]] | WSSS；CLIP与扩散模型 | CLIP语义强但不完整，扩散分支空间完整但类别特异性弱 | 分别生成两路CAM，用像素预测熵衡量局部不确定性并动态决定更可信分支 | 属于位置级分数融合，而非骨干层级拼接 |
 | [[DiCLIP_paper_notes]] | WSSS；CLIP、扩散关系与视觉缓存 | 单一补丁—文本CAM覆盖不足 | 基础文本CAM、静态缓存CAM、动态适配器CAM用固定系数组合；最终分割头同时读取CLIP 12层特征 | 同时使用分数级融合和同网格多层特征融合 |
 | [[Trident_paper_notes]] | 高分辨率OVS；CLIP、DINO、SAM | 滑窗先预测后拼接破坏跨窗口上下文 | 先拼接子图特征，再让DINO提供局部对象关系、SAM提供全局聚合、CLIP提供开放类别语义 | 属于多骨干职责分工，不等价于简单加权求和 |
+| [[CLIPer_paper_notes]] | 免训练OVS；同网格CLIP多层表示 | 末层内容偏全局，单独替换关系仍难取回早层信息 | 汇总早层注意力，用末层投影分别读出各层内容，再融合类别响应 | 复用冻结读出参数；区分关系融合、内容读出与分数融合，详见 §6.5 |
 
 > [!note] 我的理解｜融合对象决定了融合规则
 > FCN融合的是同一类别空间中的分数图；SegFormer和WeCLIP融合的是分类前特征；Mask2Former让query分阶段读取多尺度特征；ComCD融合的是不同模型产生的CAM。把这些都简称“feature fusion”会掩盖最重要的接口差异。
@@ -307,7 +308,7 @@ ComCD使用像素级不确定性决定更相信CLIP还是扩散响应，可作�
 
 对应：[[ComCD_paper_notes]]、[[DiCLIP_paper_notes]]。
 
-## 6. 官方仓库静态分析：DiCLIP的12层CLIP特征融合
+## 6. 官方仓库静态分析：DiCLIP可训练拼接与CLIPer冻结读出
 
 ### 6.1 仓库与固定版本
 
@@ -400,6 +401,66 @@ x = self.dropout(x)
 > [!note] 我的理解｜这是一种“同网格、深度维融合”
 > 它借用了SegFormer“每层投影 + 拼接 + 线性融合”的外形，但真正省掉的是空间对齐，而不是多层选择。若要改成只取后4层，必须同步修改 `index`、传入层数和 `linear_fuse` 输入通道，不能只切片一个张量。
 
+### 6.5 CLIPer案例：多层内容复用冻结读出头，再在类别空间融合
+
+**问题与插入位置。** 当冻结ViT的末层定位较差，而早层仍保留有用的空间信息时，可以在视觉编码器与文本分类之间，给多层token接上同一套已有读出参数。与本节前面的DiCLIP拼接后训练MLP不同，这里不训练新的层间投影。它适合先验证“不同深度能否提供互补类别证据”，前提是这些层能经同一读出映射到有意义的图文空间；不能把该前提推广到任意骨干。
+
+**可复用的张量接口。** 令 $L$ 为内容来源数，$P=1+hw$ 为含CLS的token数，$H_a$ 为注意力头数；下文LN指层归一化（Layer Normalization），FFN指前馈网络（Feed-Forward Network）：
+
+```text
+内容：X_l [B,P,D]，l = 0,...,L-1
+早层关系：A_r [B,H_a,P,P]
+公共关系 R：沿早层来源维汇总并整形 → [B,H_a,P,P]
+逐层读出：R @ V_h(X_l) → 拼头/输出投影/LN/视觉投影 → [B,P,E]
+去CLS、逐token L2归一化、与文本 [C,E] 匹配 → [B,hw,C]
+沿内容来源维融合 → [B,hw,C]
+```
+
+这里有三个不同操作：汇总 $A_r$ 融合的是**位置关系**；逐层计算 $R V_h(X_l)$ 读取的是**各层内容**；最终平均消去的是**类别响应的来源维**。ViT各层共享patch网格，因此不需要FPN式空间上采样。
+
+为了表达设计意图，可写成：
+
+$$
+Z_l=\operatorname{Readout}_{\mathrm{frozen}}(X_l;R),\qquad
+S_l=\operatorname{softmax}_{c}(\tau\,\widehat Z_l\widehat T^\top),\qquad
+S_{\mathrm{avg}}=\frac1L\sum_l S_l.
+$$
+
+**公式解释：** $\operatorname{Readout}_{\mathrm{frozen}}$ 表示使用冻结参数及给定关系 $R$ 读出内容，此处 $Z_l$ 取去掉CLS后的 `[B,hw,E]`；$T=[C,E]$ 是候选文本嵌入，$\widehat{\cdot}$ 在嵌入维做L2归一化。与 `[E,C]` 文本矩阵相乘消去 $E$，得到 `[B,hw,C]`；$\tau$ 是logit缩放因子，softmax沿类别维竞争。最后平均只消去层来源维，$S_{\mathrm{avg}}[b,n,c]$ 表示第 $b$ 张图位置 $n$ 对类别 $c$ 的层间平均响应。**这是供复用的抽象接口，不是官方前向的完整等式**，官方还包含下面的关系整形和选中层增强。
+
+一个仅用于说明接口的数字例子：4层、1张图、20×20个patch，各层读出并去CLS后为 `[1,400,512]`；与20类文本 `[20,512]` 匹配，得到4份 `[1,400,20]`，沿层维平均仍为 `[1,400,20]`。其中 `S_avg[0,17,3]` 是第18个patch对第4类的融合响应，转置为 `[1,20,400]` 后可reshape成 `[1,20,20,20]`；转置和reshape只改变索引布局。
+
+**官方源码给出的具体例子。** 核对版本为 [`c05fa41a4966d0a43af513546b17c346ccd42559`](https://github.com/linsun449/cliper.code/tree/c05fa41a4966d0a43af513546b17c346ccd42559)，静态阅读日期为2026-10-28：
+
+- [内容收集与末层读出：model.py L112–138](https://github.com/linsun449/cliper.code/blob/c05fa41a4966d0a43af513546b17c346ccd42559/modified_clip/model.py#L112-L138)：前 $L-1$ 个块正常运行，但保存的是各块输入经过该块 `ln_1` 的结果；最后一个内容槽保存倒数第二块之后的原始状态。随后所有槽再经过末块的 `ln_1` 和注意力读出。**这些槽不全是“各块的原始输出”**，早层路径实际经过两次不同的LayerNorm。
+- [关系整形与Value聚合：model.py L44–93](https://github.com/linsun449/cliper.code/blob/c05fa41a4966d0a43af513546b17c346ccd42559/modified_clip/model.py#L44-L93)：保留各注意力头，累加早层关系后进行列归一化、行归一化、对称化、减列均值、截负值和再次行归一化；因此实际关系并非简单平均注意力。最后块只做注意力输出及投影，不再走该块残差与FFN。
+- [类别分数融合：model.py L213–230](https://github.com/linsun449/cliper.code/blob/c05fa41a4966d0a43af513546b17c346ccd42559/modified_clip/model.py#L213-L230)：先让前景文本、背景文本及前景均值向量共同参与softmax，再保留前景通道。关闭滑窗时，得到 `[L,C_fg,h,w]`；最终输出还会加上一个阈值化选中层的传播结果。
+
+最后一步可用以下短代码读懂。它保留官方的别名行为，而非推荐的通用写法：
+
+```python
+# prob: [L,C_fg,h,w]，已在包含辅助文本的类别集合上softmax
+chosen = prob[select_layer]                 # view，与prob共享存储
+chosen[chosen < chosen.amax((-1, -2), keepdim=True) * threshold] = 0
+enhanced = chosen.flatten(-2) @ R_patch     # [C_fg,N] @ [N,N]
+out = enhanced.reshape_as(chosen) + prob.mean(0)
+```
+
+这里的 `R_patch` 来自最后一次 `custom_attn` 返回的关系，在单图路径中跨头平均并去掉CLS行列，即 `attn.mean(0)[1:,1:]`；它不是 `select_layer` 对应调用的关系。这解释了为什么不能将官方最终结果直接称为“原始余弦相似度的层平均”：它平均的是softmax后的前景响应，选中层先被阈值化，而且另有增强支路相加。辅助文本通道被删除、再加一支响应后，输出也不是严格的类别概率分布。
+
+**复用时最值得检查的四件事。**
+
+1. **公共参数不等于实际关系完全不变。** `custom_attn` 的前两次 `/=` 会修改传入的 `attn_maps`；到对称化赋值时才创建局部新张量。逐层调用因此会反复对共享状态做列/行归一化，不能断言每个内容槽使用数值完全相同的 $R$。若希望实现严格固定关系，应先在循环外构造一次 $R$，或对原始关系 `clone()` 后处理；这属于改写，不能冒充原实现。
+2. **视图修改会悄悄改变另一条支路。** 上面 `chosen` 原地置零后，`prob.mean(0)` 已包含被截断的选中层。若希望“原始层均值 + 阈值增强”，必须先复制选中层或先算均值，并把这项差异单独消融。
+3. **乘法方向和CLS需要明确。** 官方增强支路写的是 `[C,N] @ R_patch`，转为本库统一的 `[N,C]` 布局后是 $R_{\mathrm{patch}}^\top S$，不是 $R_{\mathrm{patch}}S$。关系整形后的最终行归一化不保证对称；切掉CLS列后也没有重归一化，不能套用“每行加权平均”的解释。SFSA后处理采用左乘，见 [[Spatial_Propagation#7.4 CLIPer案例：异构关系串联与避免显式矩阵连乘]]。
+4. **保留batch维，处理零行。** 原代码用无参数 `squeeze()`，后续 `[:,1:]` 和 `attn.mean(0)` 按单图路径使用；扩展batch时应保持 `[L,B,P,E]`，显式选择token维与头维。关系截断后可能有零行，原CLIP关系整形的除法没有epsilon；改写时可补自环或回退原关系，再按行归一化。
+
+**可以怎样替换。** 无训练预算时，先比较末层单支、选定几层等权平均、全部层平均；有可靠验证集或训练数据时，可比较固定非负层权重、逐位置门控，以及DiCLIP式独立投影后拼接。不要直接交换“平均特征→L2归一化”“各层归一化后平均”“softmax后平均”：非线性操作不同，通常不等价。对于含LayerNorm等非线性的完整读出头，也不能随意把层平均提前到读出之前。
+
+**梯度与验证。** 官方分割路径包在 `torch.no_grad()` 中，读出参数复用而不训练；这与只调用 `eval()` 不同。建议固定图像、词表、温度和关系来源，分别消融内容来源数、关系整形、选中层增强、视图复制及滑窗，记录粗图mIoU、边界指标、各层输出范数与延迟。这里只做源码核对，未复现论文分割指标。
+
+关联：[[CLIPer_paper_notes]]；关系构造见 [[Attention_and_Affinity_Refinement#6.4 CLIPer案例：把扩散注意力变成可串联的空间关系]]。`CLIPer_code_notes.md` 当前不存在，本轮不创建，也不为其制造空双链。
+
 ## 7. 选型指南
 
 | 当前问题 | 优先考虑 | 不建议先做 |
@@ -435,6 +496,8 @@ x = self.dropout(x)
 - [[mask2former_notes]]：query怎样跨解码层轮流读取多尺度特征。
 
 ### WSSS与OVS入口
+
+- [[CLIPer_paper_notes]] → [[Multi_Level_Fusion#6.5 CLIPer案例：多层内容复用冻结读出头，再在类别空间融合]]：免训练的多层读出、分数融合与原地修改问题。
 
 - [[WeCLIP_paper_notes]]：冻结CLIP多层特征的解码融合。
 - [[ComCD_paper_notes]]：CLIP与扩散CAM的像素级不确定性融合。

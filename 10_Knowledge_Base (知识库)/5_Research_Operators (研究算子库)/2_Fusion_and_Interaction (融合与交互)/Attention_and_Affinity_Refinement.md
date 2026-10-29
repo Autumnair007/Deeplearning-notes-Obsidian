@@ -136,6 +136,7 @@ M' = A @ M: [2,400,20]
 | [[SSR_paper_notes]] | WSSS；CLIP CAM | 图文模态间隙与背景传播同时存在 | 先做图文子空间/原型对齐，再用超像素约束亲和力随机游走 | 明确把语义校准和空间关系校准拆成两步 |
 | [[CorrCLIP_paper_notes]] | 免训练OVS；CLIP分类器 | CLIP patch存在错误类间相关性 | 用分割一切模型（Segment Anything Model, SAM）限制patch交互区域，以DINO相似度重建关系值，再聚合CLIP Value | 类别无关模型修正文本分类前的视觉关系 |
 | [[Trident_paper_notes]] | 高分辨率OVS；CLIP/DINO/SAM | 滑窗特征缺少跨窗关系 | DINO补局部对象关系、SAM补全局区域聚合、CLIP保留语义分类 | 展示多来源关系在不同空间范围内分工 |
+| [[CLIPer_paper_notes]] | 免训练OVS；CLIP粗分数与冻结的稳定扩散（Stable Diffusion, SD）模型 | patch类别图缺少局部细节 | 提取SD高分辨率自注意力，缩放、截断、行归一化后跨头连乘 | 在分类之后提供无类别空间关系；区别于把外部关系注入CLIP内部，详见 §6.4 |
 
 ## 4. 常见实现形式
 
@@ -244,7 +245,7 @@ $$
 
 **公式解释：** $M$ 是 `[B,N,C]` 原响应，`T @ M` 先消去来源位置维并得到同 shape 的传播响应，$\lambda$ 是标量门控。两个 `[B,N,C]` 张量逐元素加权相加，不再消去维度；$M'[b,n,c]$ 是原证据与邻域证据折中的类别分数。$\lambda=0$ 不细化，$\lambda=1$ 完全依赖关系矩阵。残差只能减缓错误传播，不能纠正系统性错误类别。
 
-## 6. 官方仓库静态分析：CLIP-ES的CAA细化
+## 6. 官方仓库静态分析：CLIP-ES的CAA与CLIPer扩散关系
 
 ### 6.1 仓库与固定版本
 
@@ -306,6 +307,78 @@ cam_refined = torch.matmul(trans_mat, cam_to_refine).reshape(h // 16, w // 16)
 > [!note] 我的理解｜论文公式与代码要分开读
 > 论文的CAA强调“双随机、对称、类别框限制”；代码确实执行交替归一化与对称化，但掩码是列广播且没有再归一化。复现或改写时应先决定自己要的是成对区域掩码、来源掩码，还是严格随机游走矩阵。
 
+### 6.4 CLIPer案例：把扩散注意力变成可串联的空间关系
+
+**通常解决什么问题，插在哪里？** 当已有类别分数大致正确、但轮廓粗糙或对象内部不连续时，可让另一个冻结视觉模型提供空间关系，在分类之后细化分数。这个接口不要求两个模型的通道特征处于同一嵌入空间，只要求**同一图像的空间坐标对应**。CLIPer以稳定扩散模型（Stable Diffusion, SD）提供细粒度补偿；它与DiCLIP把扩散关系加到CLIP内部注意力中的插入位置不同。
+
+**输入输出。** 多层、多头自注意力展成 `A=[K,N,N]`，其中 $K$ 是所选层的头数之和，$N$ 是统一空间网格位置数。整形后得到非负关系 `T=[K,N,N]`；自融合自注意力（Self-Fused Self-Attention, SFSA）进一步输出 `R=T[0] @ ... @ T[K-1]`。$R$ 不含类别维，随后用于 `[N,N] @ [N,C] → [N,C]`。类别响应来自 [[Multi_Level_Fusion#6.5 CLIPer案例：多层内容复用冻结读出头，再在类别空间融合]]。
+
+**源码例子与版本。** 以下核对自官方 [`c05fa41a4966d0a43af513546b17c346ccd42559`](https://github.com/linsun449/cliper.code/tree/c05fa41a4966d0a43af513546b17c346ccd42559)，日期为2026-10-28：
+
+- [stable_diffusion.py L47–75、L96–99](https://github.com/linsun449/cliper.code/blob/c05fa41a4966d0a43af513546b17c346ccd42559/diffusion_model/stable_diffusion.py#L47-L99)：真实图像预处理到512×512，经变分自编码器（Variational Autoencoder, VAE）得到潜变量均值并乘缩放因子；设置50项调度表，取默认 `scheduler.timesteps[45]` 对应时间加噪，然后用空提示做**一次UNet去噪网络前向**。这里的45是调度表索引，不是原始扩散时间值45，也不是实际运行45次去噪。
+- [Processor.py L26–38、L90–112](https://github.com/linsun449/cliper.code/blob/c05fa41a4966d0a43af513546b17c346ccd42559/diffusion_model/Processor.py#L26-L112)：回调保存softmax后的注意力概率 `[B,H_a,N,N]`，而不是原始QK分数。[ViT-L/VOC21配置](https://github.com/linsun449/cliper.code/blob/c05fa41a4966d0a43af513546b17c346ccd42559/scripts/config/vit-l-14/ovs_voc21.yaml#L10-L11) 选择 `[-4,-6]`，对应 `up_blocks[3]` 中第2、第1个attention模块的 `attn1`，即自注意力。
+- [pipeline.py L64–80](https://github.com/linsun449/cliper.code/blob/c05fa41a4966d0a43af513546b17c346ccd42559/ovs/pipeline.py#L64-L80)：逐个所选层取batch第0张图，再沿头维拼接。类别图先插值到64×64，因此 $N=4096$；随后对每个头独立整形，再按配置层顺序及各层头顺序连乘。换模型时应核查所有被拼接矩阵的网格是否仍相同。
+
+#### 6.4.1 先按来源列缩放，再阈值化、按接收行归一化
+
+把某个头的输入记为 $A_{ij}$，行 $i$ 是query/接收位置，列 $j$ 是key/来源位置。官方操作可写为：
+
+$$
+U_{ij}=\frac{A_{ij}}{\max_r A_{rj}+\varepsilon},\qquad
+V_{ij}=U_{ij}\,\mathbf1[U_{ij}\ge\theta],\qquad
+T_{ij}=\frac{V_{ij}}{\sum_sV_{is}+\varepsilon}.
+$$
+
+**公式解释：** $A$ 是各头原注意力，$U$ 是缩放后的边权，$V$ 是阈值化边权，$T$ 是供传播的最终关系。第一步沿接收维 $i$ 取最大值，即 `amax(dim=-2)`，临时消去接收维得到 `[K,1,N]`，再广播回 `[K,N,N]`；不是除以各行最大值。它将一条边与**同一个来源位置通向其他接收位置的最强边**比较。第二步按指示函数逐元素屏蔽弱边，不消去维度；第三步沿来源维 $j$ 求和，即 `sum(dim=-1)`，临时消去来源维得到 `[K,N,1]` 后广播。输出仍为 `[K,N,N]`，$T_{ij}$ 表示接收位置 $i$ 从来源 $j$ 读取的权重。原代码取 $\varepsilon=10^{-5}$；上述配置取 $\theta=0.1$。
+
+例如忽略epsilon，一个2×2注意力矩阵：
+
+$$
+A=\begin{bmatrix}0.8&0.2\\0.4&0.6\end{bmatrix}
+\quad\longrightarrow\quad
+U=\begin{bmatrix}1&1/3\\1/2&1\end{bmatrix}.
+$$
+
+**公式解释：** $A$ 是一个头、两个位置的 `[2,2]` 注意力，列最大值为 $[0.8,0.6]$；按列广播相除得到同shape的 $U$，例如 $U_{21}=0.4/0.8=0.5$。最大值归约临时消去接收维，但广播相除后的空间维均保留。为看清截断，**仅在此教学例子**取 $\theta=0.6$，则 $T$ 变为单位矩阵；若误用行最大值缩放，第二行变成 $[2/3,1]$，阈值后仍会从位置1读取证据。可见归一化轴会改变边的保留结果，而不仅是数值大小。
+
+以下是带零行回退的通用改写，**不是官方逐字实现**：
+
+```python
+# A: [K,N,N]，非负注意力概率；每行决定从哪些来源读取
+U = A.float() / (A.float().amax(dim=-2, keepdim=True) + 1e-5)
+V = torch.where(U >= threshold, U, 0.0)
+mass = V.sum(dim=-1, keepdim=True)
+eye = torch.eye(V.shape[-1], device=V.device, dtype=V.dtype)[None]
+V = torch.where(mass > 0, V, eye)   # 零行保留当前位置，而非抹掉分数
+T = V / V.sum(dim=-1, keepdim=True).clamp_min(1e-8)
+```
+
+官方只在分母加epsilon，**零行仍为零，非零行之和也只是接近1**。如果希望传播严格保留常数信号，可以采用上面的回退；如果希望低证据行自然衰减，则可保留官方行为。二者需要分别评估，不能把补epsilon等同于修复零行。
+
+#### 6.4.2 平均关系与串联关系提供不同的路径
+
+$$
+R_{\mathrm{mean}}=\frac1K\sum_{k=0}^{K-1}T_k,\qquad
+R_{\mathrm{chain}}=T_0T_1\cdots T_{K-1}.
+$$
+
+**公式解释：** 每个 $T_k$ 是 `[N,N]` 关系；平均沿头维求和并消去 $K$，输出 $R_{\mathrm{mean}}=[N,N]$，每个元素是对应直接边的平均权重。串联反复在中间位置维求和，最终 $R_{\mathrm{chain}}$ 也为 `[N,N]`，但每个元素汇总跨头路径的权重。平均是“各头并列提供一步邻居”，串联是“把不同头的路径接起来”。两个头时，
+$(T_0T_1)_{ij}=\sum_r(T_0)_{ir}(T_1)_{rj}$，消去中间位置 $r$，从而建立原本单头没有的两跳联系。它不是逐元素乘积，也不是同一个矩阵的幂。
+
+源代码提供 `mean`、`selection` 与 `SFSA` 三种分支，便于在相同种子和关系预处理下比较。SFSA不应被理解成“所有头共同认可一条直接边”，它可能通过不同的中间点连通更远位置；头的排列会影响结果，多跳传播也可能抹平小目标或跨越边界。矩阵生成顺序与实际作用于分数的顺序见 [[Spatial_Propagation#7.4 CLIPer案例：异构关系串联与避免显式矩阵连乘]]。
+
+**复用与替代选择。**
+
+- **核查几何坐标。** CLIP和SD可以不同分辨率，但应对应同一幅完整图像、同一翻转/裁剪坐标。仅把矩阵或分数resize到相同shape，不能修复裁剪范围不同的问题。
+- **固定噪声再消融。** SD路径会抽取随机噪声；比较平均、单头和连乘时，应缓存同一组注意力或固定随机状态，否则变化可能来自关系源而非融合规则。
+- **阈值不等于硬边界约束。** 此实现没有SAM掩码、显式局部窗口或对称化步骤，仍可保留远距离边；若越界明显，可比较区域掩码、局部/Top-k边或自环，但须重新规定归一化和空邻域回退。
+- **显存不能只看零元素比例。** 4096×4096的一个FP32矩阵约64 MiB，$K$ 个头仅注意力就约 $64K$ MiB，尚未计UNet与临时张量。用 `where` 置零仍是稠密存储，标准 `matmul` 不会自动获得稀疏加速。
+- **别把当前图像关系当成记忆库或类别原型。** 这些注意力是本图前向状态；这里没有跨样本检索、支持集原型或新的跨模态映射，因此不为该机制扩写 [[Retrieval_and_Memory]]、[[Prototype_Construction]]。
+
+**梯度与检查指标。** `Pipeline.refinement` 带 `@torch.no_grad()`，扩散模型参数也被冻结；没有可训练的关系融合器。建议检查零行率、行和分布、头顺序敏感性、越界边权及细化前后边界F-score/mIoU，并以单头、均值和仅插值作对照。本节是源码静态分析，未运行完整SD/CLIP推理。
+
+关联：[[CLIPer_paper_notes]]。`CLIPer_code_notes.md` 当前不存在，本轮不创建，也不为其制造空双链。
+
 ## 7. 选型指南
 
 | 当前问题 | 优先考虑 |
@@ -330,6 +403,8 @@ cam_refined = torch.matmul(trans_mat, cam_to_refine).reshape(h // 16, w // 16)
 7. 做“oracle affinity”或固定关系源实验，估计上限来自种子还是关系。
 
 ## 9. 论文与源码索引
+
+- [[CLIPer_paper_notes]] → [[Attention_and_Affinity_Refinement#6.4 CLIPer案例：把扩散注意力变成可串联的空间关系]]：SD关系提取、按列缩放、阈值化、行归一化及头融合选择。
 
 - [[CLIP-ES_paper_notes]]：CAA、Sinkhorn归一化与类别框限制。
 - [[WeCLIP_paper_notes]]：用动态解码器亲和力筛选冻结CLIP注意力。
