@@ -548,3 +548,82 @@ $$
 $$\boxed{\text{谁被选中}\;\rightarrow\;\text{怎样分组}\;\rightarrow\;\text{怎样更新}}.$$
 
 原型数量只是表面超参数；样本纯度与分配机制通常更关键。
+
+## 30. INSID3案例：均值原型的方向与一致性应分开使用
+
+本例对应 [[INSID3_paper_notes]]、[[INSID3_code_notes]]，来自官方版本 `0c165a10cf52ab91f335883d06260de86854adbe`。核心入口是 [`predict_mask` 的参考原型](https://github.com/visinf/INSID3/blob/0c165a10cf52ab91f335883d06260de86854adbe/models/insid3.py#L151-L161)、[`compute_cluster_prototypes`](https://github.com/visinf/INSID3/blob/0c165a10cf52ab91f335883d06260de86854adbe/utils/clustering.py#L28-L44) 和 [`_seed_and_aggregate`](https://github.com/visinf/INSID3/blob/0c165a10cf52ab91f335883d06260de86854adbe/models/insid3.py#L311-L364)。本例基于静态源码核对，没有运行模型指标。
+
+### 30.1 原型代表当前提示，不是固定类别
+
+INSID3 从参考 mask 内的去偏 DINOv3 特征构造参考原型，从目标的凝聚聚类结果构造区域原型。目标可以是整只狗、狗耳朵或某一只狗，原型语义由 mask 决定。所有原型均是当前输入的均值统计，没有梯度更新、EMA 或跨 episode 记忆。
+
+参考输入 `[S,C,h,w]`，每个 mask `[h,w]` 选出 `[C,n_s]` 的前景特征；目标输入 `[N,C]` 加整数分组 `[N]`，每组取均值输出 `[K,C]`。同一分组在原始与去偏特征上分别池化：前者服务同图结构比较，后者服务跨图匹配。空间选择详见 [[Feature_Extraction#23. INSID3案例：同一骨干保留结构空间与去偏匹配空间]]。
+
+### 30.2 多参考聚合：每个 patch 等权与每张图等权不同
+
+官方源码节选：
+
+```python
+fg = feat_refs_deb[0, s, :, mask_s]
+if fg.shape[1] > 0:
+    ref_prototypes.append(fg.mean(dim=1))
+# 上面在每张参考图的循环内；下面在循环结束后。
+ref_prototype = F.normalize(
+    torch.stack(ref_prototypes).mean(dim=0), p=2, dim=0
+).unsqueeze(1)
+```
+
+`fg:[C,n_s]` 沿前景 patch 平均为 `[C]`；stack 得到 `[S_valid,C]`，沿参考维平均，最后归一化到 `[C,1]`。代码注释为本页添加，计算语句来自原实现。
+
+两张参考分别有 100、10 个前景 patch，源码先各自平均，再各占一半；把所有前景直接拼接平均则变成 $10:1$ 的权重。**源码也没有先把各图均值单位化**：虽然图级系数相同，内部更一致、均值模长更大的参考仍会对最终合成方向贡献更多。这三个次序应在自己实现时显式选择：全部 patch 平均、各图均值平均、各图单位方向平均。
+
+### 30.3 两种看起来相同的“原型相似度”
+
+官方 `compute_cluster_prototypes` 对簇均值 L2 归一化；选种子时用该单位原型点积。合并簇时却采用以下源码：
+
+```python
+fg_sim = torch.einsum('bchw,cd->bhw', feat_tgt_deb, ref_prototype).squeeze(0)
+for k in range(K):
+    idx = (cluster_labels == k)
+    cross_sim[k] = fg_sim[idx].mean() if idx.any() else 0.0
+```
+
+它先得到每个 patch 对参考的余弦分数 `[h,w]`，再对整个簇求平均。由于点积具有线性性，这相当于**未单位化的簇均值**对参考点积。
+
+$$
+\mu_k=\frac1{n_k}\sum_{i\in G_k}x_i,\qquad
+a_k=\left\langle\frac{\mu_k}{\|\mu_k\|_2},p\right\rangle,\qquad
+b_k=\frac1{n_k}\sum_{i\in G_k}\langle x_i,p\rangle
+=\|\mu_k\|_2a_k.
+$$
+
+**公式解释：** $x_i:[C]$ 与参考 $p:[C]$ 都是单位特征，簇内平均消去 $n_k$ 个位置得到均值 `[C]`；点积消去通道维，$a_k,b_k$ 各是一个标量，遍历全部簇得到 `[K]`。等式要求均值非零；$a_k$ 只评价均值方向，$b_k$ 同时保留均值模长。当簇内方向分散时，$\|\mu_k\|_2$ 较小，后者的绝对值会缩小、趋向零；对于正相似度，这表现为分数降低。
+
+具体例子：$p=(1,0)$，A 簇有 `(1,0)` 与 `(0,1)` 两个单位向量，均值 `(0.5,0.5)`；方向分数约 0.707，平均 patch 分数为 0.5。B 簇全部为 `(0.6,0.8)`，两个分数均为 0.6。A 在方向上更接近参考，但 B 的逐 patch 支持更一致。因此两种分数会改变簇排序，而不只是改变统一尺度。
+
+### 30.4 可复用改写：同时返回方向与一致性
+
+```python
+# 可复用改写，不是官方 compute_cluster_prototypes。
+# features:[N,C] 已单位化；labels:[N] 是 long，取值 0..K-1。
+def grouped_prototype_stats(features, labels, K):
+    x = features.float()
+    sums = x.new_zeros(K, x.shape[1])
+    sums.index_add_(0, labels, x)
+    counts = torch.bincount(labels, minlength=K).to(x.dtype)
+    valid = counts > 0
+    mean = sums / counts.clamp_min(1)[:, None]
+    concentration = mean.norm(dim=-1)
+    direction = torch.nn.functional.normalize(mean, dim=-1, eps=1e-6)
+    return mean, direction, concentration, valid
+```
+
+`index_add_` 根据 `[N]` label 把每个 `[C]` 向量累加到 `[K,C]` 的对应行，消去 patch 维；`bincount` 得到 `[K]` 数量，`[:,None]` 变成 `[K,1]` 后广播除法。比如 `[N,C]=[400,512]`、`K=12`，均值和方向输出 `[12,512]`，一致性与有效标志输出 `[12]`。`direction[3]` 表示第 4 个区域的方向，不是第 4 个语义类别，除非分组定义确实来自类别标签。
+
+复用时先移除 ignore、检查 label 范围；若需要稀疏编号，应先重映射。空簇保持无效，不用随机特征伪造语义。官方函数有空簇随机回退，但标准凝聚聚类的连续非空簇主路径通常不会触发。若这段统计用于可训练模型，`index_add_` 的特征聚合可以对输入传梯度，整数 label 分配本身不可微；INSID3 外层 `no_grad` 则让整个流程只作推理统计。
+
+### 30.5 原型以外还乘了什么
+
+官方聚合还乘目标原始空间中的 seed 相似度，以及候选覆盖率 `候选 patch 数 / 整簇 patch 数`；seed 的覆盖率被设为 1。覆盖率属于区域支持证据，不是原型模长，两者不能互换。公开实现也没有无条件把 seed 并入结果，只让它免于覆盖率惩罚，仍需通过最终严格阈值；这与论文式 (14) 的显式 seed 并集不同。
+
+迁移时最值得保留的是三项分开检查：**方向是否匹配、簇内是否一致、候选证据覆盖多少**。如果只保留一个最终分数，就很难判断失败来自原型污染、区域划分还是候选定位。

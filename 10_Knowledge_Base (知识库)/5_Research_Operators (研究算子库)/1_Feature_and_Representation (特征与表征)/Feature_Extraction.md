@@ -437,3 +437,69 @@ for handle in handles:
 特征提取的核心不是“选一个更强骨干”，而是：
 
 $$\boxed{\text{选择后续算子真正需要的粒度、层级、空间结构和训练状态}}.$$
+
+## 23. INSID3案例：同一骨干保留结构空间与去偏匹配空间
+
+本例来自 [[INSID3_paper_notes]]、[[INSID3_code_notes]]。INSID3 用冻结 DINOv3 进行参考图像条件分割：原始特征用于目标图内聚类，去偏特征用于参考与目标的跨图匹配。它提醒我，提取特征以后不必要求“一种表示同时适合全部消费者”；有时更有效的做法是保留原表示，再构造一个面向特定关系计算的派生空间。
+
+### 23.1 插在什么位置，解决什么问题
+
+```text
+冻结骨干 → 最后层 dense feature [B,N,C]
+             ├─ 原始单位特征 → 同图区域聚类/结构相似度
+             └─ 固定子空间投影 → 再归一化 → 跨图匹配
+```
+
+这里的干扰是：不同图像中处于相同绝对位置的 patch，即使语义不同也可能相似。去偏针对这种跨图匹配偏差，并不等于“位置永远无用”。在同一图像中，空间相关性反而能帮助形成稳定区域，所以原始分支继续保留。
+
+### 23.2 官方源码：通道子空间从哪里来
+
+阅读版本：`0c165a10cf52ab91f335883d06260de86854adbe`；入口为 [`_build_positional_basis` / `_debias_features`](https://github.com/visinf/INSID3/blob/0c165a10cf52ab91f335883d06260de86854adbe/models/insid3.py#L245-L271)。以下为官方源码节选：
+
+```python
+E = einops.rearrange(noise_fmaps, 'b c h w -> c (b h w)')
+E = E - E.mean(dim=1, keepdim=True)
+U, _, _ = torch.linalg.svd(E, full_matrices=False)
+return U[:, :self.svd_components].contiguous()
+```
+
+`noise_fmaps` 在此前已沿通道 L2 归一化。`E:[C,N]` 的列是 patch，减去 `[C,1]` 的空间均值后，SVD（Singular Value Decomposition，奇异值分解）的 `U` 给出通道空间正交方向，前 $s$ 列成为 `basis:[C,s]`。论文采用 `[N,C]` 记法，所以写右奇异向量；两种布局对应同一通道基。**实际实现的输入是标准化的全零 RGB 图，论文式 (3) 则写高斯噪声图**；不能根据变量名 `noise_fmaps` 推断采样方式。
+
+官方投影关键行：
+
+```python
+P_perp = torch.eye(C, device=X.device, dtype=X.dtype) - basis @ basis.T
+X_deb = torch.matmul(P_perp.unsqueeze(0), X).reshape(B, T, C, H, W)
+return F.normalize(X_deb, p=2, dim=2)
+```
+
+此处 `X:[BT,C,N]`，`basis @ basis.T:[C,C]`，`unsqueeze(0)` 让同一矩阵广播到全部图像；最后沿通道再归一化。基底在模型构建时估计一次；分割流程在 `no_grad` 下运行，没有为这个投影学习参数。
+
+### 23.3 可复用改写：低秩扣除，不显式建立通道方阵
+
+$$
+Z=X-(XB_p)B_p^\top,\qquad X\in\mathbb R^{B\times N\times C},\quad B_p\in\mathbb R^{C\times s}.
+$$
+
+**公式解释：** $X$ 的每行是一个 patch 特征，$B_p$ 的列是正交基；`X @ B_p` 消去通道索引，得到 `[B,N,s]` 的子空间坐标，再乘 `[s,C]` 消去基索引，重建 `[B,N,C]` 的干扰分量。逐元素相减没有进一步消去维度，$Z[b,n,:]$ 是该 patch 在正交补空间的残余。随后沿最后一维做 L2 归一化，才作为余弦匹配描述子。
+
+```python
+# 可复用改写，不是官方原函数；采用 [B,N,C] 布局。
+x = F.normalize(features.float(), dim=-1)
+b = basis.to(device=x.device, dtype=torch.float32)  # [C,s]，列正交
+residual = x - (x @ b) @ b.T
+matching_features = F.normalize(residual, dim=-1, eps=1e-6)
+structure_features = x
+```
+
+例如 `[B,N,C]=[2,400,512]`、`s=64`，中间坐标为 `[2,400,64]`，重建和残余均是 `[2,400,512]`。没有丢掉任何 patch 或改变网格顺序，只改变每个 patch 的特征方向；`residual[0,17]` 仍对应第一张图的第 18 个 patch。
+
+### 23.4 复用条件与替代方案
+
+- **适合**：有稳定线性干扰方向的对应/检索，且不想训练新映射。若 $s\ll C$，低秩写法还能避免 `[C,C]` 矩阵。
+- **前提**：参考和目标使用同一个基底；估计和应用使用相同编码器、取层与预处理。换分辨率或骨干后，应重新估计并检查，而不是沿用旧基底。
+- **检查**：投影后残余模长是否接近零、真实语义最近邻是否改善、同图分组是否被破坏。归一化不能找回已被投影删除的信息。
+- **边界**：这里没有修改 Transformer Attention，也没有将 DINO 映射到文本空间。可学习线性映射、白化或只减均值是不同操作，应分别验证。
+- **证据范围**：上述收益机制来自论文与静态代码阅读，未在本机加载权重复现指标。公开代码的中心化用于估计基底，应用到真实图像时只投影，不能悄悄补上另一次空间减均值并称为原实现。
+
+进一步的 mask 池化与归一化次序见 [[Prototype_Construction#30. INSID3案例：均值原型的方向与一致性应分开使用]]。

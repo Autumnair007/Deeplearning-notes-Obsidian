@@ -14,6 +14,7 @@ status: done
 ## 常用入口
 
 - [计算机视觉总览](../_CV_Hub.md)
+- [INSID3论文](../3_Methods_and_Frameworks%20(方法与框架)/3_Foundation_Model/Applications%20(应用)/INSID3/INSID3_paper_notes.md)：单样本上下文分割，使用冻结 DINOv3；无需额外训练，但推理时需要参考图像及其标注掩码。
 - [CorrCLIP论文](../3_Methods_and_Frameworks%20%28%E6%96%B9%E6%B3%95%E4%B8%8E%E6%A1%86%E6%9E%B6%29/2_Generalization_and_Open_World/Open_Vocabulary/CorrCLIP/CorrCLIP_paper_notes.md)
 - [Trident论文](../3_Methods_and_Frameworks%20%28%E6%96%B9%E6%B3%95%E4%B8%8E%E6%A1%86%E6%9E%B6%29/2_Generalization_and_Open_World/Open_Vocabulary/Trident/Trident_paper_notes.md)
 - [ReME论文](../3_Methods_and_Frameworks%20%28%E6%96%B9%E6%B3%95%E4%B8%8E%E6%A1%86%E6%9E%B6%29/2_Generalization_and_Open_World/Open_Vocabulary/ReME/ReME_paper_notes.md)
