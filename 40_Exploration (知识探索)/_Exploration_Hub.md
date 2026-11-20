@@ -18,6 +18,7 @@ status: done
 ## 主题笔记
 
 - [3DGS：从前置知识理解三维高斯泼溅](3DGS_overview.md)：从坐标、投影和高斯出发，配合示意图理解表示、渲染、学习及其与三维分割的联系。
+- [单目深度估计：从一张照片的远近，到 Depth Anything](Monocular_Depth_Estimation_overview.md) 从投影、监督来源和经典模型入门，再按问题跳读 Depth Anything V1。
 
 ## 记录与升级
 
