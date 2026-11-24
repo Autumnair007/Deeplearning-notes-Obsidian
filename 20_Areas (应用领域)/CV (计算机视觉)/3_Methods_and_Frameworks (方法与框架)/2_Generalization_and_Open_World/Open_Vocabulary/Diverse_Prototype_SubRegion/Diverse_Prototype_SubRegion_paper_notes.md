@@ -13,7 +13,7 @@ tags:
   - dinov2
   - sam
   - llm
-status: in-progress
+status: done
 model: Diverse Prototype Construction and Sub-region Matching
 venue: AAAI2025
 ---
