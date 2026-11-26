@@ -488,3 +488,22 @@ $$
 设投影后两份张量都是 `[B,D,Hg,Wg]`。`F.adaptive_avg_pool2d(q_image, (Hq,Wq))` 返回 `[B,D,Hq,Wq]`，`F.adaptive_avg_pool2d(k_image, value.shape[-2:])` 返回 `[B,D,h,w]`。对同一位置的每个通道独立聚合，没有跨通道平均。以 `Hg=Wg=224`、目标 `32×32`、来源 `16×16` 为例，一个 Q 的窗口覆盖 `7×7`，一个初步 K 覆盖 `14×14`。分别展平后，有 1,024 个查询可以匹配 256 个来源。池化只准备描述子，最后真正被加权的是未池化的粗骨干值图。[从池化到取值](https://github.com/PaulCouairon/JAFAR/blob/25321a2def9b00d06a8a8794ca0a799dcfd18d86/src/upsampler/jafar.py#L71-L85)
 
 迁移到矩形或非整除尺寸时，输出格依然有确定的二维顺序。单轴第 `i` 个桶取半开区间 `[floor(i*L/S), ceil((i+1)*L/S))`，其中 `L` 为输入长，`S` 为输出长。例如长度 5 压成 3 时依次平均 `[0,1]`、`[1,2,3]`、`[3,4]` 这些下标，相邻桶可重叠。目标与输入等大时每个桶只有一个值。若两个输入来自不同的裁剪区域，强行把高宽池化成一样仍不能让格子对应，应先对齐视野。也要保留先投影后池化的次序，带非线性与归一化的投影通常不能与平均交换。[作者的图像投影](https://github.com/PaulCouairon/JAFAR/blob/25321a2def9b00d06a8a8794ca0a799dcfd18d86/src/upsampler/jafar.py#L25-L56) · [[Attention_and_Affinity_Refinement#6.6 用全局跨网格注意力重采样原始值]]
+
+## 29. 在像素标签和 patch 特征之间做按面积计权的池化
+
+分割掩码往往比特征图细。一个 patch 若同时覆盖车轮和路面，把它硬分给多数类会整块抹掉少数类的贡献。RNS 为每个 patch 统计各组所占的像素数，同一套操作在支持图上按**语义类别 ID**聚合，在测试图上按**候选区域 ID**聚合。因此车辆轮廓可以来自像素掩码，语义向量仍来自低分辨率 patch 特征。[支持图真值池化](https://github.com/TilemahosAravanis/Retrieve-and-Segment/blob/f5adb7ec2a02368a314f8c38a1664e932839fdd3/main_eval.py#L72-L90) · [测试区域池化](https://github.com/TilemahosAravanis/Retrieve-and-Segment/blob/f5adb7ec2a02368a314f8c38a1664e932839fdd3/core/rns.py#L64-L79) · [[RNS_paper_notes]] · [[RNS_code_notes]]
+
+设像素 ID 图已与特征对齐并补到 patch 尺寸 $P$ 的整数倍，`patch_x[N,D]` 中每一行对应一个 patch。下面是方便移植的 PyTorch 改写。`valid_ids` 是与输入同设备的一维整型张量，至少含一个待汇总的分组 ID；忽略标签和 padding 不列入其中。
+
+```python
+cells = pixel_ids.unfold(0, P, P).unfold(1, P, P).reshape(-1, P * P)  # [N,P²]
+counts = torch.stack([(cells == group).sum(dim=1) for group in valid_ids])  # [R,N]
+mass = counts.sum(dim=1)
+keep = mass > 0
+weights = counts[keep].float() / mass[keep, None].float()  # 按整组像素总量归一化
+region_x = weights.to(patch_x.dtype) @ patch_x             # [R_valid,D]
+```
+
+同一组在四个 patch 的像素数为 `[0,2,6,0]`，池化后就是 `0.25 * patch_x[1] + 0.75 * patch_x[2]`。分母按一个组跨所有 patch 求和。若每块的分母固定为 $P^2$，先把计数换成面积占比，再对同一组跨 patch 归一化，仍能得到相同的权重。若先排除 ignore 或 padding，再除以各块各自的有效像素数，分母可能因块而异。例如同组在两块里各占 2 个像素，但两块分别只有 2 和 4 个有效像素；面积权重应各半，按局部比例 $1$ 与 $0.5$ 再归一就会误成 $2:1$。直接使用计数可以保留原面积。这里隐含的分辨率上限是一个 patch 内的所有像素共用该 patch 的特征，分摊权重可以保留细小区域的存在，却无法从一个 token 中分离出它没有表达的外观细节。
+
+迁移时需保留 `valid_ids[keep]` 与 `region_x` 行号的映射。只有当像素图采用相同的连续区域编号且每个像素仅属于一个区域时，才能像 RNS 一样直接做 `region_probs[pixel_ids]`，从 `[R,C]` 回填到 `[H,W,C]`。背景区、忽略像素、重叠掩码的归属应在回填前确定。重叠区域如果需要多个预测共同解释，应使用带权回投而不是单一 ID 查表。[RNS 的互斥编号](https://github.com/TilemahosAravanis/Retrieve-and-Segment/blob/f5adb7ec2a02368a314f8c38a1664e932839fdd3/core/rns.py#L41-L64) · [按像素查表](https://github.com/TilemahosAravanis/Retrieve-and-Segment/blob/f5adb7ec2a02368a314f8c38a1664e932839fdd3/mmseg_utils/apis/test.py#L55-L70)

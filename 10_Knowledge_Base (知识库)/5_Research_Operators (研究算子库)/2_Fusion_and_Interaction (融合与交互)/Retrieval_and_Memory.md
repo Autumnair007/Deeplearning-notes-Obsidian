@@ -298,6 +298,21 @@ $$
 
 **公式解释：** 对固定像素 $(x,y)$ 和类别 $c$，把每个片段的类别分数 $P_{seg}[k,c]$ 乘以该片段在此像素的掩码权重 $M_{seg}[k,x,y]$，再沿片段维 $K$ 求和并消去它。输出 `P=[H,W,C]`；$P[x,y,c]$ 是所有重叠区域对该像素类别 $c$ 的加权投票。
 
+### 5.6 把各局部查询的近邻合并为一张图的训练集
+
+外部记忆有标签，查询图里又有多种对象时，可以让各局部位置独立检索，再用检索结果为整图拟合一个共享分类头。记忆中同一类可以有许多行，例如不同支持照片中的自行车。每一行保留自己的外观，因而两个测试区域即便认出同一类，也可能找到不同样本。该算子输出的是一批训练特征和标签，后续可交给线性层或其他轻量适配器。[RNS 的检索与标签恢复](https://github.com/TilemahosAravanis/Retrieve-and-Segment/blob/f5adb7ec2a02368a314f8c38a1664e932839fdd3/core/rns.py#L123-L148) · [[RNS_paper_notes]] · [[RNS_code_notes]]
+
+下面是小型记忆库的教学改写。`query[J,D]`、`keys[L,D]` 均已沿 $D$ 单位化，`labels[L]` 存储每个键的真实标签。假设 `1 <= k <= L` 且有效库已剔除空样本。
+
+```python
+scores = query @ keys.T                    # [J,L]，每个局部位置对所有支持行
+neighbors = scores.topk(k, dim=1).indices  # [J,k]，行号在每个查询内排序
+rows = neighbors.flatten().unique()         # [U]，跨查询去重
+train_x, train_y = keys[rows], labels[rows]
+```
+
+例如两个区域各找到 `[5,9]` 和 `[9,12]`，共享训练集由行 `[5,9,12]` 构成。行 9 被命中两次也只计一个样本。若行 5 和 12 具有同一个类标，两种外观都保留。需要体现命中频率的任务可额外保留计数，RNS 的这一分支直接取并集。作者以 FAISS GPU 精确内积查询代替显式生成 `[J,L]`，并利用“每支持图固定占 $C$ 行”的布局从行号取模恢复标签。换成只存有效向量的紧凑表时，像上例一样随行存类别。拿到训练集后，还可以按 `train_y.unique()` 从另一张文本或融合原型表中取出对应类，让同一个检索结果控制后续适配使用哪些先验。[RNS 的 FAISS 调用](https://github.com/TilemahosAravanis/Retrieve-and-Segment/blob/f5adb7ec2a02368a314f8c38a1664e932839fdd3/core/rns.py#L81-L89) · [融合支持筛选与小头拟合](https://github.com/TilemahosAravanis/Retrieve-and-Segment/blob/f5adb7ec2a02368a314f8c38a1664e932839fdd3/core/rns.py#L186-L253)
+
 ## 6. 记忆库生命周期
 
 ```text
