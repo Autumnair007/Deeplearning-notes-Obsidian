@@ -407,6 +407,16 @@ $$
 
 复用时可做两个小检查。第一，把所有粗格填成同一个非零向量，输出应保持这个常量。这个试验能检查行和是否接近 1；非负性要另看 `A.min()`。第二，把粗网格的行、列编号当成两个值通道，只给一个来源权重 1，读回的位置必须与该来源一致。全局候选的代价与 `Nq*Nk` 成正比。若需分块推理，先在全目标网格做完 Q 的局部卷积，再只沿查询行分块，每个分块保留所有来源。固定邻域适合已知局部对应、显存预算较紧的情形。全局匹配适合确实需要跨远距离调取相似特征的情形。[查询卷积与展平次序](https://github.com/PaulCouairon/JAFAR/blob/25321a2def9b00d06a8a8794ca0a799dcfd18d86/src/layers/attentions.py#L43-L52)
 
+### 6.7 用归一化坐标限制跨网格注意力
+
+当细网格中的像素应从同一视野的粗网格取值时，可以只允许像素附近的一片粗格参与 softmax。上一节的 JAFAR 让细格查询整张粗图，AnyUp 在这一步加入随像素中心移动的矩形。窗口按图像高、宽的比例指定，因此支持两张不同尺寸的矩形网格以及非整数倍率。这个做法适合图像引导的连续特征重采样。[[AnyUp_paper_notes]] · [[AnyUp_code_notes]] · [作者的窗口函数](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/layers/attention/attention_masking.py#L6-L40)
+
+**从一个目标点算出允许的来源。** 行坐标先取像素中心 `u=(row+0.5)/Hq`；向两边各扩 `r`，裁到 `[0,1]`，乘粗网格高度 `Hk`。下端向下取整、上端向上取整，再取左闭右开区间。列独立做一次。在 `64×64 → 16×16` 的查询到来源映射中，`r=0.1` 时查询点 `(32,32)` 允许粗行和粗列各 `6,7,8,9`，角点 `(0,0)` 只允许粗行和粗列各 `0,1`。低对比边界仍需由特征相似度区分，窗口只限制最远能取多远。
+
+**广播和掩码极性。** 若 `Nq=Hq*Wq`，对每一行查询分别比较候选粗行、粗列，可得 `row_ok=[Nq,Hk]` 和 `col_ok=[Nq,Wk]`。`row_ok[:,:,None] & col_ok[:,None,:]` 的形状为 `[Nq,Hk,Wk]`，最后两维按行优先展平后与 K/V 的 token 顺序一样。向 `nn.MultiheadAttention` 传入这个结果的**逻辑取反**，因为该 API 的布尔 `True` 表示屏蔽。调试时可将粗值填成行列坐标、只留一条边，查询应精确读回指定的粗格。若接口要求「允许」掩码，应按那个接口的约定传入。[构造与取反](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/layers/attention/attention_masking.py#L55-L74) · [掩码与原值读出](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/layers/attention/chunked_attention.py#L36-L53)
+
+**可见邻居减少后，还要检查实际开销。** 作者的标准路径为 `[Nq,Nk]` 整张稠密掩码配稠密注意力；按查询序列分块可降低推理中浮点权重的峰值，布尔掩码仍完整存在。需要实际利用稀疏性时可选邻域内核。AnyUp 另有 NATTEN 路径，用最近邻对齐的 K/V 配合膨胀邻域，窗口边界和取整与标准路径有差异。迁移时分别检查中央点、边缘点、非整数倍率的来源集合及实际输出尺寸。此版 NATTEN 按粗网格行分块时使用整除倍率映射上下界，非整倍目标高度的末尾余行可能被截去。[行切片与拼接](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/layers/attention/natten_attention.py#L196-L221) · [标准分块](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/layers/attention/chunked_attention.py#L55-L76) · [NATTEN 窗口参数](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/layers/attention/natten_attention.py#L133-L161)
+
 ## 7. 选型指南
 
 | 当前问题 | 优先考虑 |

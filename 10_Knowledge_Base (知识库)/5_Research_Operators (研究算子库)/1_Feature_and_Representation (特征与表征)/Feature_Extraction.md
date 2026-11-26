@@ -503,3 +503,22 @@ structure_features = x
 - **证据范围**：上述收益机制来自论文与静态代码阅读，未在本机加载权重复现指标。公开代码的中心化用于估计基底，应用到真实图像时只投影，不能悄悄补上另一次空间减均值并称为原实现。
 
 进一步的 mask 池化与归一化次序见 [[Prototype_Construction#30. INSID3案例：均值原型的方向与一致性应分开使用]]。
+
+## 24. AnyUp 案例：用共享空间滤波器接收可变通道数
+
+骨干 A 每格输出 384 个数，骨干 B 每格输出 768 个数。如果下游只需要知道「这个位置附近有没有相似的纹理变化」，可以把每个通道当成一张单通道图，用共享滤波器提局部结构，然后跨通道汇总。下游读到固定宽度的结构描述；同时保留原特征，供需要完整语义的值分支读取。AnyUp 把这样的分支放在计算注意力键之前。[[AnyUp_paper_notes]] · [[AnyUp_code_notes]] · [原模型中的接入位置](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/model.py#L64-L77)
+
+**可复用写法，按论文式 (1) 指定的轴整理。** 下面将输入通道折入 batch，便于明确「每张单通道图都用同一组核」。`basis=[M,1,k,k]` 是外部注册的可学习参数，`k` 为奇数。边界处理沿用 AnyUp 的有效像素数归一化。例中输入 `[2,384,16,16]`，若取 16 个核，固定输出即为 `[2,16,16,16]`；输出通道 3 在某格的数值表示全部输入通道对第 4 个核的平均响应概率。
+
+```python
+B, C, h, w = features.shape
+M, _, k, _ = basis.shape
+p = k // 2
+x = F.normalize(features, dim=1).reshape(B * C, 1, h, w)
+response = F.conv2d(x, basis, padding=p)
+valid_count = F.conv2d(x.new_ones((1, 1, h, w)), x.new_ones((1, 1, k, k)), padding=p)
+votes = (response / valid_count).reshape(B, C, M, h, w).softmax(dim=2)
+structure = votes.mean(dim=1)
+```
+
+**借用前验证两项性质。** 变化 `C` 时核参数和输出宽度应保持固定。若设计还要求通道置换不变，交换两个输入通道后结果也应一致。原仓库使用 `groups=C` 和 `basis.repeat(C,1,1,1)`，卷积输出线性顺序为 `(c,m)`，随后直接 `view(B,M,C,h,w)`。这个布局能接收可变 `C`，却可能随通道排列而改变；原始权重应配原来的轴顺序使用。把通道折入 batch 的公式版适合自己重新训练、希望保留置换不变性时采用。它汇总跨通道的结构统计，会舍去通道身份；要在原特征空间做预测，可像 AnyUp 那样并行保留原值。[分组卷积和轴顺序](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/layers/feature_unification.py#L28-L42) · [原始值分支](https://github.com/wimmerth/anyup/blob/351807a9c4287368732cc247f26c7c81c9139af4/anyup/model.py#L70-L83)
